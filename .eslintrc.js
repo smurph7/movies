@@ -3,7 +3,10 @@ module.exports = {
   extends: ['airbnb', 'prettier'],
   settings: {
     'import/resolver': {
-      alias: [['~/components', './components']]
+      alias: [
+        ['~/components', './components'],
+        ['~/config', './config']
+      ]
     }
   },
   plugins: ['prettier', 'react-hooks'],
