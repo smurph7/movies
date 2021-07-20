@@ -1,20 +1,26 @@
+import React from 'react';
 import { render } from '@testing-library/react';
 
 import { MovieCard } from '.';
 
+function mockNextImage({ src, alt }) {
+  return <img src={src} alt={alt} />;
+}
+
+jest.mock('next/image', () => ({
+  __esModule: true,
+  // eslint-disable-next-line
+  default: ({ src, alt }) => mockNextImage({ src, alt })
+}));
+
 describe('MovieCard', () => {
   const movie = {
     title: 'Harry Potter',
-    description: 'A movie about a wizard'
+    posterPath: '/image.jpg'
   };
 
-  it('should display movie title', () => {
-    const { getByText } = render(<MovieCard movie={movie} />);
-    expect(getByText(movie.title)).toBeInTheDocument();
-  });
-
-  it('should display movie description', () => {
-    const { getByText } = render(<MovieCard movie={movie} />);
-    expect(getByText(movie.description)).toBeInTheDocument();
+  it('should display movie image', () => {
+    const { getByAltText } = render(<MovieCard movie={movie} />);
+    expect(getByAltText(movie.title)).toBeInTheDocument();
   });
 });
