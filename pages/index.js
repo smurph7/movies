@@ -1,6 +1,13 @@
 import * as React from 'react';
 
 import { Box, Container, Text, Flex, Grid, Card } from '~/components/ui';
+import { MovieTiles } from '~/components/movies';
+import {
+  useNowPlayingMovies,
+  usePopularMovies,
+  useTrendingMovies,
+  useUpcomingMovies
+} from '~/components/movies/hooks';
 
 export default function Home() {
   return (
@@ -26,22 +33,58 @@ export default function Home() {
           </Flex>
         </Flex>
       </Box>
-      <Box css={{ bg: '$background', pt: '$3' }}>
-        <Container size={4}>
-          <Flex direction="column" gap="$5">
-            <Grid columns={{ '@bp3': '5' }} gap={{ '@bp1': 3, '@bp3': 2 }}>
-              <Card>
-                <Flex direction="column" gap={3} css={{ px: '$2', pt: '$2' }}>
-                  <Text heading truncate fontSize={{ '@bp1': 2, '@bp3': 3 }}>
-                    Title
-                  </Text>
-                  <Text fontSize={{ '@bp1': 1, '@bp3': 2 }}>Content</Text>
-                </Flex>
-              </Card>
-            </Grid>
-          </Flex>
-        </Container>
+      <Box css={{ bg: '$background', pt: '$3', width: '100%' }}>
+        <Flex direction="column" gap={5}>
+          <PopularMovieSection />
+          <TrendingMovieSection />
+          <NowPlayingMovieSection />
+          <UpcomingMovieSection />
+        </Flex>
       </Box>
     </>
+  );
+}
+
+function PopularMovieSection() {
+  const popularMoviesQuery = usePopularMovies();
+  return (
+    <MovieTiles
+      title="Popular"
+      movies={popularMoviesQuery.data?.results}
+      isLoading={popularMoviesQuery.isLoading}
+    />
+  );
+}
+
+function TrendingMovieSection() {
+  const trendingMoviesQuery = useTrendingMovies();
+  return (
+    <MovieTiles
+      title="Trending"
+      movies={trendingMoviesQuery.data?.results}
+      isLoading={trendingMoviesQuery.isLoading}
+    />
+  );
+}
+
+function NowPlayingMovieSection() {
+  const nowPlayingMoviesQuery = useNowPlayingMovies();
+  return (
+    <MovieTiles
+      title="Now Playing"
+      movies={nowPlayingMoviesQuery.data?.results}
+      isLoading={nowPlayingMoviesQuery.isLoading}
+    />
+  );
+}
+
+function UpcomingMovieSection() {
+  const upcomingMoviesQuery = useUpcomingMovies();
+  return (
+    <MovieTiles
+      title="Upcoming"
+      movies={upcomingMoviesQuery.data?.results}
+      isLoading={upcomingMoviesQuery.isLoading}
+    />
   );
 }
