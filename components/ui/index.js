@@ -4,3 +4,4 @@ export { Container } from './container';
 export { Card } from './card';
 export { Flex } from './flex';
 export { Grid } from './grid';
+export { ScrollableContainer } from './scrollable-container';
