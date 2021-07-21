@@ -10,12 +10,15 @@ export const Container = styled('div', {
         maxWidth: '300px'
       },
       2: {
-        maxWidth: '585px'
+        maxWidth: '500px'
       },
       3: {
-        maxWidth: '865px'
+        maxWidth: '725px'
       },
       4: {
+        maxWidth: '865px'
+      },
+      5: {
         maxWidth: '1200px'
       }
     }
