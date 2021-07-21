@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Box, Container, Text, Flex, Grid, Card } from '~/components/ui';
-import { MovieTiles } from '~/components/movies';
+import { Box, Text, Flex, ScrollableContainer } from '~/components/ui';
+import { MovieCard } from '~/components/movies';
 import {
   useNowPlayingMovies,
   usePopularMovies,
@@ -48,43 +48,43 @@ export default function Home() {
 function PopularMovieSection() {
   const popularMoviesQuery = usePopularMovies();
   return (
-    <MovieTiles
-      title="Popular"
-      movies={popularMoviesQuery.data?.results}
-      isLoading={popularMoviesQuery.isLoading}
-    />
+    <ScrollableContainer title="Popular">
+      {popularMoviesQuery.data?.results.map(movie => (
+        <MovieCard movie={movie} isLoading={popularMoviesQuery.isLoading} />
+      ))}
+    </ScrollableContainer>
   );
 }
 
 function TrendingMovieSection() {
   const trendingMoviesQuery = useTrendingMovies();
   return (
-    <MovieTiles
-      title="Trending"
-      movies={trendingMoviesQuery.data?.results}
-      isLoading={trendingMoviesQuery.isLoading}
-    />
+    <ScrollableContainer title="Trending">
+      {trendingMoviesQuery.data?.results.map(movie => (
+        <MovieCard movie={movie} isLoading={trendingMoviesQuery.isLoading} />
+      ))}
+    </ScrollableContainer>
   );
 }
 
 function NowPlayingMovieSection() {
   const nowPlayingMoviesQuery = useNowPlayingMovies();
   return (
-    <MovieTiles
-      title="Now Playing"
-      movies={nowPlayingMoviesQuery.data?.results}
-      isLoading={nowPlayingMoviesQuery.isLoading}
-    />
+    <ScrollableContainer title="Now Playing">
+      {nowPlayingMoviesQuery.data?.results.map(movie => (
+        <MovieCard movie={movie} isLoading={nowPlayingMoviesQuery.isLoading} />
+      ))}
+    </ScrollableContainer>
   );
 }
 
 function UpcomingMovieSection() {
   const upcomingMoviesQuery = useUpcomingMovies();
   return (
-    <MovieTiles
-      title="Upcoming"
-      movies={upcomingMoviesQuery.data?.results}
-      isLoading={upcomingMoviesQuery.isLoading}
-    />
+    <ScrollableContainer title="Upcoming">
+      {upcomingMoviesQuery.data?.results.map(movie => (
+        <MovieCard movie={movie} isLoading={upcomingMoviesQuery.isLoading} />
+      ))}
+    </ScrollableContainer>
   );
 }
