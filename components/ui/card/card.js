@@ -14,5 +14,21 @@ export const Card = styled('div', {
   '&:hover': {
     transform: 'translateY(-5px)',
     boxShadow: '0 20px 20px -15px rgba(0, 0, 0, 0.3)'
+  },
+  '@bp1': {
+    width: '175px',
+    height: '275px'
+  },
+  '@bp2': {
+    width: '200px',
+    height: '300px'
+  },
+  '@bp4': {
+    width: '200px',
+    height: '300px'
+  },
+  '@bp5': {
+    width: '215px',
+    height: '315px'
   }
 });
