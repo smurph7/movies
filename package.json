@@ -8,6 +8,8 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@radix-ui/colors": "^0.1.7",
+    "@react-aria/button": "^3.3.2",
     "@stitches/react": "^0.2.2",
     "axios": "^0.21.1",
     "next": "latest",
