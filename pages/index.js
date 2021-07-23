@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Box, Text, Flex, ScrollableContainer } from '~/components/ui';
+import { Box, Text, Flex, ScrollableContainer, Link } from '~/components/ui';
 import { MovieCard } from '~/components/movies';
 import {
   useNowPlayingMovies,
@@ -26,19 +26,25 @@ export default function Home() {
           align="center"
           css={{ width: '100%' }}
         >
-          <Text heading>Movies</Text>
+          <Link href="/">
+            <Text heading>Movies</Text>
+          </Link>
           <Flex direction="row" gap={2}>
-            <Text>Favourites</Text>
-            <Text>Profile</Text>
+            <Link href="/">
+              <Text>Favourites</Text>
+            </Link>
+            <Link href="/">
+              <Text>Profile</Text>
+            </Link>
           </Flex>
         </Flex>
       </Box>
-      <Box css={{ bg: '$background', pt: '$3', width: '100%' }}>
+      <Box css={{ bg: '$background', pt: '$3', width: '100%', pl: '$2' }}>
         <Flex direction="column" gap={5}>
           <PopularMovieSection />
-          <TrendingMovieSection />
           <NowPlayingMovieSection />
           <UpcomingMovieSection />
+          <TrendingMovieSection />
         </Flex>
       </Box>
     </>
@@ -50,7 +56,11 @@ function PopularMovieSection() {
   return (
     <ScrollableContainer title="Popular">
       {popularMoviesQuery.data?.results.map(movie => (
-        <MovieCard movie={movie} isLoading={popularMoviesQuery.isLoading} />
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          isLoading={popularMoviesQuery.isLoading}
+        />
       ))}
     </ScrollableContainer>
   );
@@ -61,7 +71,11 @@ function TrendingMovieSection() {
   return (
     <ScrollableContainer title="Trending">
       {trendingMoviesQuery.data?.results.map(movie => (
-        <MovieCard movie={movie} isLoading={trendingMoviesQuery.isLoading} />
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          isLoading={trendingMoviesQuery.isLoading}
+        />
       ))}
     </ScrollableContainer>
   );
@@ -72,7 +86,11 @@ function NowPlayingMovieSection() {
   return (
     <ScrollableContainer title="Now Playing">
       {nowPlayingMoviesQuery.data?.results.map(movie => (
-        <MovieCard movie={movie} isLoading={nowPlayingMoviesQuery.isLoading} />
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          isLoading={nowPlayingMoviesQuery.isLoading}
+        />
       ))}
     </ScrollableContainer>
   );
@@ -83,7 +101,11 @@ function UpcomingMovieSection() {
   return (
     <ScrollableContainer title="Upcoming">
       {upcomingMoviesQuery.data?.results.map(movie => (
-        <MovieCard movie={movie} isLoading={upcomingMoviesQuery.isLoading} />
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          isLoading={upcomingMoviesQuery.isLoading}
+        />
       ))}
     </ScrollableContainer>
   );
