@@ -10,10 +10,6 @@ export const Card = styled('div', {
   borderRadius: 10,
   boxShadow: '0 6px 10px -5px rgba(0, 0, 0, 0.2)',
   transition: 'all 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-5px)',
-    boxShadow: '0 20px 20px -15px rgba(0, 0, 0, 0.3)'
-  },
   '@bp1': {
     width: '175px',
     height: '275px'
@@ -29,5 +25,15 @@ export const Card = styled('div', {
   '@bp5': {
     width: '215px',
     height: '315px'
+  },
+  variants: {
+    bounceOnHover: {
+      true: {
+        '&:hover': {
+          transform: 'translateY(-5px)',
+          boxShadow: '0 20px 20px -15px rgba(0, 0, 0, 0.3)'
+        }
+      }
+    }
   }
 });

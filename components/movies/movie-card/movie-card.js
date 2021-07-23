@@ -7,7 +7,7 @@ export function MovieCard({ movie, isLoading }) {
   const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
   return (
     <Button css={{ width: 'inherit', height: 'inherit', p: 0 }}>
-      <Card>
+      <Card bounceOnHover>
         <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
           {isLoading ? (
             // TODO loading placeholder
