@@ -3,7 +3,7 @@ export function transformMovieData(data) {
     ...data,
     results: data.results.map(result => ({
       id: result.id,
-      title: result.original_title,
+      title: result.title,
       posterPath: result.poster_path,
       voteAverage: result.vote_average
     }))

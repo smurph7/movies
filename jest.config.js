@@ -13,6 +13,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'css', 'ts', 'tsx'],
   moduleNameMapper: {
     '^~/components(.*)$': '<rootDir>/components$1',
-    '^~/config(.*)$': '<rootDir>/config$1'
+    '^~/config(.*)$': '<rootDir>/config$1',
+    '^~/utils(.*)$': '<rootDir>/utils$1'
   }
 };
