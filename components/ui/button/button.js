@@ -25,9 +25,9 @@ const StyledButton = styled('button', {
   fontVariantNumeric: 'tabular-nums',
   fontSize: '$2',
   '&:disabled': {
-    backgroundColor: '$slate2',
-    boxShadow: 'inset 0 0 0 1px $colors$slate7',
-    color: '$slate8',
+    backgroundColor: '$sage2',
+    boxShadow: 'inset 0 0 0 1px $colors$sage7',
+    color: '$sage8',
     cursor: 'not-allowed'
   },
   '&:hover': {
@@ -57,17 +57,17 @@ const StyledButton = styled('button', {
     variant: {
       gray: {
         backgroundColor: '$loContrast',
-        boxShadow: 'inset 0 0 0 1px $colors$slate7',
+        boxShadow: 'inset 0 0 0 1px $colors$sage7',
         color: '$hiContrast',
         '&:hover': {
-          boxShadow: 'inset 0 0 0 1px $colors$slate8'
+          boxShadow: 'inset 0 0 0 1px $colors$sage8'
         },
         '&:active': {
-          backgroundColor: '$slate2',
-          boxShadow: 'inset 0 0 0 1px $colors$slate8'
+          backgroundColor: '$sage2',
+          boxShadow: 'inset 0 0 0 1px $colors$sage8'
         },
         '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$slate8, 0 0 0 1px $colors$slate8'
+          boxShadow: 'inset 0 0 0 1px $colors$sage8, 0 0 0 1px $colors$sage8'
         }
       },
       transparentWhite: {
@@ -107,34 +107,34 @@ const StyledButton = styled('button', {
     },
     state: {
       active: {
-        backgroundColor: '$slate4',
-        boxShadow: 'inset 0 0 0 1px $colors$slate8',
-        color: '$slate11',
+        backgroundColor: '$sage4',
+        boxShadow: 'inset 0 0 0 1px $colors$sage8',
+        color: '$sage11',
         '&:hover': {
-          backgroundColor: '$slate5',
-          boxShadow: 'inset 0 0 0 1px $colors$slate8'
+          backgroundColor: '$sage5',
+          boxShadow: 'inset 0 0 0 1px $colors$sage8'
         },
         '&:active': {
-          backgroundColor: '$slate5'
+          backgroundColor: '$sage5'
         },
         '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$slate8, 0 0 0 1px $colors$slate8'
+          boxShadow: 'inset 0 0 0 1px $colors$sage8, 0 0 0 1px $colors$sage8'
         }
       },
       waiting: {
-        backgroundColor: '$slate4',
-        boxShadow: 'inset 0 0 0 1px $colors$slate8',
+        backgroundColor: '$sage4',
+        boxShadow: 'inset 0 0 0 1px $colors$sage8',
         color: 'transparent',
         pointerEvents: 'none',
         '&:hover': {
-          backgroundColor: '$slate5',
-          boxShadow: 'inset 0 0 0 1px $colors$slate8'
+          backgroundColor: '$sage5',
+          boxShadow: 'inset 0 0 0 1px $colors$sage8'
         },
         '&:active': {
-          backgroundColor: '$slate5'
+          backgroundColor: '$sage5'
         },
         '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$slate8'
+          boxShadow: 'inset 0 0 0 1px $colors$sage8'
         }
       }
     }
@@ -147,15 +147,14 @@ const StyledButton = styled('button', {
         backgroundColor: 'transparent',
         color: '$hiContrast',
         '&:hover': {
-          backgroundColor: '$slateA3',
+          backgroundColor: '$sage3',
           boxShadow: 'none'
         },
         '&:active': {
-          backgroundColor: '$slateA4'
+          backgroundColor: '$sage4'
         },
         '&:focus': {
-          boxShadow:
-            'inset 0 0 0 1px $colors$slateA8, 0 0 0 1px $colors$slateA8'
+          boxShadow: 'inset 0 0 0 1px $colors$sageA8, 0 0 0 1px $colors$sage8'
         }
       }
     }

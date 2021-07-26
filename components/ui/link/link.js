@@ -11,7 +11,7 @@ const StyledLink = styled('a', {
   outline: 'none',
   textDecorationLine: 'none',
   textUnderlineOffset: '3px',
-  textDecorationColor: '$slate4',
+  textDecorationColor: '$sage4',
   WebkitTapHighlightColor: 'rgba(0,0,0,0)',
   lineHeight: 'inherit',
   '&:hover': {
@@ -36,23 +36,23 @@ const StyledLink = styled('a', {
         }
       },
       subtle: {
-        color: '$slate12',
+        color: '$sage12',
         textDecorationColor: '$olive2',
         '&:focus': {
-          outlineColor: '$slate8'
+          outlineColor: '$sage8'
         }
       },
       contrast: {
         color: '$hiContrast',
         textDecoration: 'underline',
-        textDecorationColor: '$slate4',
+        textDecorationColor: '$sage4',
         '@hover': {
           '&:hover': {
-            textDecorationColor: '$slate7'
+            textDecorationColor: '$sage7'
           }
         },
         '&:focus': {
-          outlineColor: '$slate8'
+          outlineColor: '$sage8'
         }
       }
     }

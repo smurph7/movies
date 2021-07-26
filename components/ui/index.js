@@ -8,3 +8,4 @@ export { HorizontalScroll } from './horizontal-scroll';
 export { Button } from './button';
 export { Link } from './link';
 export { Placeholder } from './placeholder';
+export { DarkThemeButton } from './dark-theme-button';

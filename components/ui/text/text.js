@@ -93,7 +93,7 @@ export const Text = styled('p', {
         color: '$bronze11'
       },
       gray: {
-        color: '$slate11'
+        color: '$sage11'
       },
       contrast: {
         color: '$hiContrast'
@@ -111,7 +111,7 @@ export const Text = styled('p', {
     heading: {
       true: {
         fontFamily: '$heading',
-        fontWeight: 'bold',
+        fontWeight: '600',
         fontSize: '$4'
       }
     }
