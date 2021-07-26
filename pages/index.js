@@ -1,13 +1,7 @@
 import * as React from 'react';
 
-import {
-  Box,
-  Text,
-  Flex,
-  HorizontalScroll,
-  Link,
-  DarkThemeButton
-} from '~/components/ui';
+import { Box, Flex, HorizontalScroll } from '~/components/ui';
+import { Layout } from '~/components/common';
 import { MovieCard } from '~/components/movies';
 import {
   useNowPlayingMovies,
@@ -16,45 +10,12 @@ import {
   useUpcomingMovies
 } from '~/components/movies/hooks';
 
-// TODO color scheme needs work - look at radix/colors
-// TODO use Radix icons
-// TODO scroll buttons
-
 const NUMBER_OF_PLACEHOLDERS = 6;
 
 export default function Home() {
   return (
-    <Box>
-      <Box
-        css={{
-          bg: '$sage9',
-          color: '$sage',
-          p: '$4',
-          display: 'flex'
-        }}
-      >
-        <Flex
-          direction="row"
-          justify="space-between"
-          align="center"
-          css={{ width: '100%' }}
-        >
-          <Link href="/">
-            <Text heading>Movies</Text>
-          </Link>
-          <Flex direction="row" align="center" gap={2}>
-            {/* <Link href="/">
-              <Text>Favourites</Text>
-            </Link>
-            <Link href="/">
-              <Text>Profile</Text>
-            </Link> */}
-          </Flex>
-        </Flex>
-      </Box>
-
+    <Layout>
       <Box css={{ bg: '$sage2', pt: '$3', width: '100%' }}>
-        <DarkThemeButton />
         <Flex direction="column" gap={5}>
           <PopularMovieSection />
           <UpcomingMovieSection />
@@ -62,7 +23,7 @@ export default function Home() {
           <TrendingMovieSection />
         </Flex>
       </Box>
-    </Box>
+    </Layout>
   );
 }
 
