@@ -5,7 +5,7 @@ import { darkTheme } from '../../../stitches.config';
 
 import { Button } from '~/components/ui';
 
-export function DarkThemeButton() {
+export function ThemeChangeButton() {
   const [theme, setTheme] = React.useState('theme-default');
 
   React.useEffect(() => {
