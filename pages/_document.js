@@ -30,33 +30,15 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
-            rel="preload"
-            href="/fonts/subset-NunitoSans-BoldItalic.woff2"
-            as="font"
-            type="font/woff2"
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
             crossOrigin="anonymous"
           />
           <link
-            rel="preload"
-            href="/fonts/subset-NunitoSans-Bold.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/subset-NunitoSans-Italic.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/subset-NunitoSans-Regular.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+            rel="stylesheet"
           />
         </Head>
         <body style={{ margin: ' 0px' }}>
