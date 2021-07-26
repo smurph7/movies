@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Container, Flex, Text } from '~/components/ui';
 
-export function ScrollableContainer({ title, children }) {
+export function HorizontalScroll({ title, children }) {
   return (
     <Container
       size={{ '@bp1': 1, '@bp2': 2, '@bp3': 3, '@bp4': 4, '@bp5': 5 }}

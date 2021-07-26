@@ -4,7 +4,7 @@ export { Container } from './container';
 export { Card } from './card';
 export { Flex } from './flex';
 export { Grid } from './grid';
-export { ScrollableContainer } from './scrollable-container';
+export { HorizontalScroll } from './horizontal-scroll';
 export { Button } from './button';
 export { Link } from './link';
 export { Placeholder } from './placeholder';

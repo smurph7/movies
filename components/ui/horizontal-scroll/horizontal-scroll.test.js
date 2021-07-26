@@ -2,22 +2,22 @@ import React from 'react';
 
 import { render } from '../../../test-utils';
 
-import { ScrollableContainer } from '.';
+import { HorizontalScroll } from '.';
 
-describe('ScrollableContainer', () => {
+describe('HorizontalScroll', () => {
   const title = 'Popular';
   const children = <div data-testid="children"> hello</div>;
 
   it('should display title', () => {
     const { getByText } = render(
-      <ScrollableContainer title={title}>{children}</ScrollableContainer>
+      <HorizontalScroll title={title}>{children}</HorizontalScroll>
     );
     expect(getByText(title)).toBeInTheDocument();
   });
 
   it('should display children', () => {
     const { getByTestId } = render(
-      <ScrollableContainer title={title}>{children}</ScrollableContainer>
+      <HorizontalScroll title={title}>{children}</HorizontalScroll>
     );
     expect(getByTestId('children')).toBeInTheDocument();
   });

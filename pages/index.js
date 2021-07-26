@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Box, Text, Flex, ScrollableContainer, Link } from '~/components/ui';
+import { Box, Text, Flex, HorizontalScroll, Link } from '~/components/ui';
 import { MovieCard } from '~/components/movies';
 import {
   useNowPlayingMovies,
@@ -111,7 +111,7 @@ function UpcomingMovieSection() {
 
 function MovieSection({ title, results, isLoading }) {
   return (
-    <ScrollableContainer title={title}>
+    <HorizontalScroll title={title}>
       {results.map((movie, index) => (
         <MovieCard
           key={movie?.id ?? index}
@@ -119,6 +119,6 @@ function MovieSection({ title, results, isLoading }) {
           isLoading={isLoading}
         />
       ))}
-    </ScrollableContainer>
+    </HorizontalScroll>
   );
 }
