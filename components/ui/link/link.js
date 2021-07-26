@@ -54,6 +54,9 @@ const StyledLink = styled('a', {
         '&:focus': {
           outlineColor: '$sage8'
         }
+      },
+      blank: {
+        '&:focus': { outline: 'none' }
       }
     }
   },

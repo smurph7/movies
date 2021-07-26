@@ -15,7 +15,7 @@ export function MovieCard({ movie, isLoading }) {
   }
 
   return (
-    <Link href="/">
+    <Link href="/" variant="blank">
       <Card bounceOnHover>
         <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
           <NextImage
