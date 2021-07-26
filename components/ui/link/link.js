@@ -36,7 +36,7 @@ const StyledLink = styled('a', {
         }
       },
       subtle: {
-        color: '$black',
+        color: '$slate12',
         textDecorationColor: '$olive2',
         '&:focus': {
           outlineColor: '$slate8'

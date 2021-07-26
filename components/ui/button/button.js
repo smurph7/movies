@@ -159,7 +159,11 @@ const StyledButton = styled('button', {
         }
       }
     }
-  ]
+  ],
+  defaultVariants: {
+    size: 1,
+    variant: 'gray'
+  }
 });
 
 export const Button = React.forwardRef((props, forwardedRef) => {
