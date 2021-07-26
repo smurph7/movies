@@ -9,6 +9,8 @@ import {
   useUpcomingMovies
 } from '~/components/movies/hooks';
 
+const NUMBER_OF_PLACEHOLDERS = 6;
+
 export default function Home() {
   return (
     <>
@@ -54,57 +56,67 @@ export default function Home() {
 function PopularMovieSection() {
   const popularMoviesQuery = usePopularMovies();
   return (
-    <ScrollableContainer title="Popular">
-      {popularMoviesQuery.data?.results.map(movie => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          isLoading={popularMoviesQuery.isLoading}
-        />
-      ))}
-    </ScrollableContainer>
+    <MovieSection
+      title="Popular"
+      results={
+        popularMoviesQuery.data?.results ??
+        Array.from(Array(NUMBER_OF_PLACEHOLDERS))
+      }
+      isLoading={popularMoviesQuery.isLoading}
+    />
   );
 }
 
 function TrendingMovieSection() {
   const trendingMoviesQuery = useTrendingMovies();
   return (
-    <ScrollableContainer title="Trending">
-      {trendingMoviesQuery.data?.results.map(movie => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          isLoading={trendingMoviesQuery.isLoading}
-        />
-      ))}
-    </ScrollableContainer>
+    <MovieSection
+      title="Trending"
+      results={
+        trendingMoviesQuery.data?.results ??
+        Array.from(Array(NUMBER_OF_PLACEHOLDERS))
+      }
+      isLoading={trendingMoviesQuery.isLoading}
+    />
   );
 }
 
 function NowPlayingMovieSection() {
   const nowPlayingMoviesQuery = useNowPlayingMovies();
   return (
-    <ScrollableContainer title="Now Playing">
-      {nowPlayingMoviesQuery.data?.results.map(movie => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          isLoading={nowPlayingMoviesQuery.isLoading}
-        />
-      ))}
-    </ScrollableContainer>
+    <MovieSection
+      title="Now Playing"
+      results={
+        nowPlayingMoviesQuery.data?.results ??
+        Array.from(Array(NUMBER_OF_PLACEHOLDERS))
+      }
+      isLoading={nowPlayingMoviesQuery.isLoading}
+    />
   );
 }
 
 function UpcomingMovieSection() {
   const upcomingMoviesQuery = useUpcomingMovies();
   return (
-    <ScrollableContainer title="Upcoming">
-      {upcomingMoviesQuery.data?.results.map(movie => (
+    <MovieSection
+      title="Upcoming"
+      results={
+        upcomingMoviesQuery.data?.results ??
+        Array.from(Array(NUMBER_OF_PLACEHOLDERS))
+      }
+      isLoading={upcomingMoviesQuery.isLoading}
+    />
+  );
+}
+
+function MovieSection({ title, results, isLoading }) {
+  return (
+    <ScrollableContainer title={title}>
+      {results.map((movie, index) => (
         <MovieCard
-          key={movie.id}
+          key={movie?.id ?? index}
           movie={movie}
-          isLoading={upcomingMoviesQuery.isLoading}
+          isLoading={isLoading}
         />
       ))}
     </ScrollableContainer>

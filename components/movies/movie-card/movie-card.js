@@ -1,7 +1,7 @@
 import * as React from 'react';
 import NextImage from 'next/image';
 
-import { Box, Card, Button } from '~/components/ui';
+import { Box, Card, Button, Placeholder } from '~/components/ui';
 
 export function MovieCard({ movie, isLoading }) {
   const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
@@ -10,8 +10,7 @@ export function MovieCard({ movie, isLoading }) {
       <Card bounceOnHover>
         <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
           {isLoading ? (
-            // TODO loading placeholder
-            <Box />
+            <Placeholder width="100%" height="100%" />
           ) : (
             <NextImage
               src={`${imageBaseUrl}${movie.posterPath}`}

@@ -7,3 +7,4 @@ export { Grid } from './grid';
 export { ScrollableContainer } from './scrollable-container';
 export { Button } from './button';
 export { Link } from './link';
+export { Placeholder } from './placeholder';

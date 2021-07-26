@@ -24,4 +24,9 @@ describe('MovieCard', () => {
     const { getByAltText } = render(<MovieCard movie={movie} />);
     expect(getByAltText(movie.title)).toBeInTheDocument();
   });
+
+  it('should display placeholder if loading', () => {
+    const { getByTestId } = render(<MovieCard isLoading />);
+    expect(getByTestId('placeholder')).toBeInTheDocument();
+  });
 });
