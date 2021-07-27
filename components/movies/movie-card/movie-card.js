@@ -2,7 +2,7 @@ import * as React from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 
-import { Box, Card, Link, Placeholder } from '~/components/ui';
+import { Box, Flex, Text, Card, Link, Placeholder } from '~/components/ui';
 import { usePrefetchMovie } from '~/components/movies/hooks';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 
@@ -27,15 +27,37 @@ export function MovieCard({ movie, isLoading }) {
 
   return (
     <NextLink href={href} passHref>
-      <Link href={href} variant="blank">
+      <Link href={href} variant="blank" css={{ color: '$contrast' }}>
         <Card bounceOnHover onMouseEnter={handlePrefetchMovie}>
           <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
             <NextImage
-              src={`${imageBaseUrl}${movie.posterPath}`}
+              src={
+                movie.posterPath
+                  ? `${imageBaseUrl}${movie.posterPath}`
+                  : '/movie-poster-placeholder.svg'
+              }
               alt={movie.title}
               layout="fill"
+              objectFit="cover"
               priority
             />
+            {!movie.posterPath && (
+              <Flex
+                align="center"
+                justify="center"
+                css={{
+                  width: '100%',
+                  height: '100%',
+                  position: 'relative',
+                  zIndex: 1,
+                  pt: 100
+                }}
+              >
+                <Text>
+                  {movie.title} ({movie.releaseYear})
+                </Text>
+              </Flex>
+            )}
           </Box>
         </Card>
       </Link>

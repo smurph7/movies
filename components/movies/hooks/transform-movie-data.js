@@ -5,7 +5,8 @@ export function transformMovieData(data) {
       id: result.id,
       title: result.title,
       posterPath: result.poster_path,
-      voteAverage: result.vote_average
+      voteAverage: result.vote_average,
+      releaseYear: result.release_date.split('-')[0]
     }))
   };
 }
