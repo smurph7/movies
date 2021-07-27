@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 function transformMovieData(data) {
@@ -25,4 +25,15 @@ export function useMovie({ id }) {
     enabled: !!id,
     select: data => transformMovieData(data)
   });
+}
+
+export function usePrefetchMovie() {
+  const queryClient = useQueryClient();
+
+  async function handlePrefetch({ id }) {
+    await queryClient.prefetchQuery(['movie', { id }], fetchMovie, {
+      staleTime: 5 * 60 * 1000 // 5 minutes
+    });
+  }
+  return { handlePrefetch };
 }
