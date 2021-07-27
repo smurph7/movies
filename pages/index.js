@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Box, Flex, HorizontalScroll } from '~/components/ui';
+import { Flex, HorizontalScroll } from '~/components/ui';
 import { Layout } from '~/components/common';
 import { MovieCard } from '~/components/movies';
 import {
@@ -15,14 +15,12 @@ const NUMBER_OF_PLACEHOLDERS = 6;
 export default function Home() {
   return (
     <Layout>
-      <Box css={{ bg: '$sage2', pt: '$3', width: '100%' }}>
-        <Flex direction="column" gap={5}>
-          <PopularMovieSection />
-          <UpcomingMovieSection />
-          <NowPlayingMovieSection />
-          <TrendingMovieSection />
-        </Flex>
-      </Box>
+      <Flex direction="column" gap={5} css={{ pt: '$3' }}>
+        <PopularMovieSection />
+        <UpcomingMovieSection />
+        <NowPlayingMovieSection />
+        <TrendingMovieSection />
+      </Flex>
     </Layout>
   );
 }

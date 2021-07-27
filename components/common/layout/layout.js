@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ThemeChangeButton } from '~/components/ui';
+import { Box, ThemeChangeButton } from '~/components/ui';
 import { Header } from '~/components/common';
 
 export function Layout({ children }) {
@@ -8,7 +8,7 @@ export function Layout({ children }) {
     <>
       <Header />
       <ThemeChangeButton />
-      {children}
+      <Box css={{ bg: '$sage2' }}>{children}</Box>
       {/* <Footer /> */}
     </>
   );
