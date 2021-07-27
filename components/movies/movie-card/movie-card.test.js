@@ -14,8 +14,16 @@ jest.mock('next/image', () => ({
   default: ({ src, alt }) => mockNextImage({ src, alt })
 }));
 
+jest.mock(
+  'next/link',
+  () =>
+    ({ children }) =>
+      children
+);
+
 describe('MovieCard', () => {
   const movie = {
+    id: 123,
     title: 'Harry Potter',
     posterPath: '/image.jpg'
   };
@@ -28,5 +36,11 @@ describe('MovieCard', () => {
   it('should display placeholder if loading', () => {
     const { getByTestId } = render(<MovieCard isLoading />);
     expect(getByTestId('placeholder')).toBeInTheDocument();
+  });
+
+  it('should link to movie detail page', async () => {
+    const { getByRole } = render(<MovieCard movie={movie} />);
+    const link = getByRole('link');
+    expect(link).toHaveAttribute('href', '/movie/harry-potter-123');
   });
 });
