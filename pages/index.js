@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Flex, HorizontalScroll } from '~/components/ui';
+import { Container, StyledCarousel, Flex, Text } from '~/components/ui';
 import { Layout } from '~/components/common';
 import { MovieCard } from '~/components/movies';
 import {
@@ -83,14 +83,24 @@ function UpcomingMovieSection() {
 
 function MovieSection({ title, results, isLoading }) {
   return (
-    <HorizontalScroll title={title}>
-      {results.map((movie, index) => (
-        <MovieCard
-          key={movie?.id ?? index}
-          movie={movie}
-          isLoading={isLoading}
-        />
-      ))}
-    </HorizontalScroll>
+    <Container
+      size={{ '@bp1': 1, '@bp2': 2, '@bp3': 3, '@bp4': 4, '@bp5': 5 }}
+      css={{ width: '100%' }}
+    >
+      <Flex direction="column" gap={2}>
+        <Text heading fontSize={5} css={{ pl: '$1' }}>
+          {title}
+        </Text>
+        <StyledCarousel>
+          {results.map((movie, index) => (
+            <MovieCard
+              key={movie?.id ?? index}
+              movie={movie}
+              isLoading={isLoading}
+            />
+          ))}
+        </StyledCarousel>
+      </Flex>
+    </Container>
   );
 }

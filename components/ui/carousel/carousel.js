@@ -1,0 +1,277 @@
+import * as React from 'react';
+import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
+import { useCallbackRef } from '@radix-ui/react-use-callback-ref';
+import { useComposedRefs } from '@radix-ui/react-compose-refs';
+import { composeEventHandlers } from '@radix-ui/primitive';
+import { createContext } from '@radix-ui/react-context';
+import { useDebouncedCallback } from 'use-debounce';
+
+import { Box, Button, Flex } from '~/components/ui';
+
+export function StyledCarousel({ children }) {
+  return (
+    <Carousel css={{ position: 'relative' }}>
+      <CarouselSlideList
+        css={{
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          paddingY: '$1',
+          WebkitoverflowScrolling: 'touch',
+          cursor: 'grab',
+          MsOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none'
+          },
+          '&[data-state="dragging"]': {
+            cursor: 'grabbing',
+            userSelect: 'none',
+            pointerEvents: 'none'
+          },
+          '&[data-state="dragging"] *': {
+            cursor: 'inherit'
+          }
+        }}
+      >
+        <Flex gap={1}>
+          {children?.map((slide, index) => (
+            <CarouselSlide key={slide?.id ?? index}>{slide}</CarouselSlide>
+          ))}
+        </Flex>
+      </CarouselSlideList>
+      <Box
+        css={{
+          position: 'absolute',
+          top: '50%',
+          left: '15px',
+          transform: 'translateY(-50%)'
+        }}
+      >
+        <CarouselPrevious
+          css={{
+            p: '$3',
+            borderRadius: '$circle',
+            transition: 'all 100ms ease',
+            '&:disabled': {
+              opacity: 0
+            }
+          }}
+        >
+          <ArrowLeftIcon />
+        </CarouselPrevious>
+      </Box>
+      <Box
+        css={{
+          position: 'absolute',
+          top: '50%',
+          right: '15px',
+          transform: 'translateY(-50%)'
+        }}
+      >
+        <CarouselNext
+          css={{
+            p: '$3',
+            borderRadius: '$circle',
+            transition: 'all 100ms ease',
+            '&:disabled': {
+              opacity: 0
+            }
+          }}
+        >
+          <ArrowRightIcon />
+        </CarouselNext>
+      </Box>
+    </Carousel>
+  );
+}
+
+const [CarouselProvider, useCarouselContext] = createContext('Carousel');
+
+function Carousel({ children, ...carouselProps }) {
+  const ref = React.useRef(null);
+  const slideListRef = React.useRef(null);
+  const [force, setForce] = React.useState({});
+
+  const getSlideInDirection = useCallbackRef(direction => {
+    const slides = ref.current.querySelectorAll('[data-slide-intersected]');
+    return Array.from(slides.values()).find((slide, index) => {
+      const slideBefore = slides.item(index - direction);
+      return (
+        slide.dataset.slideIntersected === 'false' &&
+        slideBefore?.dataset.slideIntersected === 'true'
+      );
+    });
+  });
+
+  const handleNextClick = React.useCallback(() => {
+    const nextSlide = getSlideInDirection(1);
+    if (nextSlide) {
+      nextSlide.scrollIntoView({
+        inline: 'start',
+        block: 'nearest',
+        behavior: 'smooth'
+      });
+    }
+  }, [getSlideInDirection]);
+
+  const handlePrevClick = React.useCallback(() => {
+    const prevSlide = getSlideInDirection(-1);
+    if (prevSlide) {
+      prevSlide.scrollIntoView({
+        inline: 'end',
+        block: 'nearest',
+        behavior: 'smooth'
+      });
+    }
+  }, [getSlideInDirection]);
+
+  const handleScrollStartAndEnd = useDebouncedCallback(
+    () => setForce({}),
+    100,
+    {
+      leading: true,
+      trailing: true
+    }
+  );
+
+  React.useEffect(() => {
+    const slidesList = slideListRef.current;
+    slidesList.addEventListener('scroll', handleScrollStartAndEnd);
+    setForce({});
+    return () =>
+      slidesList.removeEventListener('scroll', handleScrollStartAndEnd);
+  }, [slideListRef]);
+
+  return (
+    <CarouselProvider
+      force={force}
+      slideListRef={slideListRef}
+      onNextClick={handleNextClick}
+      onPrevClick={handlePrevClick}
+    >
+      <Box {...carouselProps} ref={ref}>
+        {children}
+      </Box>
+    </CarouselProvider>
+  );
+}
+
+function CarouselSlideList({
+  onMouseDownCapture,
+  onPointerDown,
+  onPointerUp,
+  ...props
+}) {
+  const context = useCarouselContext('CarouselSlideList');
+  const ref = React.useRef(null);
+  const composedRefs = useComposedRefs(ref, context.slideListRef);
+  const [dragStart, setDragStart] = React.useState(null);
+
+  const handleMouseMove = useCallbackRef(event => {
+    if (ref.current) {
+      const distanceX = event.clientX - dragStart.pointerX;
+      ref.current.scrollLeft = dragStart.scrollX - distanceX;
+    }
+  });
+
+  const handleMouseUp = useCallbackRef(() => {
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+    setDragStart(null);
+  });
+
+  return (
+    <Box
+      {...props}
+      ref={composedRefs}
+      data-state={dragStart ? 'dragging' : undefined}
+      onMouseDownCapture={composeEventHandlers(event => {
+        // Drag only if main mouse button was clicked
+        if (event.button === 0) {
+          document.addEventListener('mousemove', handleMouseMove);
+          document.addEventListener('mouseup', handleMouseUp);
+          setDragStart({
+            scrollX: event.currentTarget.scrollLeft,
+            pointerX: event.clientX
+          });
+        }
+      })}
+      onPointerDown={composeEventHandlers(event => {
+        const element = event.target;
+        element.setPointerCapture(event.pointerId);
+      })}
+      onPointerUp={composeEventHandlers(event => {
+        const element = event.target;
+        element.releasePointerCapture(event.pointerId);
+      })}
+    />
+  );
+}
+
+function CarouselSlide({ ...slideProps }) {
+  const context = useCarouselContext('CarouselSlide');
+  const ref = React.useRef(null);
+  const [isIntersected, setIsIntersected] = React.useState(false);
+  const isDraggingRef = React.useRef(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsIntersected(entry.isIntersecting),
+      {
+        root: context.slideListRef.current,
+        threshold: 0.5
+      }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [context.slideListRef]);
+
+  return (
+    <Box
+      {...slideProps}
+      ref={ref}
+      data-slide-intersected={isIntersected}
+      onDragStart={event => {
+        event.preventDefault();
+        isDraggingRef.current = true;
+      }}
+      onClick={event => {
+        if (isDraggingRef.current) {
+          event.preventDefault();
+        }
+      }}
+    />
+  );
+}
+
+function CarouselNext({ ...nextProps }) {
+  const context = useCarouselContext('CarouselNext');
+  const slideList = context.slideListRef.current || {};
+  const { scrollWidth, scrollLeft, clientWidth } = slideList;
+  const remainder = scrollWidth - scrollLeft - clientWidth;
+  const disabled = remainder <= 0;
+
+  return (
+    <Button
+      {...nextProps}
+      tabIndex={-1}
+      onClick={() => context.onNextClick()}
+      disabled={disabled}
+    />
+  );
+}
+
+function CarouselPrevious({ ...prevProps }) {
+  const context = useCarouselContext('CarouselPrevious');
+  const slideList = context.slideListRef.current || {};
+  const disabled = slideList?.scrollLeft <= 0;
+
+  return (
+    <Button
+      {...prevProps}
+      tabIndex={-1}
+      onClick={() => context.onPrevClick()}
+      disabled={disabled}
+    />
+  );
+}

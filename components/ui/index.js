@@ -9,3 +9,4 @@ export { Button } from './button';
 export { Link } from './link';
 export { Placeholder } from './placeholder';
 export { ThemeChangeButton } from './theme-change-button';
+export { StyledCarousel } from './carousel';

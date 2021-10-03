@@ -1,0 +1,1 @@
+export { StyledCarousel } from './carousel';
