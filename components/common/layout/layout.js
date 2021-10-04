@@ -1,13 +1,14 @@
 import * as React from 'react';
 
 import { Box } from '~/components/ui';
-import { Header } from '~/components/common';
+import { Header, Footer } from '~/components/common';
 
 export function Layout({ children }) {
   return (
-    <>
+    <Box css={{ bg: '$sage2' }}>
       <Header />
-      <Box css={{ bg: '$sage2' }}>{children}</Box>
-    </>
+      <Box>{children}</Box>
+      <Footer />
+    </Box>
   );
 }

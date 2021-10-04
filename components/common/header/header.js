@@ -6,7 +6,6 @@ export function Header() {
   return (
     <Box
       css={{
-        bg: '$sage2',
         p: '$4',
         display: 'flex'
       }}
