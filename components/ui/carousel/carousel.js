@@ -147,7 +147,7 @@ function CarouselSlide({ ...slideProps }) {
       ([entry]) => setIsIntersected(entry.isIntersecting),
       {
         root: context.slideListRef.current,
-        threshold: 0.5
+        threshold: 1
       }
     );
     observer.observe(ref.current);
