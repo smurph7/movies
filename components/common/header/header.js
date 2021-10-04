@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { Box, Text, Flex, Link } from '~/components/ui';
+import { Box, Text, Flex, Link, ThemeChangeButton } from '~/components/ui';
 
 export function Header() {
   return (
     <Box
       css={{
-        bg: '$sage8',
+        bg: '$sage2',
         p: '$4',
         display: 'flex'
       }}
@@ -20,13 +20,14 @@ export function Header() {
         <Link href="/">
           <Text heading>Movies</Text>
         </Link>
-        <Flex direction="row" align="center" gap={2}>
+        <Flex direction="row" align="center" gap={5}>
           <Link href="/">
             <Text>Favourites</Text>
           </Link>
           <Link href="/">
             <Text>Profile</Text>
           </Link>
+          <ThemeChangeButton />
         </Flex>
       </Flex>
     </Box>

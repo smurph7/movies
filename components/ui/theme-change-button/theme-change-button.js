@@ -15,7 +15,6 @@ export function ThemeChangeButton() {
 
   return (
     <Button
-      style={{ position: 'fixed', zIndex: 999, right: 0, top: 55 }}
       size={2}
       onClick={() =>
         setTheme(theme === 'theme-default' ? darkTheme : 'theme-default')
