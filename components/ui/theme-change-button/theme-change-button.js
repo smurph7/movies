@@ -8,6 +8,7 @@ import { useThemeStore } from './use-theme-store';
 import { Button } from '~/components/ui';
 
 export function ThemeChangeButton() {
+  const [icon, setIcon] = React.useState(<SunIcon />);
   const theme = useThemeStore(state => state.theme);
   const changeTheme = useThemeStore(state => state.changeTheme);
 
@@ -16,11 +17,12 @@ export function ThemeChangeButton() {
     document.body.classList.add(
       theme === 'theme-default' ? theme : theme.className
     );
+    setIcon(theme === 'theme-default' ? <SunIcon /> : <MoonIcon />);
   }, [theme]);
 
   return (
-    <Button size={2} onClick={changeTheme}>
-      {theme === 'theme-default' ? <SunIcon /> : <MoonIcon />}
+    <Button size={2} ghost onClick={changeTheme}>
+      {icon}
     </Button>
   );
 }
