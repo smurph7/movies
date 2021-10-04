@@ -84,7 +84,7 @@ function UpcomingMovieSection() {
 function MovieSection({ title, results, isLoading }) {
   return (
     <Container size={{ '@bp1': 1, '@bp2': 2, '@bp3': 3, '@bp4': 4, '@bp5': 5 }}>
-      <Flex direction="column" gap={2}>
+      <Flex direction="column" gap={1}>
         <Text heading fontSize={5} css={{ pl: '$1' }}>
           {title}
         </Text>

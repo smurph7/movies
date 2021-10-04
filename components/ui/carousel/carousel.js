@@ -23,7 +23,7 @@ export function StyledCarousel({ children }) {
           }
         }}
       >
-        <Flex gap={1}>
+        <Flex gap={1} css={{ pt: '$2' }}>
           {children?.map((slide, index) => (
             <CarouselSlide key={slide?.key ?? index}>{slide}</CarouselSlide>
           ))}
