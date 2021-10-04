@@ -8,6 +8,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.5.0",
     "@radix-ui/colors": "^0.1.7",
     "@radix-ui/react-compose-refs": "^0.1.0",
     "@radix-ui/react-context": "^0.1.0",
