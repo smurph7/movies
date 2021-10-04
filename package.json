@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@radix-ui/colors": "^0.1.7",
-    "@radix-ui/primitive": "^0.1.0",
     "@radix-ui/react-compose-refs": "^0.1.0",
     "@radix-ui/react-context": "^0.1.0",
     "@radix-ui/react-icons": "^1.0.3",

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
 import { useCallbackRef } from '@radix-ui/react-use-callback-ref';
 import { useComposedRefs } from '@radix-ui/react-compose-refs';
-import { composeEventHandlers } from '@radix-ui/primitive';
 import { createContext } from '@radix-ui/react-context';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -17,19 +16,10 @@ export function StyledCarousel({ children }) {
           overflowY: 'hidden',
           paddingY: '$1',
           WebkitoverflowScrolling: 'touch',
-          cursor: 'grab',
           MsOverflowStyle: 'none',
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': {
             display: 'none'
-          },
-          '&[data-state="dragging"]': {
-            cursor: 'grabbing',
-            userSelect: 'none',
-            pointerEvents: 'none'
-          },
-          '&[data-state="dragging"] *': {
-            cursor: 'inherit'
           }
         }}
       >
@@ -138,56 +128,12 @@ function Carousel({ children, ...carouselProps }) {
   );
 }
 
-function CarouselSlideList({
-  onMouseDownCapture,
-  onPointerDown,
-  onPointerUp,
-  ...props
-}) {
+function CarouselSlideList({ ...props }) {
   const context = useCarouselContext('CarouselSlideList');
   const ref = React.useRef(null);
   const composedRefs = useComposedRefs(ref, context.slideListRef);
-  const [dragStart, setDragStart] = React.useState(null);
 
-  const handleMouseMove = useCallbackRef(event => {
-    if (ref.current) {
-      const distanceX = event.clientX - dragStart.pointerX;
-      ref.current.scrollLeft = dragStart.scrollX - distanceX;
-    }
-  });
-
-  const handleMouseUp = useCallbackRef(() => {
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-    setDragStart(null);
-  });
-
-  return (
-    <Box
-      {...props}
-      ref={composedRefs}
-      data-state={dragStart ? 'dragging' : undefined}
-      onMouseDownCapture={composeEventHandlers(event => {
-        // Drag only if main mouse button was clicked
-        if (event.button === 0) {
-          document.addEventListener('mousemove', handleMouseMove);
-          document.addEventListener('mouseup', handleMouseUp);
-          setDragStart({
-            scrollX: event.currentTarget.scrollLeft,
-            pointerX: event.clientX
-          });
-        }
-      })}
-      onPointerDown={composeEventHandlers(event => {
-        const element = event.target;
-        element.setPointerCapture(event.pointerId);
-      })}
-      onPointerUp={composeEventHandlers(event => {
-        const element = event.target;
-        element.releasePointerCapture(event.pointerId);
-      })}
-    />
-  );
+  return <Box {...props} ref={composedRefs} />;
 }
 
 function CarouselSlide({ ...slideProps }) {

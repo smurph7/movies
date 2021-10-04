@@ -10,6 +10,7 @@ export const Card = styled('div', {
   borderRadius: 10,
   boxShadow: '0 6px 10px -5px rgba(0, 0, 0, 0.2)',
   transition: 'all 0.3s ease',
+  userSelect: 'none',
   variants: {
     bounceOnHover: {
       true: {
