@@ -47,16 +47,7 @@ export function StyledCarousel({ children }) {
           transform: 'translateY(-50%)'
         }}
       >
-        <CarouselPrevious
-          css={{
-            p: '$3',
-            borderRadius: '$circle',
-            transition: 'all 100ms ease',
-            '&:disabled': {
-              opacity: 0
-            }
-          }}
-        >
+        <CarouselPrevious>
           <ArrowLeftIcon />
         </CarouselPrevious>
       </Box>
@@ -68,16 +59,7 @@ export function StyledCarousel({ children }) {
           transform: 'translateY(-50%)'
         }}
       >
-        <CarouselNext
-          css={{
-            p: '$3',
-            borderRadius: '$circle',
-            transition: 'all 100ms ease',
-            '&:disabled': {
-              opacity: 0
-            }
-          }}
-        >
+        <CarouselNext>
           <ArrowRightIcon />
         </CarouselNext>
       </Box>
@@ -140,7 +122,7 @@ function Carousel({ children, ...carouselProps }) {
     setForce({});
     return () =>
       slidesList.removeEventListener('scroll', handleScrollStartAndEnd);
-  }, [slideListRef]);
+  }, [handleScrollStartAndEnd, slideListRef]);
 
   return (
     <CarouselProvider
@@ -254,6 +236,20 @@ function CarouselNext({ ...nextProps }) {
   return (
     <Button
       {...nextProps}
+      css={{
+        p: '$3',
+        width: '$7',
+        height: '$7',
+        borderRadius: '$round',
+        willChange: 'transform',
+        transition: 'all 100ms ease',
+        '@media (hover: none) and (pointer: coarse)': {
+          display: 'none'
+        },
+        '&:disabled': {
+          opacity: 0
+        }
+      }}
       tabIndex={-1}
       onClick={() => context.onNextClick()}
       disabled={disabled}
@@ -269,6 +265,20 @@ function CarouselPrevious({ ...prevProps }) {
   return (
     <Button
       {...prevProps}
+      css={{
+        p: '$3',
+        width: '$7',
+        height: '$7',
+        borderRadius: '$round',
+        willChange: 'transform',
+        transition: 'all 100ms ease',
+        '@media (hover: none) and (pointer: coarse)': {
+          display: 'none'
+        },
+        '&:disabled': {
+          opacity: 0
+        }
+      }}
       tabIndex={-1}
       onClick={() => context.onPrevClick()}
       disabled={disabled}
