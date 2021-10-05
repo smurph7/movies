@@ -42,13 +42,18 @@ export function UserHeaderButton() {
               'Welcome'
             ) : user ? (
               <>
-                <NextImage
-                  className="profile"
-                  src={user?.picture ?? '/'}
-                  alt="profile"
-                  width={22}
-                  height={22}
-                />
+                {user?.picture ? (
+                  <NextImage
+                    className="profile"
+                    src={user.picture}
+                    alt="profile"
+                    width={22}
+                    height={22}
+                  />
+                ) : (
+                  <IoPersonCircleOutline size={20} />
+                )}
+
                 {user?.name}
               </>
             ) : (
