@@ -2,6 +2,8 @@ import * as React from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 
+import { FavouriteButton } from '..';
+
 import { Box, Flex, Text, Card, Link, Placeholder } from '~/components/ui';
 import { usePrefetchMovie } from '~/components/movies/hooks';
 import { getUrlFromString } from '~/utils/get-url-from-string';
@@ -26,10 +28,10 @@ export function MovieCard({ movie, isLoading }) {
   }
 
   return (
-    <NextLink href={href} passHref>
-      <Link href={href} variant="blank" css={{ color: '$contrast' }}>
-        <Card bounceOnHover onMouseEnter={handlePrefetchMovie}>
-          <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
+    <Card bounceOnHover onMouseEnter={handlePrefetchMovie}>
+      <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
+        <NextLink href={href} passHref>
+          <Link href={href} variant="blank" css={{ color: '$contrast' }}>
             <NextImage
               src={
                 movie.posterPath
@@ -41,6 +43,7 @@ export function MovieCard({ movie, isLoading }) {
               objectFit="cover"
               priority
             />
+
             {!movie.posterPath && (
               <Flex
                 align="center"
@@ -58,9 +61,10 @@ export function MovieCard({ movie, isLoading }) {
                 </Text>
               </Flex>
             )}
-          </Box>
-        </Card>
-      </Link>
-    </NextLink>
+          </Link>
+        </NextLink>
+        <FavouriteButton />
+      </Box>
+    </Card>
   );
 }

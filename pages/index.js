@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useUser } from '@auth0/nextjs-auth0';
 
 import { Container, StyledCarousel, Flex, Text } from '~/components/ui';
 import { Layout } from '~/components/common';
@@ -13,6 +14,8 @@ import {
 const NUMBER_OF_PLACEHOLDERS = 6;
 
 export default function Home() {
+  const { user, error, isLoading } = useUser();
+  console.log('user', user);
   return (
     <Layout>
       <Flex direction="column" align="center" gap={5} css={{ pt: '$3' }}>
