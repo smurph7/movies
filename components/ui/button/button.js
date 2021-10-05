@@ -70,6 +70,21 @@ const StyledButton = styled('button', {
           boxShadow: 'inset 0 0 0 1px $colors$sage8, 0 0 0 1px $colors$sage8'
         }
       },
+      semiTransparentGray: {
+        backgroundColor: '$sage11',
+        color: '$sage3',
+        opacity: 0.8,
+        '&:hover': {
+          boxShadow: 'inset 0 0 0 1px $colors$sage8'
+        },
+        '&:active': {
+          backgroundColor: '$sage2',
+          boxShadow: 'inset 0 0 0 1px $colors$sage8'
+        },
+        '&:focus': {
+          boxShadow: 'inset 0 0 0 1px $colors$sage8, 0 0 0 1px $colors$sage8'
+        }
+      },
       transparentWhite: {
         backgroundColor: 'hsla(0,100%,100%,.2)',
         color: 'white',
