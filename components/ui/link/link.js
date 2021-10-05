@@ -56,6 +56,10 @@ const StyledLink = styled('a', {
         }
       },
       blank: {
+        color: '$sage11',
+        '&:hover': {
+          textDecoration: 'none'
+        },
         '&:focus': { outline: 'none' }
       }
     }

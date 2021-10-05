@@ -18,4 +18,3 @@ export {
   DropdownMenuLabel,
   DropdownMenuGroup
 } from './dropdown-menu';
-export { menuCss, separatorCss, itemCss, labelCss, MenuGroup } from './menu';
