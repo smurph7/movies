@@ -34,16 +34,17 @@ async function getProfile({ req, res, url }) {
 
 async function patchProfile({ req, res, url }) {
   const { access_token: accessToken } = await getAccessToken();
-  const { data } = await axios.patch(url, {
-    body: {
-      user_metadata: {
-        favourite_colour: 'green'
-      }
+  const { data } = await axios.patch(
+    url,
+    {
+      user_metadata: req.body
     },
-    headers: {
-      Authorization: `Bearer ${accessToken}`
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
     }
-  });
+  );
   return res.status(200).json(data);
 }
 
