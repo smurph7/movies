@@ -37,7 +37,7 @@ export const labelCss = css(baseItemCss, {
 });
 
 export const menuCss = css({
-  bg: '$sage2',
+  bg: '$sage3',
   boxSizing: 'border-box',
   minWidth: 150,
   py: '$1'
