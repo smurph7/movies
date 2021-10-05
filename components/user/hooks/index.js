@@ -1,6 +1,5 @@
+export { useProfileQuery, useUpdateProfileMutation } from './use-profile';
 export {
-  useProfileQuery,
   useFavouritesQuery,
-  useUpdateProfileMutation,
   useUpdateFavouritesMutation
-} from './use-profile';
+} from './use-favourites';
