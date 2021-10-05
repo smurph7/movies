@@ -22,20 +22,48 @@ async function getAccessToken() {
   return data;
 }
 
-async function profile(req, res) {
-  const { user } = getSession(req, res);
+async function getProfile({ req, res, url }) {
   const { access_token: accessToken } = await getAccessToken();
-
-  const config = {
-    method: 'get',
-    url: `${process.env.AUTH0_ISSUER_BASE_URL}/api/v2/users/${user.sub}`,
+  const { data } = await axios.get(url, {
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
-  };
+  });
+  return res.status(200).json(data);
+}
+
+async function patchProfile({ req, res, url }) {
+  const { access_token: accessToken } = await getAccessToken();
+  const { data } = await axios.patch(url, {
+    body: {
+      user_metadata: {
+        favourite_colour: 'green'
+      }
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+  return res.status(200).json(data);
+}
+
+async function profile(req, res) {
+  const { user } = await getSession(req, res);
+  const url = `${process.env.AUTH0_ISSUER_BASE_URL}/api/v2/users/${user.sub}`;
+
   try {
-    const { data } = await axios(config);
-    return res.status(200).json(data);
+    switch (req.method) {
+      case 'GET': {
+        await getProfile({ req, res, url });
+        break;
+      }
+      case 'PATCH': {
+        await patchProfile({ req, res, url });
+        break;
+      }
+      default:
+        res.status(405).json({ error: 'Invalid method' });
+    }
   } catch (error) {
     const statusCode = error.response?.status ?? 500;
     console.error(error);
