@@ -8,6 +8,7 @@ export function Header() {
     <Box
       css={{
         p: '$4',
+        px: '$8',
         display: 'flex'
       }}
     >

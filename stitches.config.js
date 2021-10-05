@@ -1,4 +1,4 @@
-import { createCss } from '@stitches/react';
+import { createStitches } from '@stitches/react';
 import {
   gray,
   mauve,
@@ -60,7 +60,7 @@ import {
   goldDark
 } from '@radix-ui/colors';
 
-export const { styled, getCssString, theme } = createCss({
+export const { styled, getCssText, createTheme, css } = createStitches({
   theme: {
     colors: {
       // background: '#EDF0E9',
@@ -188,75 +188,75 @@ export const { styled, getCssString, theme } = createCss({
     bp6: '(min-width: 1536px)'
   },
   utils: {
-    bg: () => value => ({
+    bg: value => ({
       backgroundColor: value
     }),
-    m: () => value => ({
+    m: value => ({
       marginTop: value,
       marginBottom: value,
       marginLeft: value,
       marginRight: value
     }),
-    mt: () => value => ({
+    mt: value => ({
       marginTop: value
     }),
-    mr: () => value => ({
+    mr: value => ({
       marginRight: value
     }),
-    mb: () => value => ({
+    mb: value => ({
       marginBottom: value
     }),
-    ml: () => value => ({
+    ml: value => ({
       marginLeft: value
     }),
-    mx: () => value => ({
+    mx: value => ({
       marginLeft: value,
       marginRight: value
     }),
-    my: () => value => ({
+    my: value => ({
       marginTop: value,
       marginBottom: value
     }),
-    size: () => value => ({
+    size: value => ({
       width: value,
       height: value
     }),
-    linearGradient: () => value => ({
+    linearGradient: value => ({
       backgroundImage: `linear-gradient(${value})`
     }),
-    br: () => value => ({
+    br: value => ({
       borderRadius: value
     }),
-    p: () => value => ({
+    p: value => ({
       paddingTop: value,
       paddingBottom: value,
       paddingLeft: value,
       paddingRight: value
     }),
-    pt: () => value => ({
+    pt: value => ({
       paddingTop: value
     }),
-    pr: () => value => ({
+    pr: value => ({
       paddingRight: value
     }),
-    pb: () => value => ({
+    pb: value => ({
       paddingBottom: value
     }),
-    pl: () => value => ({
+    pl: value => ({
       paddingLeft: value
     }),
-    px: () => value => ({
+    px: value => ({
       paddingLeft: value,
       paddingRight: value
     }),
-    py: () => value => ({
+    py: value => ({
       paddingTop: value,
       paddingBottom: value
     })
   }
 });
 
-export const darkTheme = theme('dark-theme', {
+export const darkTheme = createTheme('dark-theme', {
   colors: {
     ...grayDark,
     ...mauveDark,

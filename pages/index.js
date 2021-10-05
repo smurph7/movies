@@ -15,7 +15,7 @@ const NUMBER_OF_PLACEHOLDERS = 6;
 export default function Home() {
   return (
     <Layout>
-      <Flex direction="column" gap={5} css={{ pt: '$3' }}>
+      <Flex direction="column" align="center" gap={5} css={{ pt: '$3' }}>
         <PopularMovieSection />
         <UpcomingMovieSection />
         <NowPlayingMovieSection />
