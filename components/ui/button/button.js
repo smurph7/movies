@@ -58,7 +58,7 @@ const StyledButton = styled('button', {
       gray: {
         backgroundColor: '$loContrast',
         boxShadow: 'inset 0 0 0 1px $colors$sage7',
-        color: '$hiContrast',
+        color: '$slate11',
         '&:hover': {
           boxShadow: 'inset 0 0 0 1px $colors$sage8'
         },

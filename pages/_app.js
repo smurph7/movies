@@ -1,3 +1,5 @@
+import '../global.css';
+
 import { QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 import { ReactQueryDevtools } from 'react-query/devtools';

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Box, Text, Flex, Link, ThemeChangeButton } from '~/components/ui';
+import { UserHeaderButton } from '~/components/user';
 
 export function Header() {
   return (
@@ -23,9 +24,7 @@ export function Header() {
           <Link href="/">
             <Text>Favourites</Text>
           </Link>
-          <Link href="/">
-            <Text>Profile</Text>
-          </Link>
+          <UserHeaderButton />
           <ThemeChangeButton />
         </Flex>
       </Flex>
