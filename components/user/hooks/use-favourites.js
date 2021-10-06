@@ -48,3 +48,39 @@ export function useAddFavouriteMutation() {
     onError: error => console.error(`Error: ${error}`)
   });
 }
+
+async function removeFavourite(movieId, { currentFavourites = [] }) {
+  const newFavourites = currentFavourites.filter(
+    favourite => favourite !== movieId
+  );
+  const favourites = [...newFavourites];
+  const { data } = await axios.patch('/api/auth/profile', { favourites });
+  return data;
+}
+
+export function useRemoveFavouriteMutation() {
+  const { data: currentFavourites } = useFavouritesQuery();
+  const queryClient = useQueryClient();
+  const queryKey = ['favourites'];
+  return useMutation(
+    movieId => removeFavourite(movieId, { currentFavourites }),
+    {
+      onMutate: async movieId => {
+        await queryClient.cancelQueries(queryKey);
+        const previous = queryClient.getQueryData(queryKey);
+        queryClient.setQueryData(queryKey, old => {
+          const newFavourites = currentFavourites.filter(
+            favourite => favourite !== movieId
+          );
+
+          return [...newFavourites];
+        });
+        return { previous };
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(queryKey);
+      },
+      onError: error => console.error(`Error: ${error}`)
+    }
+  );
+}

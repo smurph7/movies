@@ -4,15 +4,21 @@ import { IoHeartOutline, IoHeart } from 'react-icons/io5';
 import { Button } from '~/components/ui';
 import {
   useAddFavouriteMutation,
-  useIsFavouriteQuery
+  useIsFavouriteQuery,
+  useRemoveFavouriteMutation
 } from '~/components/user/hooks/use-favourites';
 
 export function FavouriteButton({ movieId }) {
   const { data: isFavourite } = useIsFavouriteQuery(movieId);
   const { mutate: addFavourite } = useAddFavouriteMutation();
+  const { mutate: removeFavourite } = useRemoveFavouriteMutation();
 
   function handleClick() {
-    addFavourite(movieId);
+    if (isFavourite) {
+      removeFavourite(movieId);
+    } else {
+      addFavourite(movieId);
+    }
   }
 
   return (
