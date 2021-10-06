@@ -25,10 +25,10 @@ export function Header() {
             Movies
           </Text>
         </NextLink>
-        <Flex direction="row" align="center" gap={5}>
+        <Flex direction="row" align="center" gap={3}>
           <NextLink href="/favourites/1">
-            <Button size={2} ghost>
-              <IoHeartOutline />
+            <Button size={2} ghost css={{ color: '$sage11' }}>
+              <IoHeartOutline size={24} />
             </Button>
           </NextLink>
           <ThemeChangeButton />

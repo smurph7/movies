@@ -7,7 +7,7 @@ import { Container, Flex, Grid, Text } from '~/components/ui';
 export function MovieTiles({ title, movies, isLoading }) {
   return (
     <Container size={5} css={{ pt: '$5' }}>
-      <Flex direction="column" gap={2} align="center">
+      <Flex direction="column" gap={4} align="center">
         <Text heading fontSize={5}>
           {title}
         </Text>

@@ -14,8 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuSeparator,
-  Link
+  DropdownMenuSeparator
 } from '~/components/ui';
 
 export function UserHeaderButton() {
