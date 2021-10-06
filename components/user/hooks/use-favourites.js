@@ -1,55 +1,50 @@
+import * as React from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 async function getFavourites() {
   const { data } = await axios.get('/api/auth/profile');
-  return { ...data, favourites: data.user_metadata.favourites };
+  return data.user_metadata.favourites;
 }
 
-export function useFavouritesQuery() {
-  return useQuery('favourites', getFavourites);
+export function useFavouritesQuery({ queryConfig } = {}) {
+  return useQuery('favourites', getFavourites, { ...queryConfig });
 }
 
-async function updateFavourites({ newFavourites, currentFavourites = [] }) {
-  const favourites = [
-    ...currentFavourites,
-    ...newFavourites.favourites.filter(
-      favourite => !currentFavourites.includes(favourite)
-    )
-  ];
+export function useIsFavouriteQuery(movieId) {
+  return useFavouritesQuery({
+    queryConfig: {
+      select: React.useCallback(data => data?.includes(movieId), [movieId])
+    }
+  });
+}
+
+async function addFavourite(movieId, { currentFavourites = [] }) {
+  const newFavourite = currentFavourites.includes(movieId) ? [] : [movieId];
+  const favourites = [...currentFavourites, ...newFavourite];
   const { data } = await axios.patch('/api/auth/profile', { favourites });
   return data;
 }
 
-export function useUpdateFavouritesMutation() {
+export function useAddFavouriteMutation() {
   const { data: currentFavourites } = useFavouritesQuery();
   const queryClient = useQueryClient();
   const queryKey = ['favourites'];
-  return useMutation(
-    newFavourites => updateFavourites({ newFavourites, currentFavourites }),
-    {
-      onMutate: async updatedFavourites => {
-        await queryClient.cancelQueries(queryKey);
-        const previous = queryClient.getQueryData(queryKey);
-        queryClient.setQueryData(queryKey, old => {
-          const oldFavourites = old?.userMetadata?.favourites ?? [];
-          const newFavourites = [
-            ...oldFavourites,
-            ...updatedFavourites.favourites.filter(
-              favourite => !oldFavourites.includes(favourite)
-            )
-          ];
+  return useMutation(movieId => addFavourite(movieId, { currentFavourites }), {
+    onMutate: async movieId => {
+      await queryClient.cancelQueries(queryKey);
+      const previous = queryClient.getQueryData(queryKey);
+      queryClient.setQueryData(queryKey, old => {
+        const oldFavourites = old ?? [];
+        const newFavourite = oldFavourites.includes(movieId) ? [] : [movieId];
 
-          return {
-            ...newFavourites
-          };
-        });
-        return { previous };
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries(queryKey);
-      },
-      onError: error => console.error(`Error: ${error}`)
-    }
-  );
+        return [...oldFavourites, ...newFavourite];
+      });
+      return { previous };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey);
+    },
+    onError: error => console.error(`Error: ${error}`)
+  });
 }
