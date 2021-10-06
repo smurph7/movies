@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useUser } from '@auth0/nextjs-auth0';
 import { IoHeartOutline, IoHeart } from 'react-icons/io5';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -10,6 +11,7 @@ import {
 } from '~/components/user/hooks';
 
 export function FavouriteButton({ movieId }) {
+  const { user } = useUser();
   const { data: isFavourite } = useIsFavouriteQuery(movieId);
   const { mutate: addFavourite } = useAddFavouriteMutation();
   const { mutate: removeFavourite } = useRemoveFavouriteMutation();
@@ -25,10 +27,12 @@ export function FavouriteButton({ movieId }) {
   );
 
   function handleClick() {
-    if (isFavourite) {
-      handleRemoveFavourite();
-    } else {
-      handleAddFavourite();
+    if (user) {
+      if (isFavourite) {
+        handleRemoveFavourite();
+      } else {
+        handleAddFavourite();
+      }
     }
   }
 
