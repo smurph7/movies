@@ -22,11 +22,11 @@ export function Header() {
           <Text heading>Movies</Text>
         </Link>
         <Flex direction="row" align="center" gap={5}>
-          <Link href="/">
+          <Link href="/favourites/1">
             <Text>Favourites</Text>
           </Link>
-          <UserHeaderButton />
           <ThemeChangeButton />
+          <UserHeaderButton />
         </Flex>
       </Flex>
     </Box>

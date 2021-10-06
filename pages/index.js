@@ -15,7 +15,6 @@ const NUMBER_OF_PLACEHOLDERS = 6;
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
-  console.log('user', user);
   return (
     <Layout>
       <Flex direction="column" align="center" gap={5} css={{ pt: '$3' }}>
