@@ -7,7 +7,7 @@ import {
   useAddFavouriteMutation,
   useIsFavouriteQuery,
   useRemoveFavouriteMutation
-} from '~/components/user/hooks/use-favourites';
+} from '~/components/user/hooks';
 
 export function FavouriteButton({ movieId }) {
   const { data: isFavourite } = useIsFavouriteQuery(movieId);
