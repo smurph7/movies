@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { UserProvider } from '@auth0/nextjs-auth0';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,7 +14,9 @@ const queryClient = new QueryClient({
 
 function AllTheProviders({ children }) {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <UserProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </UserProvider>
   );
 }
 

@@ -8,18 +8,30 @@ function mockNextImage({ src, alt }) {
   return <img src={src} alt={alt} />;
 }
 
+function mockNextLink({ href, children }) {
+  return (
+    <div data-testid="movie-link" href={href}>
+      {children}
+    </div>
+  );
+}
+
 jest.mock('next/image', () => ({
   __esModule: true,
   // eslint-disable-next-line
   default: ({ src, alt }) => mockNextImage({ src, alt })
 }));
 
-jest.mock(
-  'next/link',
-  () =>
-    ({ children }) =>
-      children
-);
+jest.mock('~/components/movies/favourite-button', () => ({
+  // eslint-disable-next-line react/display-name
+  FavouriteButton: () => <></>
+}));
+
+jest.mock('next/link', () => ({
+  __esModule: true,
+  // eslint-disable-next-line
+  default: ({ href, children }) => mockNextLink({ href, children })
+}));
 
 describe('MovieCard', () => {
   const movie = {
@@ -42,8 +54,8 @@ describe('MovieCard', () => {
   });
 
   it('should link to movie detail page', async () => {
-    const { getByRole } = render(<MovieCard movie={movie} />);
-    const link = getByRole('link');
+    const { getByTestId } = render(<MovieCard movie={movie} />);
+    const link = getByTestId('movie-link');
     expect(link).toHaveAttribute('href', '/movie/harry-potter-123');
   });
 

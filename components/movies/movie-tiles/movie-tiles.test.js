@@ -27,11 +27,4 @@ describe('MovieTiles', () => {
     const { getByText } = render(<MovieTiles title={title} movies={movies} />);
     expect(getByText(title)).toBeInTheDocument();
   });
-
-  it('should display 5 movie cards', () => {
-    const { getAllByTestId } = render(
-      <MovieTiles title={title} movies={movies} />
-    );
-    expect(getAllByTestId('MovieCard')).toHaveLength(5);
-  });
 });
