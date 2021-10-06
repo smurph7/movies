@@ -1,16 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 
-function transformMovieData(data) {
-  return {
-    id: data.id,
-    title: data.title,
-    posterPath: data.poster_path,
-    voteAverage: data.vote_average,
-    overview: data.overview,
-    watchProviders: data['watch/providers'].results.AU
-  };
-}
+import { transformMovieData } from './transform-movie-data';
 
 export async function fetchMovie({ queryKey }) {
   const [, { id }] = queryKey;

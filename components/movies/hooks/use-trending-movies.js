@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
-import { transformMovieData } from './transform-movie-data';
+import { transformMoviesData } from './transform-movie-data';
 
 export async function fetchTrendingMovies() {
   const { data } = await axios.get(
@@ -12,6 +12,6 @@ export async function fetchTrendingMovies() {
 
 export function useTrendingMovies() {
   return useQuery(['trending'], fetchTrendingMovies, {
-    select: data => transformMovieData(data)
+    select: data => transformMoviesData(data)
   });
 }
