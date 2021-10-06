@@ -63,7 +63,7 @@ export function MovieCard({ movie, isLoading }) {
             )}
           </Link>
         </NextLink>
-        <FavouriteButton />
+        <FavouriteButton movieId={movie.id} />
       </Box>
     </Card>
   );

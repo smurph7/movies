@@ -2,11 +2,23 @@ import * as React from 'react';
 import { IoHeartOutline, IoHeart } from 'react-icons/io5';
 
 import { Button } from '~/components/ui';
+import {
+  useAddFavouriteMutation,
+  useIsFavouriteQuery
+} from '~/components/user/hooks/use-favourites';
 
-export function FavouriteButton() {
+export function FavouriteButton({ movieId }) {
+  const { data: isFavourite } = useIsFavouriteQuery(movieId);
+  const { mutate: addFavourite } = useAddFavouriteMutation();
+
+  function handleClick() {
+    addFavourite(movieId);
+  }
+
   return (
     <Button
       variant="semiTransparentGray"
+      onClick={handleClick}
       css={{
         zIndex: 1,
         position: 'absolute',
@@ -20,7 +32,7 @@ export function FavouriteButton() {
         '@bp2': { height: 30, width: 'auto' }
       }}
     >
-      <IoHeartOutline size={24} />
+      {isFavourite ? <IoHeart size={24} /> : <IoHeartOutline size={24} />}
     </Button>
   );
 }
