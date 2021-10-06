@@ -114,6 +114,51 @@ export const Text = styled('p', {
         fontWeight: '600',
         fontSize: '$4'
       }
+    },
+    link: {
+      true: {
+        alignItems: 'center',
+        gap: '$1',
+        flexShrink: 0,
+        outline: 'none',
+        textDecorationLine: 'none',
+        textUnderlineOffset: '3px',
+        WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+        lineHeight: 'inherit',
+        cursor: 'pointer',
+        '&:hover': {
+          textDecorationLine: 'underline'
+        }
+      }
+    },
+    linkVariant: {
+      subtle: {
+        color: '$sage11',
+        textDecorationColor: '$olive4',
+        '&:focus': {
+          outlineColor: '$sage8'
+        }
+      },
+      contrast: {
+        color: '$hiContrast',
+        textDecoration: 'underline',
+        textDecorationColor: '$sage4',
+        '@hover': {
+          '&:hover': {
+            textDecorationColor: '$sage7'
+          }
+        },
+        '&:focus': {
+          outlineColor: '$sage8'
+        }
+      },
+      blank: {
+        color: '$sage11',
+        '&:hover': {
+          textDecoration: 'none'
+        },
+        '&:focus': { outline: 'none' }
+      }
     }
   },
   defaultVariants: {

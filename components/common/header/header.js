@@ -1,6 +1,8 @@
 import * as React from 'react';
+import NextLink from 'next/link';
+import { IoHeartOutline } from 'react-icons/io5';
 
-import { Box, Text, Flex, Link, ThemeChangeButton } from '~/components/ui';
+import { Box, Text, Flex, Button, ThemeChangeButton } from '~/components/ui';
 import { UserHeaderButton } from '~/components/user';
 
 export function Header() {
@@ -18,13 +20,17 @@ export function Header() {
         align="center"
         css={{ width: '100%' }}
       >
-        <Link href="/">
-          <Text heading>Movies</Text>
-        </Link>
+        <NextLink href="/">
+          <Text link linkVariant="subtle" heading>
+            Movies
+          </Text>
+        </NextLink>
         <Flex direction="row" align="center" gap={5}>
-          <Link href="/favourites/1">
-            <Text>Favourites</Text>
-          </Link>
+          <NextLink href="/favourites/1">
+            <Button size={2} ghost>
+              <IoHeartOutline />
+            </Button>
+          </NextLink>
           <ThemeChangeButton />
           <UserHeaderButton />
         </Flex>

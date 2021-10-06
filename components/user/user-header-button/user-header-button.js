@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import * as React from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
+import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import { IoPersonCircleOutline } from 'react-icons/io5';
@@ -65,13 +66,13 @@ export function UserHeaderButton() {
       {user && (
         <DropdownMenuContent align="center">
           <DropdownMenuGroup>
-            <Link href="/profile" variant="blank">
+            <NextLink href="/profile">
               <DropdownMenuItem>Profile</DropdownMenuItem>
-            </Link>
+            </NextLink>
             <DropdownMenuSeparator />
-            <Link href="/api/auth/logout" variant="blank">
+            <NextLink href="/api/auth/logout">
               <DropdownMenuItem>Logout</DropdownMenuItem>
-            </Link>
+            </NextLink>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       )}

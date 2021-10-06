@@ -4,7 +4,7 @@ import NextImage from 'next/image';
 
 import { FavouriteButton } from '..';
 
-import { Box, Flex, Text, Card, Link, Placeholder } from '~/components/ui';
+import { Box, Flex, Text, Card, Placeholder } from '~/components/ui';
 import { usePrefetchMovie } from '~/components/movies/hooks';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 
@@ -30,8 +30,8 @@ export function MovieCard({ movie, isLoading }) {
   return (
     <Card bounceOnHover onMouseEnter={handlePrefetchMovie}>
       <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
-        <NextLink href={href} passHref>
-          <Link href={href} variant="blank" css={{ color: '$contrast' }}>
+        <NextLink href={href}>
+          <Box css={{ color: '$contrast', cursor: 'pointer' }}>
             <NextImage
               src={
                 movie.posterPath
@@ -61,7 +61,7 @@ export function MovieCard({ movie, isLoading }) {
                 </Text>
               </Flex>
             )}
-          </Link>
+          </Box>
         </NextLink>
         <FavouriteButton movieId={movie.id} />
       </Box>
