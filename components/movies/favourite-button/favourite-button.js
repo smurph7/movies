@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IoHeartOutline, IoHeart } from 'react-icons/io5';
+import { useDebouncedCallback } from 'use-debounce';
 
 import { Button } from '~/components/ui';
 import {
@@ -13,11 +14,21 @@ export function FavouriteButton({ movieId }) {
   const { mutate: addFavourite } = useAddFavouriteMutation();
   const { mutate: removeFavourite } = useRemoveFavouriteMutation();
 
+  const handleAddFavourite = useDebouncedCallback(
+    () => addFavourite(movieId),
+    200
+  );
+
+  const handleRemoveFavourite = useDebouncedCallback(
+    () => removeFavourite(movieId),
+    200
+  );
+
   function handleClick() {
     if (isFavourite) {
-      removeFavourite(movieId);
+      handleRemoveFavourite();
     } else {
-      addFavourite(movieId);
+      handleAddFavourite();
     }
   }
 
