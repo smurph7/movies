@@ -29,6 +29,14 @@ export const itemCss = css(baseItemCss, {
 
   '&[data-disabled]': {
     color: '$sage9'
+  },
+
+  variants: {
+    variant: {
+      mobile: {
+        height: 60
+      }
+    }
   }
 });
 
@@ -37,10 +45,20 @@ export const labelCss = css(baseItemCss, {
 });
 
 export const menuCss = css({
-  bg: '$sage3',
+  bg: '$sage2',
   boxSizing: 'border-box',
   minWidth: 150,
-  py: '$1'
+  py: '$1',
+
+  variants: {
+    variant: {
+      mobile: {
+        position: 'absolute',
+        '@bp1': { width: 280 },
+        '@bp2': { width: 400 }
+      }
+    }
+  }
 });
 
 export const separatorCss = css({
