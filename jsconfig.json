@@ -5,6 +5,7 @@
       "~/components/*": ["components/*"],
       "~/config/*": ["config/*"],
       "~/utils/*": ["utils/*"],
+      "~/styles/*": ["styles/*"],
     }
   }
 }

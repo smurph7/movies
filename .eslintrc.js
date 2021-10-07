@@ -6,7 +6,8 @@ module.exports = {
       alias: [
         ['~/components', './components'],
         ['~/config', './config'],
-        ['~/utils', './utils']
+        ['~/utils', './utils'],
+        ['~/styles', './styles']
       ]
     }
   },

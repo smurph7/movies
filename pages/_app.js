@@ -1,4 +1,4 @@
-import '../global.css';
+import '~/styles/global.css';
 
 import { QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
@@ -7,6 +7,7 @@ import { UserProvider } from '@auth0/nextjs-auth0';
 import { IdProvider } from '@radix-ui/react-id';
 
 import { queryClient } from '~/config/query-client';
+import { MediaContextProvider } from '~/styles/media';
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -14,7 +15,9 @@ export default function MyApp({ Component, pageProps }) {
       <UserProvider>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
+            <MediaContextProvider>
+              <Component {...pageProps} />
+            </MediaContextProvider>
             <ReactQueryDevtools initialIsOpen={false} />
           </Hydrate>
         </QueryClientProvider>

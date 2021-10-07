@@ -3,6 +3,8 @@ import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
 
 import { getCssText } from '../stitches.config';
 
+import { mediaStyles } from '~/styles/media';
+
 export default class Document extends NextDocument {
   static async getInitialProps(ctx) {
     try {
@@ -17,6 +19,11 @@ export default class Document extends NextDocument {
               id="stitches"
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{ __html: getCssText() }}
+            />
+            <style
+              type="text/css"
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{ __html: mediaStyles }}
             />
           </>
         )
