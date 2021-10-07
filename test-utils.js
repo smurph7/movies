@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { UserProvider } from '@auth0/nextjs-auth0';
+import { IdProvider } from '@radix-ui/react-id';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,9 +14,9 @@ const queryClient = new QueryClient({
 
 function AllTheProviders({ children }) {
   return (
-    <UserProvider>
+    <IdProvider>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </UserProvider>
+    </IdProvider>
   );
 }
 
