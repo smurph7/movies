@@ -17,6 +17,7 @@
     "@radix-ui/react-icons": "^1.0.3",
     "@radix-ui/react-id": "^0.1.0",
     "@radix-ui/react-menu": "^0.1.0",
+    "@radix-ui/react-popover": "^0.1.0",
     "@radix-ui/react-use-callback-ref": "^0.1.0",
     "@react-aria/button": "^3.3.2",
     "@react-aria/link": "^3.1.3",
