@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator
 } from '~/components/ui';
 import { UserHeaderButton } from '~/components/user';
+import { useThemeChange } from '~/components/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
 
 export function Header() {
@@ -74,6 +75,8 @@ function DesktopHeaderMenu() {
 
 function MobileHeaderMenu() {
   const { user } = useUser();
+  const { theme, changeTheme, icon } = useThemeChange();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -83,6 +86,15 @@ function MobileHeaderMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" variant="mobile">
         <DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem variant="mobile" onClick={changeTheme}>
+            <Flex align="center" gap={2}>
+              {icon}
+              <Text color="gray">
+                {theme === 'theme-default' ? 'Dark Mode' : 'Light Mode'}
+              </Text>
+            </Flex>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <NextLink href="/favourites/1">
             <DropdownMenuItem variant="mobile">

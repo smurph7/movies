@@ -55,6 +55,12 @@ const StyledButton = styled('button', {
       }
     },
     variant: {
+      reset: {
+        p: 0,
+        '&:hover': {},
+        '&:active': {},
+        '&:focus': {}
+      },
       gray: {
         backgroundColor: '$loContrast',
         boxShadow: 'inset 0 0 0 1px $colors$sage7',
