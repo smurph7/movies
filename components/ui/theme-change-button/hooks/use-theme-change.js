@@ -10,6 +10,7 @@ export function useThemeChange() {
   );
   const theme = useThemeStore(state => state.theme);
   const changeTheme = useThemeStore(state => state.changeTheme);
+  const themeText = theme === 'theme-default' ? 'Dark Mode' : 'Light Mode';
 
   React.useEffect(() => {
     document.body.classList.remove('theme-default', darkTheme);
@@ -25,5 +26,5 @@ export function useThemeChange() {
     );
   }, [theme]);
 
-  return { theme, changeTheme, icon };
+  return { themeText, changeTheme, icon };
 }

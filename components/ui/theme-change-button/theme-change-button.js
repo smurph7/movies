@@ -2,19 +2,34 @@ import * as React from 'react';
 
 import { useThemeChange } from './hooks/use-theme-change';
 
-import { Button } from '~/components/ui';
+import { Button, Text } from '~/components/ui';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent
+} from '~/components/ui/popover';
 
 export function ThemeChangeButton() {
-  const { changeTheme, icon } = useThemeChange();
+  const { themeText, changeTheme, icon } = useThemeChange();
   return (
-    <Button
-      size={2}
-      ghost
-      css={{ color: '$sage11' }}
-      onClick={changeTheme}
-      aria-label="theme"
-    >
-      {icon}
-    </Button>
+    <Popover trigger="hover">
+      <PopoverTrigger asChild>
+        <Button
+          size={2}
+          ghost
+          css={{ color: '$sage11' }}
+          onClick={changeTheme}
+          aria-label="theme"
+        >
+          {icon}
+        </Button>
+      </PopoverTrigger>
+
+      <PopoverContent css={{ bg: '$sage3', padding: '$2' }}>
+        <Text color="gray" fontSize={1}>
+          {themeText}
+        </Text>
+      </PopoverContent>
+    </Popover>
   );
 }

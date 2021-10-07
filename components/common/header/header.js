@@ -4,19 +4,20 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { IoHeartOutline, IoPersonCircleOutline } from 'react-icons/io5';
 import { ExitIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 
+import { Box, Text, Flex, Button, ThemeChangeButton } from '~/components/ui';
 import {
-  Box,
-  Text,
-  Flex,
-  Button,
-  ThemeChangeButton,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator
-} from '~/components/ui';
+} from '~/components/ui/dropdown-menu';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent
+} from '~/components/ui/popover';
 import { UserHeaderButton } from '~/components/user';
 import { useThemeChange } from '~/components/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
@@ -57,16 +58,26 @@ export function Header() {
 function DesktopHeaderMenu() {
   return (
     <Flex direction="row" align="center" gap={3}>
-      <NextLink href="/favourites/1">
-        <Button
-          aria-label="favourites"
-          size={2}
-          ghost
-          css={{ color: '$sage11' }}
-        >
-          <IoHeartOutline size={24} />
-        </Button>
-      </NextLink>
+      <Popover trigger="hover">
+        <NextLink href="/favourites/1">
+          <PopoverTrigger asChild>
+            <Button
+              aria-label="favourites"
+              size={2}
+              ghost
+              css={{ color: '$sage11' }}
+              onClick={() => console.log('heu')}
+            >
+              <IoHeartOutline size={24} />
+            </Button>
+          </PopoverTrigger>
+        </NextLink>
+        <PopoverContent css={{ bg: '$sage3', padding: '$2' }}>
+          <Text color="gray" fontSize={1}>
+            Favourites
+          </Text>
+        </PopoverContent>
+      </Popover>
       <ThemeChangeButton />
       <UserHeaderButton />
     </Flex>
@@ -75,7 +86,7 @@ function DesktopHeaderMenu() {
 
 function MobileHeaderMenu() {
   const { user } = useUser();
-  const { theme, changeTheme, icon } = useThemeChange();
+  const { themeText, changeTheme, icon } = useThemeChange();
 
   return (
     <DropdownMenu>
@@ -90,9 +101,7 @@ function MobileHeaderMenu() {
           <DropdownMenuItem variant="mobile" onClick={changeTheme}>
             <Flex align="center" gap={2}>
               {icon}
-              <Text color="gray">
-                {theme === 'theme-default' ? 'Dark Mode' : 'Light Mode'}
-              </Text>
+              <Text color="gray">{themeText}</Text>
             </Flex>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
