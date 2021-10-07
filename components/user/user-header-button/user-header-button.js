@@ -35,6 +35,7 @@ export function UserHeaderButton() {
           css={{ minWidth: 70 }}
           disabled={isLoading}
           onClick={handleLogin}
+          aria-label={user ? 'user' : 'login'}
         >
           <Flex align="center" gap={2}>
             {!user && <IoPersonCircleOutline size={20} />}
@@ -66,11 +67,11 @@ export function UserHeaderButton() {
         <DropdownMenuContent align="center">
           <DropdownMenuGroup>
             <NextLink href="/profile">
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem aria-label="profile">Profile</DropdownMenuItem>
             </NextLink>
             <DropdownMenuSeparator />
             <NextLink href="/api/auth/logout">
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem aria-label="logout">Logout</DropdownMenuItem>
             </NextLink>
           </DropdownMenuGroup>
         </DropdownMenuContent>

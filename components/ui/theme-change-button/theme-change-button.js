@@ -29,7 +29,13 @@ export function ThemeChangeButton() {
   }, [theme]);
 
   return (
-    <Button size={2} ghost css={{ color: '$sage11' }} onClick={changeTheme}>
+    <Button
+      size={2}
+      ghost
+      css={{ color: '$sage11' }}
+      onClick={changeTheme}
+      aria-label="theme"
+    >
       {icon}
     </Button>
   );

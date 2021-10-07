@@ -21,13 +21,18 @@ export function Header() {
         css={{ width: '100%' }}
       >
         <NextLink href="/">
-          <Text link linkVariant="subtle" heading>
+          <Text aria-label="home" link linkVariant="subtle" heading>
             Movies
           </Text>
         </NextLink>
         <Flex direction="row" align="center" gap={3}>
           <NextLink href="/favourites/1">
-            <Button size={2} ghost css={{ color: '$sage11' }}>
+            <Button
+              aria-label="favourites"
+              size={2}
+              ghost
+              css={{ color: '$sage11' }}
+            >
               <IoHeartOutline size={24} />
             </Button>
           </NextLink>

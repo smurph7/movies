@@ -38,6 +38,7 @@ export function FavouriteButton({ movieId }) {
 
   return (
     <Button
+      aria-label={`favourite-${isFavourite ? 'heart' : 'heart-outline'}`}
       variant="semiTransparentGray"
       onClick={handleClick}
       css={{
