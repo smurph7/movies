@@ -1,5 +1,6 @@
 import * as React from 'react';
 import NextLink from 'next/link';
+import { useUser } from '@auth0/nextjs-auth0';
 import { IoHeartOutline } from 'react-icons/io5';
 import { ExitIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { IoPersonCircleOutline } from 'react-icons/io5';
@@ -73,6 +74,7 @@ function DesktopHeaderMenu() {
 }
 
 function MobileHeaderMenu() {
+  const { user } = useUser();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -92,23 +94,36 @@ function MobileHeaderMenu() {
             </DropdownMenuItem>
           </NextLink>
           <DropdownMenuSeparator />
-          <NextLink href="/profile">
-            <DropdownMenuItem variant="mobile">
-              <Flex align="center" gap={2}>
-                <IoPersonCircleOutline size={24} />
-                <Text color="gray">Profile</Text>
-              </Flex>
-            </DropdownMenuItem>
-          </NextLink>
-          <DropdownMenuSeparator />
-          <NextLink href="/api/auth/logout">
-            <DropdownMenuItem variant="mobile">
-              <Flex align="center" gap={2}>
-                <ExitIcon style={{ width: 24, height: 23 }} />
-                <Text color="gray">Log out</Text>
-              </Flex>
-            </DropdownMenuItem>
-          </NextLink>
+          {user ? (
+            <>
+              <NextLink href="/profile">
+                <DropdownMenuItem variant="mobile">
+                  <Flex align="center" gap={2}>
+                    <IoPersonCircleOutline size={24} />
+                    <Text color="gray">Profile</Text>
+                  </Flex>
+                </DropdownMenuItem>
+              </NextLink>
+              <DropdownMenuSeparator />
+              <NextLink href="/api/auth/logout">
+                <DropdownMenuItem variant="mobile">
+                  <Flex align="center" gap={2}>
+                    <ExitIcon style={{ width: 24, height: 24 }} />
+                    <Text color="gray">Log out</Text>
+                  </Flex>
+                </DropdownMenuItem>
+              </NextLink>
+            </>
+          ) : (
+            <NextLink href="/api/auth/login">
+              <DropdownMenuItem variant="mobile">
+                <Flex align="center" gap={2}>
+                  <IoPersonCircleOutline size={24} />
+                  <Text color="gray">Log in</Text>
+                </Flex>
+              </DropdownMenuItem>
+            </NextLink>
+          )}
           <DropdownMenuSeparator />
         </DropdownMenuGroup>
       </DropdownMenuContent>
