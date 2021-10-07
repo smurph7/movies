@@ -75,8 +75,3 @@ describe('FavouriteButton', () => {
     expect(removeFavourite).toHaveBeenCalledWith('123');
   });
 });
-
-
-// then look at ssr
-// and media for mobile menu
-// popover for icon help tip
