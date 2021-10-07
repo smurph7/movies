@@ -43,27 +43,27 @@ export function MovieCard({ movie, isLoading }) {
               objectFit="cover"
               priority
             />
-
-            {!movie.posterPath && (
-              <Flex
-                align="center"
-                justify="center"
-                css={{
-                  width: '100%',
-                  height: '100%',
-                  position: 'relative',
-                  zIndex: 1,
-                  pt: 100
-                }}
-              >
-                <Text>
-                  {movie.title} ({movie.releaseYear})
-                </Text>
-              </Flex>
-            )}
           </Box>
         </NextLink>
         <FavouriteButton movieId={movie.id} />
+        {!movie.posterPath && (
+          <Flex
+            align="center"
+            justify="center"
+            css={{
+              width: '100%',
+              height: '100%',
+              position: 'relative',
+              zIndex: 1,
+              pt: 100,
+              textAlign: 'center'
+            }}
+          >
+            <Text>
+              {movie.title} ({movie.releaseYear})
+            </Text>
+          </Flex>
+        )}
       </Box>
     </Card>
   );
