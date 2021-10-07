@@ -1,9 +1,8 @@
 import * as React from 'react';
 import NextLink from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0';
-import { IoHeartOutline } from 'react-icons/io5';
+import { IoHeartOutline, IoPersonCircleOutline } from 'react-icons/io5';
 import { ExitIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
-import { IoPersonCircleOutline } from 'react-icons/io5';
 
 import {
   Box,
