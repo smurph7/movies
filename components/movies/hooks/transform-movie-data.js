@@ -16,10 +16,11 @@ function transformWatchProviders(watchProviders) {
   }
   return {
     link: watchProviders.link,
-    buy: watchProviders.buy.map(provider => transformProvider(provider)),
-    flatrate: watchProviders.flatrate.map(provider =>
-      transformProvider(provider)
-    )
+    buy:
+      watchProviders?.buy?.map(provider => transformProvider(provider)) ?? [],
+    flatrate:
+      watchProviders?.flatrate?.map(provider => transformProvider(provider)) ??
+      []
   };
 }
 
@@ -45,6 +46,6 @@ export function transformMovieData(data) {
     voteAverage: data.vote_average,
     overview: data.overview,
     releaseYear: data.release_date.split('-')[0],
-    watchProviders: transformWatchProviders(data['watch/providers'].results.IE)
+    watchProviders: transformWatchProviders(data['watch/providers'].results.AU)
   };
 }
