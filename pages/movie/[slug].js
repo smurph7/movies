@@ -175,11 +175,13 @@ function ReleaseDates({ id }) {
 
   return (
     <Flex align="center" gap={1}>
-      <Box css={{ border: '1px solid $sage1', p: '$1' }}>
-        <Text color="lightGray" fontSize={2}>
-          {data.certification}
-        </Text>
-      </Box>
+      {data.certification !== '' && (
+        <Box css={{ border: '1px solid $sage1', p: '$1' }}>
+          <Text color="lightGray" fontSize={2}>
+            {data.certification}
+          </Text>
+        </Box>
+      )}
       <Text color="lightGray" fontSize={2}>
         {releaseDate} ({data.region})
       </Text>
