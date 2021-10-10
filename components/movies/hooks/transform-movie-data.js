@@ -1,3 +1,22 @@
+function transformProvider(provider) {
+  return {
+    providerId: provider.provider_id,
+    providerName: provider.provider_name,
+    logoPath: provider.logo_path,
+    displayPriority: provider.display_priority
+  };
+}
+
+function transformWatchProviders(watchProviders) {
+  return {
+    link: watchProviders.link,
+    buy: watchProviders.buy.map(provider => transformProvider(provider)),
+    flatrate: watchProviders.flatrate.map(provider =>
+      transformProvider(provider)
+    )
+  };
+}
+
 export function transformMoviesData(data) {
   return {
     ...data,
@@ -15,9 +34,10 @@ export function transformMovieData(data) {
   return {
     id: data.id,
     title: data.title,
+    backdropPath: data.backdrop_path,
     posterPath: data.poster_path,
     voteAverage: data.vote_average,
     overview: data.overview,
-    watchProviders: data['watch/providers'].results.AU
+    watchProviders: transformWatchProviders(data['watch/providers'].results.IE)
   };
 }
