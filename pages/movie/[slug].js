@@ -40,7 +40,8 @@ function MovieBanner({ movie }) {
       <Box
         css={{
           position: 'absolute',
-          bg: 'rgba(106, 113, 110, 0.8)',
+          bg: '$sage11',
+          opacity: 0.8,
           width: '100%',
           height: '100%',
           zIndex: 1
@@ -66,7 +67,6 @@ function MovieBanner({ movie }) {
             align="center"
             justify="start"
             flow="column"
-            columns={2}
             gap={5}
             css={{ float: 'left', left: '25%', height: '100%' }}
           >
@@ -119,7 +119,7 @@ function WatchProviderButton({ watchProviders }) {
       css={{
         width: '100%',
         height: '100%',
-        bg: '$green9',
+        bg: '$sage1',
         p: '$3',
         borderBottomLeftRadius: '$4',
         borderBottomRightRadius: '$4',
@@ -169,6 +169,7 @@ function ReleaseDates({ id }) {
   if (!data) {
     return null;
   }
+
   const releaseDate = new Intl.DateTimeFormat('en-AU').format(
     new Date(data.releaseDate)
   );
