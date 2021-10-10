@@ -46,6 +46,7 @@ export function transformMovieData(data) {
     voteAverage: data.vote_average,
     overview: data.overview,
     releaseYear: data.release_date.split('-')[0],
+    tagline: data.tagline,
     watchProviders: transformWatchProviders(data['watch/providers'].results.AU)
   };
 }

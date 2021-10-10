@@ -96,7 +96,6 @@ function MovieBanner({ imageProps, movie }) {
         css={{
           position: 'absolute',
           bg,
-          opacity: 0.8,
           width: '100%',
           height: '100%',
           zIndex: 1
@@ -115,7 +114,7 @@ function MovieBanner({ imageProps, movie }) {
         priority
         placeholder="blur"
         blurDataURL={imageProps?.blurDataURL}
-        onLoad={() => setBg('$sage11')}
+        onLoad={() => setBg('rgba(42,47,44,0.9)')}
       />
       <Container size={5} css={{ height: '100%' }}>
         <Box
@@ -128,10 +127,11 @@ function MovieBanner({ imageProps, movie }) {
         >
           <Grid
             align="center"
-            justify="start"
-            flow="column"
+            flow={{ '@bp1': 'row', '@bp3': 'column' }}
             gap={5}
-            css={{ float: 'left', left: '25%', height: '100%' }}
+            css={{
+              '@bp3': { float: 'left', left: '25%', height: '100%' }
+            }}
           >
             <MovieBannerImage
               id={movie.id}
@@ -149,8 +149,8 @@ function MovieBanner({ imageProps, movie }) {
 
 function MovieBannerImage({ id, title, src, watchProviders }) {
   return (
-    <Flex align="center" justify="center" css={{ position: 'relative' }}>
-      <Flex direction="column">
+    <Flex align="center" justify="center">
+      <Flex direction="column" css={{ position: 'relative' }}>
         <NextImage
           className={watchProviders ? 'top-rounded' : 'rounded'}
           src={
@@ -166,8 +166,8 @@ function MovieBannerImage({ id, title, src, watchProviders }) {
         {watchProviders && (
           <WatchProviderButton watchProviders={watchProviders} />
         )}
+        <FavouriteButton movieId={id} />
       </Flex>
-      <FavouriteButton movieId={id} />
     </Flex>
   );
 }
@@ -228,7 +228,18 @@ function MovieBannerDetails({ movie }) {
       <Text heading color="lightGray" fontSize={6}>
         {movie.title} ({movie.releaseYear})
       </Text>
-      <ReleaseDates id={movie.id} />
+      <Flex direction="column" gap={5}>
+        <ReleaseDates id={movie.id} />
+        <Text color="lightGray" italic>
+          {movie.tagline}
+        </Text>
+        <Flex direction="column" gap={3}>
+          <Text color="lightGray" heading>
+            Overview
+          </Text>
+          <Text color="lightGray">{movie.overview}</Text>
+        </Flex>
+      </Flex>
     </Flex>
   );
 }
@@ -247,7 +258,7 @@ function ReleaseDates({ id }) {
   return (
     <Flex align="center" gap={1}>
       {data.certification !== '' && (
-        <Box css={{ border: '1px solid $sage1', p: '$1' }}>
+        <Box css={{ border: '1px solid $sageNoDark', p: '$1' }}>
           <Text color="lightGray" fontSize={2}>
             {data.certification}
           </Text>

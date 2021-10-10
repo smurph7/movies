@@ -96,7 +96,7 @@ export const Text = styled('p', {
         color: '$sage11'
       },
       lightGray: {
-        color: '$sage1'
+        color: '$sageNoDark'
       },
       contrast: {
         color: '$hiContrast'
@@ -117,6 +117,9 @@ export const Text = styled('p', {
         fontWeight: '600',
         fontSize: '$4'
       }
+    },
+    italic: {
+      true: { fontStyle: 'italic' }
     },
     link: {
       true: {
