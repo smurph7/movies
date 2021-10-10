@@ -5,7 +5,15 @@ import axios from 'axios';
 import { getPlaiceholder } from 'plaiceholder';
 
 import { Layout } from '~/components/common';
-import { Container, Box, Text, Flex, Grid, Button } from '~/components/ui';
+import {
+  Container,
+  Box,
+  Text,
+  Flex,
+  Grid,
+  Button,
+  Placeholder
+} from '~/components/ui';
 import { useMovie, useReleaseDates } from '~/components/movies/hooks';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
@@ -56,11 +64,12 @@ export default function Movie({ movie, imageProps }) {
   const id = splitSlug ? splitSlug[splitSlug?.length - 1] : undefined;
 
   const movieQuery = useMovie({ id, movie });
+  const isLoading = movieQuery.isLoading || movieQuery.isIdle;
 
   return (
     <Layout>
-      {movieQuery.isLoading ? (
-        'Loading...'
+      {isLoading ? (
+        <Placeholder width="100%" height={600} />
       ) : (
         <MovieBanner imageProps={imageProps} movie={movieQuery.data} />
       )}
@@ -69,6 +78,7 @@ export default function Movie({ movie, imageProps }) {
 }
 
 function MovieBanner({ imageProps, movie }) {
+  const [bg, setBg] = React.useState();
   if (!movie) {
     return null;
   }
@@ -84,7 +94,7 @@ function MovieBanner({ imageProps, movie }) {
       <Box
         css={{
           position: 'absolute',
-          bg: '$sage11',
+          bg,
           opacity: 0.8,
           width: '100%',
           height: '100%',
@@ -100,6 +110,7 @@ function MovieBanner({ imageProps, movie }) {
         priority
         placeholder="blur"
         blurDataURL={imageProps?.blurDataURL}
+        onLoad={() => setBg('$sage11')}
       />
       <Container size={5} css={{ height: '100%' }}>
         <Box
