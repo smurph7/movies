@@ -96,7 +96,7 @@ export const Text = styled('p', {
         color: '$sage11'
       },
       lightGray: {
-        color: '$sageNoDark'
+        color: '$sage1NoDark'
       },
       contrast: {
         color: '$hiContrast'

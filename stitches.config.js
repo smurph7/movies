@@ -117,7 +117,8 @@ export const { styled, getCssText, createTheme, css } = createStitches({
       transparentPanel: 'hsl(0 0% 0% / 97%)',
       shadowLight: 'hsl(206 22% 7% / 35%)',
       shadowDark: 'hsl(206 22% 7% / 20%)',
-      sageNoDark: '$sage1'
+      sage1NoDark: '$sage1',
+      sage11NoDark: '$sage11'
     },
     fonts: {
       body: 'Inter, sans-serif',
