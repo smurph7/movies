@@ -9,7 +9,7 @@ import { usePrefetchMovie } from '~/components/movies/hooks';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 
 export function MovieCard({ movie, isLoading }) {
-  const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
+  const imageBaseUrl = `${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}w342`;
 
   const href = `/movie/${getUrlFromString(movie?.title)}-${movie?.id}`;
 

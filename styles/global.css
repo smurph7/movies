@@ -1,3 +1,10 @@
 .profile {
   border-radius: 50%;
 }
+.rounded {
+  border-radius: 12px;
+}
+.top-rounded {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}

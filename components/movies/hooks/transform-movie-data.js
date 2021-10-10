@@ -1,4 +1,7 @@
 function transformProvider(provider) {
+  if (!provider) {
+    return;
+  }
   return {
     providerId: provider.provider_id,
     providerName: provider.provider_name,
@@ -8,6 +11,9 @@ function transformProvider(provider) {
 }
 
 function transformWatchProviders(watchProviders) {
+  if (!watchProviders) {
+    return;
+  }
   return {
     link: watchProviders.link,
     buy: watchProviders.buy.map(provider => transformProvider(provider)),
