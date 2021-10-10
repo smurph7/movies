@@ -47,7 +47,8 @@ function MovieBanner({ movie }) {
         }}
       />
       <NextImage
-        src={`${IMAGE_BASE_URL}original${movie?.backdropPath}`}
+        src={`${IMAGE_BASE_URL}original${movie.backdropPath}`}
+        alt={`${movie.title}-backdrop`}
         layout="fill"
         objectFit="cover"
         objectPosition="top"
@@ -70,6 +71,7 @@ function MovieBanner({ movie }) {
             css={{ float: 'left', left: '25%', height: '100%' }}
           >
             <MovieBannerImage
+              title={movie.title}
               src={movie.posterPath}
               watchProviders={movie.watchProviders}
             />
@@ -81,13 +83,14 @@ function MovieBanner({ movie }) {
   );
 }
 
-function MovieBannerImage({ src, watchProviders }) {
+function MovieBannerImage({ title, src, watchProviders }) {
   return (
     <Flex align="center" justify="center">
       <Flex direction="column">
         <NextImage
           className={watchProviders ? 'top-rounded' : 'rounded'}
           src={`${IMAGE_BASE_URL}w500${src}`}
+          alt={`${title}-poster`}
           width={300}
           height={450}
         />
@@ -128,6 +131,7 @@ function WatchProviderButton({ watchProviders }) {
         <NextImage
           className="rounded"
           src={`${IMAGE_BASE_URL}w92${providerToDisplay.logoPath}`}
+          alt={`${providerToDisplay.providerName}-logo`}
           width={60}
           height={60}
         />
