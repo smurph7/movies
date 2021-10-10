@@ -49,8 +49,8 @@ export function FavouriteButton({ movieId }) {
           variant="semiTransparentGray"
           onClick={handleClick}
           css={{
-            zIndex: 1,
             position: 'absolute',
+            top: 0,
             right: 0,
             color: 'white',
             height: 30,

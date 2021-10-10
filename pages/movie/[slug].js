@@ -16,6 +16,7 @@ import {
 } from '~/components/ui';
 import { useMovie, useReleaseDates } from '~/components/movies/hooks';
 import { IMAGE_BASE_URL } from '~/utils/config';
+import { FavouriteButton } from '~/components/movies';
 
 export async function getStaticProps({ params }) {
   const splitSlug = params.slug?.split('-');
@@ -102,7 +103,11 @@ function MovieBanner({ imageProps, movie }) {
         }}
       />
       <NextImage
-        src={`${IMAGE_BASE_URL}original${movie.backdropPath}`}
+        src={
+          movie.backdropPath
+            ? `${IMAGE_BASE_URL}original${movie.backdropPath}`
+            : '/movie-poster-placeholder.svg'
+        }
         alt={`${movie.title}-backdrop`}
         layout="fill"
         objectFit="cover"
@@ -129,6 +134,7 @@ function MovieBanner({ imageProps, movie }) {
             css={{ float: 'left', left: '25%', height: '100%' }}
           >
             <MovieBannerImage
+              id={movie.id}
               title={movie.title}
               src={movie.posterPath}
               watchProviders={movie.watchProviders}
@@ -141,13 +147,17 @@ function MovieBanner({ imageProps, movie }) {
   );
 }
 
-function MovieBannerImage({ title, src, watchProviders }) {
+function MovieBannerImage({ id, title, src, watchProviders }) {
   return (
-    <Flex align="center" justify="center">
+    <Flex align="center" justify="center" css={{ position: 'relative' }}>
       <Flex direction="column">
         <NextImage
           className={watchProviders ? 'top-rounded' : 'rounded'}
-          src={`${IMAGE_BASE_URL}w500${src}`}
+          src={
+            src
+              ? `${IMAGE_BASE_URL}w500${src}`
+              : '/movie-poster-placeholder.svg'
+          }
           alt={`${title}-poster`}
           width={300}
           height={450}
@@ -157,6 +167,7 @@ function MovieBannerImage({ title, src, watchProviders }) {
           <WatchProviderButton watchProviders={watchProviders} />
         )}
       </Flex>
+      <FavouriteButton movieId={id} />
     </Flex>
   );
 }

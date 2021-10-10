@@ -32,7 +32,13 @@ export function MovieCard({ movie, isLoading }) {
     <Card bounceOnHover onMouseEnter={handlePrefetchMovie}>
       <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
         <NextLink href={href}>
-          <Box css={{ color: '$contrast', cursor: 'pointer' }}>
+          <Box
+            css={{
+              height: '100%',
+              color: '$contrast',
+              cursor: 'pointer'
+            }}
+          >
             <NextImage
               src={
                 movie.posterPath
@@ -44,27 +50,27 @@ export function MovieCard({ movie, isLoading }) {
               objectFit="cover"
               priority
             />
+            {!movie.posterPath && (
+              <Flex
+                align="center"
+                justify="center"
+                css={{
+                  width: '100%',
+                  height: '100%',
+                  position: 'relative',
+                  zIndex: 1,
+                  pt: '$10',
+                  textAlign: 'center'
+                }}
+              >
+                <Text color="gray">
+                  {movie.title} ({movie.releaseYear})
+                </Text>
+              </Flex>
+            )}
+            <FavouriteButton movieId={movie.id} />
           </Box>
         </NextLink>
-        <FavouriteButton movieId={movie.id} />
-        {!movie.posterPath && (
-          <Flex
-            align="center"
-            justify="center"
-            css={{
-              width: '100%',
-              height: '100%',
-              position: 'relative',
-              zIndex: 1,
-              pt: 100,
-              textAlign: 'center'
-            }}
-          >
-            <Text>
-              {movie.title} ({movie.releaseYear})
-            </Text>
-          </Flex>
-        )}
       </Box>
     </Card>
   );
