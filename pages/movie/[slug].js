@@ -76,9 +76,9 @@ function MovieBanner({ movie }) {
                   width={300}
                   height={450}
                 />
-                {/* {movie.watchProviders && (
+                {movie.watchProviders && (
                   <WatchProviderButton watchProviders={movie.watchProviders} />
-                )} */}
+                )}
               </Flex>
             </Flex>
             <MovieBannerDetails movie={movie} />
@@ -86,6 +86,51 @@ function MovieBanner({ movie }) {
         </Box>
       </Container>
     </Box>
+  );
+}
+
+function WatchProviderButton({ watchProviders }) {
+  if (!watchProviders) {
+    return null;
+  }
+
+  const allProviders = [...watchProviders?.flatrate, ...watchProviders.buy];
+
+  const providerToDisplay = allProviders.reduce((prev, current) =>
+    prev.displayPriority < current.displayPriority ? prev : current
+  );
+
+  return (
+    <Button
+      variant="reset"
+      css={{
+        width: '100%',
+        height: '100%',
+        bg: '$green9',
+        p: '$4',
+        borderBottomLeftRadius: '$4',
+        borderBottomRightRadius: '$4',
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0
+      }}
+    >
+      <Flex align="center" justify="center" gap={0}>
+        <NextImage
+          className="rounded"
+          src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}w92${providerToDisplay.logoPath}`}
+          width={60}
+          height={60}
+        />
+        <Flex
+          direction="column"
+          gap={1}
+          css={{ width: '100%', textAlign: 'center' }}
+        >
+          <Text color="contrast">Available on</Text>
+          <Text color="contrast">{providerToDisplay.providerName}</Text>
+        </Flex>
+      </Flex>
+    </Button>
   );
 }
 
