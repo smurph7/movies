@@ -7,9 +7,11 @@ import { FavouriteButton } from '..';
 import { Box, Flex, Text, Card, Placeholder } from '~/components/ui';
 import { usePrefetchMovie } from '~/components/movies/hooks';
 import { getUrlFromString } from '~/utils/get-url-from-string';
+import { IMAGE_BASE_URL } from '~/utils/config';
+
 
 export function MovieCard({ movie, isLoading }) {
-  const imageBaseUrl = `${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}w342`;
+  const imageBaseUrl = `${IMAGE_BASE_URL}w342`;
 
   const href = `/movie/${getUrlFromString(movie?.title)}-${movie?.id}`;
 

@@ -4,6 +4,8 @@ import { render } from '../../../test-utils';
 
 import { MovieCard } from '.';
 
+import { IMAGE_BASE_URL } from '~/utils/config';
+
 function mockNextImage({ src, alt }) {
   return <img src={src} alt={alt} />;
 }
@@ -44,7 +46,7 @@ describe('MovieCard', () => {
     const { getByAltText } = render(<MovieCard movie={movie} />);
     expect(getByAltText(movie.title)).toHaveAttribute(
       'src',
-      'https://image.tmdb.org/t/p/w500/image.jpg'
+      `${IMAGE_BASE_URL}w342/image.jpg`
     );
   });
 

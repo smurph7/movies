@@ -44,6 +44,7 @@ export function transformMovieData(data) {
     posterPath: data.poster_path,
     voteAverage: data.vote_average,
     overview: data.overview,
+    releaseYear: data.release_date.split('-')[0],
     watchProviders: transformWatchProviders(data['watch/providers'].results.IE)
   };
 }

@@ -4,7 +4,8 @@ import NextImage from 'next/image';
 
 import { Layout } from '~/components/common';
 import { Container, Box, Text, Flex, Grid, Button } from '~/components/ui';
-import { useMovie } from '~/components/movies/hooks';
+import { useMovie, useReleaseDates } from '~/components/movies/hooks';
+import { IMAGE_BASE_URL } from '~/utils/config';
 
 export default function Movie() {
   const router = useRouter();
@@ -46,7 +47,7 @@ function MovieBanner({ movie }) {
         }}
       />
       <NextImage
-        src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}original${movie?.backdropPath}`}
+        src={`${IMAGE_BASE_URL}original${movie?.backdropPath}`}
         layout="fill"
         objectFit="cover"
         objectPosition="top"
@@ -86,7 +87,7 @@ function MovieBannerImage({ src, watchProviders }) {
       <Flex direction="column">
         <NextImage
           className={watchProviders ? 'top-rounded' : 'rounded'}
-          src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}w500${src}`}
+          src={`${IMAGE_BASE_URL}w500${src}`}
           width={300}
           height={450}
         />
@@ -116,7 +117,7 @@ function WatchProviderButton({ watchProviders }) {
         width: '100%',
         height: '100%',
         bg: '$green9',
-        p: '$4',
+        p: '$3',
         borderBottomLeftRadius: '$4',
         borderBottomRightRadius: '$4',
         borderTopLeftRadius: 0,
@@ -126,7 +127,7 @@ function WatchProviderButton({ watchProviders }) {
       <Flex align="center" justify="center" gap={0}>
         <NextImage
           className="rounded"
-          src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}w92${providerToDisplay.logoPath}`}
+          src={`${IMAGE_BASE_URL}w92${providerToDisplay.logoPath}`}
           width={60}
           height={60}
         />
@@ -144,13 +145,40 @@ function WatchProviderButton({ watchProviders }) {
 }
 
 function MovieBannerDetails({ movie }) {
+  if (!movie) {
+    return null;
+  }
+
   return (
-    <Flex>
-      <Text>{movie?.title}</Text>
-      <Text>{movie?.title}</Text>
-      <Text>{movie?.title}</Text>
-      <Text>{movie?.title}</Text>
-      <Text>{movie?.title}</Text>
+    <Flex direction="column" gap={3}>
+      <Text heading color="lightGray" fontSize={6}>
+        {movie.title} ({movie.releaseYear})
+      </Text>
+      <ReleaseDates id={movie.id} />
+    </Flex>
+  );
+}
+
+function ReleaseDates({ id }) {
+  const { data } = useReleaseDates({ id });
+
+  if (!data) {
+    return null;
+  }
+  const releaseDate = new Intl.DateTimeFormat('en-AU').format(
+    new Date(data.releaseDate)
+  );
+
+  return (
+    <Flex align="center" gap={1}>
+      <Box css={{ border: '1px solid $sage1', p: '$1' }}>
+        <Text color="lightGray" fontSize={2}>
+          {data.certification}
+        </Text>
+      </Box>
+      <Text color="lightGray" fontSize={2}>
+        {releaseDate} ({data.region})
+      </Text>
     </Flex>
   );
 }
