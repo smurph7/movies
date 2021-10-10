@@ -68,24 +68,33 @@ function MovieBanner({ movie }) {
             gap={5}
             css={{ float: 'left', left: '25%', height: '100%' }}
           >
-            <Flex align="center" justify="center">
-              <Flex direction="column" css={{}}>
-                <NextImage
-                  className={movie.watchProviders ? 'top-rounded' : 'rounded'}
-                  src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}w500${movie?.posterPath}`}
-                  width={300}
-                  height={450}
-                />
-                {movie.watchProviders && (
-                  <WatchProviderButton watchProviders={movie.watchProviders} />
-                )}
-              </Flex>
-            </Flex>
+            <MovieBannerImage
+              src={movie.posterPath}
+              watchProviders={movie.watchProviders}
+            />
             <MovieBannerDetails movie={movie} />
           </Grid>
         </Box>
       </Container>
     </Box>
+  );
+}
+
+function MovieBannerImage({ src, watchProviders }) {
+  return (
+    <Flex align="center" justify="center">
+      <Flex direction="column">
+        <NextImage
+          className={watchProviders ? 'top-rounded' : 'rounded'}
+          src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}w500${src}`}
+          width={300}
+          height={450}
+        />
+        {watchProviders && (
+          <WatchProviderButton watchProviders={watchProviders} />
+        )}
+      </Flex>
+    </Flex>
   );
 }
 
