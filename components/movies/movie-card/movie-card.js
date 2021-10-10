@@ -9,7 +9,6 @@ import { usePrefetchMovie } from '~/components/movies/hooks';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
-
 export function MovieCard({ movie, isLoading }) {
   const imageBaseUrl = `${IMAGE_BASE_URL}w342`;
 

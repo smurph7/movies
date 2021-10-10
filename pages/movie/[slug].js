@@ -1,30 +1,74 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import NextImage from 'next/image';
+import axios from 'axios';
+import { getPlaiceholder } from 'plaiceholder';
 
 import { Layout } from '~/components/common';
 import { Container, Box, Text, Flex, Grid, Button } from '~/components/ui';
 import { useMovie, useReleaseDates } from '~/components/movies/hooks';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
-export default function Movie() {
+export async function getStaticProps({ params }) {
+  const splitSlug = params.slug?.split('-');
+  const id = splitSlug ? splitSlug[splitSlug?.length - 1] : undefined;
+  let movie;
+  let base64;
+  let img;
+
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=watch/providers`
+    );
+    const placeholder = await getPlaiceholder(
+      `${IMAGE_BASE_URL}original${data.backdrop_path}`
+    );
+    base64 = placeholder.base64;
+    img = placeholder.img;
+    movie = data;
+  } catch (error) {
+    movie = {};
+    img = {};
+    base64 = {};
+  }
+
+  return {
+    props: {
+      movie,
+      imageProps: {
+        ...img,
+        blurDataURL: base64
+      }
+    },
+    revalidate: 60 * 60
+  };
+}
+
+export async function getStaticPaths() {
+  return { paths: [], fallback: true };
+}
+
+export default function Movie({ movie, imageProps }) {
   const router = useRouter();
   const { slug } = router.query;
 
   const splitSlug = slug?.split('-');
   const id = splitSlug ? splitSlug[splitSlug?.length - 1] : undefined;
 
-  const movieQuery = useMovie({ id });
-  const { data: movie } = movieQuery;
+  const movieQuery = useMovie({ id, movie });
 
   return (
     <Layout>
-      {movieQuery.isLoading ? 'Loading...' : <MovieBanner movie={movie} />}
+      {movieQuery.isLoading ? (
+        'Loading...'
+      ) : (
+        <MovieBanner imageProps={imageProps} movie={movieQuery.data} />
+      )}
     </Layout>
   );
 }
 
-function MovieBanner({ movie }) {
+function MovieBanner({ imageProps, movie }) {
   if (!movie) {
     return null;
   }
@@ -53,6 +97,9 @@ function MovieBanner({ movie }) {
         layout="fill"
         objectFit="cover"
         objectPosition="top"
+        priority
+        placeholder="blur"
+        blurDataURL={imageProps?.blurDataURL}
       />
       <Container size={5} css={{ height: '100%' }}>
         <Box
@@ -93,6 +140,7 @@ function MovieBannerImage({ title, src, watchProviders }) {
           alt={`${title}-poster`}
           width={300}
           height={450}
+          priority
         />
         {watchProviders && (
           <WatchProviderButton watchProviders={watchProviders} />
