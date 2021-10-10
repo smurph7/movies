@@ -17,36 +17,51 @@ import {
 import { useMovie, useReleaseDates } from '~/components/movies/hooks';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { FavouriteButton } from '~/components/movies';
+import { Media } from '~/styles/media';
+import { useBreakpoint } from '~/utils/use-breakpoint';
+import { useThemeChange } from '~/components/ui/theme-change-button/hooks';
 
 export async function getStaticProps({ params }) {
   const splitSlug = params.slug?.split('-');
   const id = splitSlug ? splitSlug[splitSlug?.length - 1] : undefined;
   let movie;
-  let base64;
-  let img;
+  let bgBlurDataUrl;
+  let posterBlurDataUrl;
 
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=watch/providers`
     );
-    const placeholder = await getPlaiceholder(
-      `${IMAGE_BASE_URL}original${data.backdrop_path}`
-    );
-    base64 = placeholder.base64;
-    img = placeholder.img;
+
+    try {
+      const { base64: bgBase64 } = await getPlaiceholder(
+        `${IMAGE_BASE_URL}original${data.backdrop_path}`
+      );
+      bgBlurDataUrl = bgBase64;
+    } catch (error) {
+      bgBlurDataUrl = {};
+    }
+
+    try {
+      const { base64: posterBase64 } = await getPlaiceholder(
+        `${IMAGE_BASE_URL}w500${data.poster_path}`
+      );
+      posterBlurDataUrl = posterBase64;
+    } catch (error) {
+      posterBlurDataUrl = {};
+    }
+
     movie = data;
   } catch (error) {
     movie = {};
-    img = {};
-    base64 = {};
   }
 
   return {
     props: {
       movie,
       imageProps: {
-        ...img,
-        blurDataURL: base64
+        bgBlurDataUrl,
+        posterBlurDataUrl
       }
     },
     revalidate: 60 * 60
@@ -79,7 +94,8 @@ export default function Movie({ movie, imageProps }) {
 }
 
 function MovieBanner({ imageProps, movie }) {
-  const [bg, setBg] = React.useState();
+  const isMobile = useBreakpoint('bp3');
+  const [bg, setBg] = React.useState('rgba(42,47,44,0.4)');
   if (!movie) {
     return null;
   }
@@ -88,34 +104,36 @@ function MovieBanner({ imageProps, movie }) {
     <Box
       css={{
         width: '100%',
-        height: 600,
+        height: isMobile ? 'auto' : 600,
         position: 'relative'
       }}
     >
-      <Box
-        css={{
-          position: 'absolute',
-          bg,
-          width: '100%',
-          height: '100%',
-          zIndex: 1
-        }}
-      />
-      <NextImage
-        src={
-          movie.backdropPath
-            ? `${IMAGE_BASE_URL}original${movie.backdropPath}`
-            : '/movie-poster-placeholder.svg'
-        }
-        alt={`${movie.title}-backdrop`}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="top"
-        priority
-        placeholder="blur"
-        blurDataURL={imageProps?.blurDataURL}
-        onLoad={() => setBg('rgba(42,47,44,0.9)')}
-      />
+      <Media greaterThanOrEqual="bp3">
+        <Box
+          css={{
+            position: 'absolute',
+            bg,
+            width: '100%',
+            height: '100%',
+            zIndex: 1
+          }}
+        />
+        <NextImage
+          src={
+            movie.backdropPath
+              ? `${IMAGE_BASE_URL}original${movie.backdropPath}`
+              : '/movie-poster-placeholder.svg'
+          }
+          alt={`${movie.title}-backdrop`}
+          layout="fill"
+          objectFit="cover"
+          objectPosition="top"
+          priority
+          placeholder="blur"
+          blurDataURL={imageProps.bgBlurDataUrl}
+          onLoad={() => setBg('rgba(42,47,44,0.9)')}
+        />
+      </Media>
       <Container size={5} css={{ height: '100%' }}>
         <Box
           css={{
@@ -137,6 +155,7 @@ function MovieBanner({ imageProps, movie }) {
               id={movie.id}
               title={movie.title}
               src={movie.posterPath}
+              imageProps={imageProps}
               watchProviders={movie.watchProviders}
             />
             <MovieBannerDetails movie={movie} />
@@ -147,7 +166,7 @@ function MovieBanner({ imageProps, movie }) {
   );
 }
 
-function MovieBannerImage({ id, title, src, watchProviders }) {
+function MovieBannerImage({ id, title, src, imageProps, watchProviders }) {
   return (
     <Flex align="center" justify="center">
       <Flex direction="column" css={{ position: 'relative' }}>
@@ -162,6 +181,8 @@ function MovieBannerImage({ id, title, src, watchProviders }) {
           width={300}
           height={450}
           priority
+          placeholder="blur"
+          blurDataURL={imageProps.posterBlurDataUrl}
         />
         {watchProviders && (
           <WatchProviderButton watchProviders={watchProviders} />
@@ -173,6 +194,7 @@ function MovieBannerImage({ id, title, src, watchProviders }) {
 }
 
 function WatchProviderButton({ watchProviders }) {
+  const isMobile = useBreakpoint('bp3');
   if (!watchProviders) {
     return null;
   }
@@ -189,7 +211,7 @@ function WatchProviderButton({ watchProviders }) {
       css={{
         width: '100%',
         height: '100%',
-        bg: '$sage1',
+        bg: '$sage3',
         p: '$3',
         borderBottomLeftRadius: '$4',
         borderBottomRightRadius: '$4',
@@ -219,25 +241,34 @@ function WatchProviderButton({ watchProviders }) {
 }
 
 function MovieBannerDetails({ movie }) {
+  const isMobile = useBreakpoint('bp3');
+  const { theme } = useThemeChange();
+  const color = isMobile ? 'gray' : 'lightGray';
   if (!movie) {
     return null;
   }
 
   return (
-    <Flex direction="column" gap={3}>
-      <Text heading color="lightGray" fontSize={6}>
+    <Flex
+      direction="column"
+      gap={3}
+      css={{ bg: isMobile && theme === 'theme-default' && '$sage11' }}
+    >
+      <Text heading color={color} fontSize={6}>
         {movie.title} ({movie.releaseYear})
       </Text>
       <Flex direction="column" gap={5}>
         <ReleaseDates id={movie.id} />
-        <Text color="lightGray" italic>
+        <Text color={color} italic>
           {movie.tagline}
         </Text>
         <Flex direction="column" gap={3}>
-          <Text color="lightGray" heading>
+          <Text color={color} heading>
             Overview
           </Text>
-          <Text color="lightGray">{movie.overview}</Text>
+          <Text color={color} css={{ lineHeight: 1.2 }}>
+            {movie.overview}
+          </Text>
         </Flex>
       </Flex>
     </Flex>
@@ -246,6 +277,8 @@ function MovieBannerDetails({ movie }) {
 
 function ReleaseDates({ id }) {
   const { data } = useReleaseDates({ id });
+  const isMobile = useBreakpoint('bp3');
+  const color = isMobile ? 'gray' : 'lightGray';
 
   if (!data) {
     return null;
@@ -258,13 +291,13 @@ function ReleaseDates({ id }) {
   return (
     <Flex align="center" gap={1}>
       {data.certification !== '' && (
-        <Box css={{ border: '1px solid $sageNoDark', p: '$1' }}>
-          <Text color="lightGray" fontSize={2}>
+        <Box css={{ border: '1px solid $sage1NoDark', p: '$1' }}>
+          <Text color={color} fontSize={2}>
             {data.certification}
           </Text>
         </Box>
       )}
-      <Text color="lightGray" fontSize={2}>
+      <Text color={color} fontSize={2}>
         {releaseDate} ({data.region})
       </Text>
     </Flex>
