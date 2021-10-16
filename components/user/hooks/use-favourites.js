@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { useUser } from '@auth0/nextjs-auth0';
 
 async function getFavourites() {
   const { data } = await axios.get('/api/auth/profile');
@@ -8,7 +9,11 @@ async function getFavourites() {
 }
 
 export function useFavouritesQuery({ queryConfig } = {}) {
-  return useQuery('favourites', getFavourites, { ...queryConfig });
+  const { user } = useUser();
+  return useQuery('favourites', getFavourites, {
+    ...queryConfig,
+    enabled: !!user
+  });
 }
 
 export function useIsFavouriteQuery(movieId) {
