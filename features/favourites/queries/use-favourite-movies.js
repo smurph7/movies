@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+
+import { moviesAxios } from '../../../api-client';
 
 import { useFavourites } from './use-favourites';
 
@@ -10,10 +11,8 @@ export async function fetchMovie({ queryKey }) {
   const requests = favourites.map(
     favourite =>
       new Promise(resolve => {
-        axios
-          .get(
-            `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${favourite}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-          )
+        moviesAxios
+          .get(`/movie/${favourite}`)
           .then(({ data }) => {
             resolve(data);
           })

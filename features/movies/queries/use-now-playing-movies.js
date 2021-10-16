@@ -1,12 +1,10 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
 
+import { moviesAxios } from '../../../api-client';
 import { transformMoviesData } from '../utils/transform-movie-data';
 
 export async function fetchNowPlayingMovies() {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&region=AU`
-  );
+  const { data } = await moviesAxios.get(`/movie/now_playing?region=AU`);
   return data;
 }
 

@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+
+import { moviesAxios } from '../../../api-client';
 
 function transformReleaseDates(data) {
   const RELEASE_REGION = 'AU';
@@ -48,9 +49,7 @@ function transformReleaseDates(data) {
 
 export async function fetchReleaseDates({ queryKey }) {
   const [, { id }] = queryKey;
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}/release_dates?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-  );
+  const { data } = await moviesAxios.get(`/movie/${id}/release_dates`);
   return data;
 }
 

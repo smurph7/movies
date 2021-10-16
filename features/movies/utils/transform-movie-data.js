@@ -20,7 +20,9 @@ function transformWatchProviders(watchProviders) {
       watchProviders?.buy?.map(provider => transformProvider(provider)) ?? [],
     flatrate:
       watchProviders?.flatrate?.map(provider => transformProvider(provider)) ??
-      []
+      [],
+    rent:
+      watchProviders?.rent?.map(provider => transformProvider(provider)) ?? []
   };
 }
 

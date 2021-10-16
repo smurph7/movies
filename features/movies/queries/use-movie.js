@@ -1,12 +1,13 @@
 import { useQuery, useQueryClient } from 'react-query';
-import axios from 'axios';
 
 import { transformMovieData } from '../utils/transform-movie-data';
+import { moviesAxios } from '../../../api-client';
 
 export async function fetchMovie({ queryKey }) {
   const [, { id }] = queryKey;
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=watch/providers`
+
+  const { data } = await moviesAxios.get(
+    `/movie/${id}?append_to_response=watch/providers`
   );
 
   return data;

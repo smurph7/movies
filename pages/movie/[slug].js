@@ -1,7 +1,7 @@
 import * as React from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import NextImage from 'next/image';
-import axios from 'axios';
 import { getPlaiceholder } from 'plaiceholder';
 
 import { Layout } from '~/features/common/components';
@@ -31,7 +31,12 @@ export async function getStaticProps({ params }) {
 
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=watch/providers`
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?append_to_response=watch/providers`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`
+        }
+      }
     );
 
     try {
@@ -274,8 +279,44 @@ function WatchProviderButton({ watchProviders }) {
   );
 }
 
-function WatchProviders() {
-  return <Flex css={{ bg: '$indigo9' }}>overlay</Flex>;
+function WatchProviderSection({ title, type }) {
+  return (
+    <Flex direction="column" gap={3}>
+      <Text fontWeight="$bold" fontSize={4} color="contrast">
+        {title}
+      </Text>
+      <Flex gap={3}>
+        {type?.map(provider => (
+          <Box css={{ width: 50, height: 50 }}>
+            <NextImage
+              className="rounded"
+              src={`${IMAGE_BASE_URL}w92${provider.logoPath}`}
+              alt={`${provider.providerName}-logo`}
+              width={50}
+              height={50}
+            />
+          </Box>
+        ))}
+      </Flex>
+    </Flex>
+  );
+}
+
+function WatchProviderOverlay({ watchProviders }) {
+  // separate query and add alt regions
+
+  const { flatrate: stream, rent, buy } = watchProviders;
+  return (
+    <Flex align="center" css={{ bg: 'rgba(62,99,221,0.5)', height: '100%' }}>
+      <Flex css={{ p: '$8' }}>
+        <Flex direction="column" gap={5}>
+          {stream && <WatchProviderSection title="Stream" type={stream} />}
+          {rent && <WatchProviderSection title="Rent" type={rent} />}
+          {buy && <WatchProviderSection title="Buy" type={buy} />}
+        </Flex>
+      </Flex>
+    </Flex>
+  );
 }
 
 function MovieBannerDetails({ movie }) {
@@ -288,7 +329,7 @@ function MovieBannerDetails({ movie }) {
   }
 
   return isOpen ? (
-    <WatchProviders />
+    <WatchProviderOverlay watchProviders={movie.watchProviders} />
   ) : (
     <Flex
       direction="column"
