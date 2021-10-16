@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
-import { transformMoviesData } from './transform-movie-data';
+import { transformMoviesData } from '../utils/transform-movie-data';
 
 export async function fetchNowPlayingMovies() {
   const { data } = await axios.get(

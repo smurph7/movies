@@ -1,7 +1,7 @@
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 
-import { transformMoviesData } from './transform-movie-data';
+import { transformMoviesData } from '../utils/transform-movie-data';
 
 import { useFavouritesQuery } from '~/features/user/hooks';
 
@@ -9,7 +9,7 @@ export async function fetchMovie({ queryKey }) {
   const [, { favourites }] = queryKey;
   const requests = favourites.map(
     favourite =>
-      new Promise((resolve, reject) => {
+      new Promise(resolve => {
         axios
           .get(
             `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${favourite}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
