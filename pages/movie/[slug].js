@@ -95,7 +95,7 @@ export default function Movie({ movie, imageProps }) {
 
 function MovieBanner({ imageProps, movie }) {
   const isMobile = useBreakpoint('bp3');
-  const [bg, setBg] = React.useState('rgba(42,47,44,0.4)');
+  const [bg, setBg] = React.useState('rgba(42,47,44,0.6)');
   if (!movie) {
     return null;
   }
@@ -194,7 +194,6 @@ function MovieBannerImage({ id, title, src, imageProps, watchProviders }) {
 }
 
 function WatchProviderButton({ watchProviders }) {
-  const isMobile = useBreakpoint('bp3');
   if (!watchProviders) {
     return null;
   }
@@ -281,7 +280,7 @@ function ReleaseDates({ id }) {
   const color = isMobile ? 'gray' : 'lightGray';
 
   if (!data) {
-    return null;
+    return <Box css={{ p: '$3' }} />;
   }
 
   const releaseDate = new Intl.DateTimeFormat('en-AU').format(
@@ -290,16 +289,18 @@ function ReleaseDates({ id }) {
 
   return (
     <Flex align="center" gap={1}>
-      {data.certification !== '' && (
+      {data.certification && data.certification !== '' && (
         <Box css={{ border: '1px solid $sage1NoDark', p: '$1' }}>
           <Text color={color} fontSize={2}>
             {data.certification}
           </Text>
         </Box>
       )}
-      <Text color={color} fontSize={2}>
-        {releaseDate} ({data.region})
-      </Text>
+      {data.releaseDate && (
+        <Text color={color} fontSize={2}>
+          {releaseDate} ({data.region})
+        </Text>
+      )}
     </Flex>
   );
 }

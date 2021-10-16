@@ -18,27 +18,31 @@ function transformReleaseDates(data) {
 
   const regionData = regionResults?.release_dates.map(result => ({
     certification: result.certification,
-    releaseDate: result.release_date
+    releaseDate: result.release_date,
+    region: regionResults.iso_3166_1
   }))[0];
 
   const fallbackRegionData = fallbackRegionResults?.release_dates.map(
     result => ({
       certification: result.certification,
-      releaseDate: result.release_date
+      releaseDate: result.release_date,
+      region: fallbackRegionResults.iso_3166_1
     })
   )[0];
 
   return {
     certification:
-      regionData.certification !== ''
-        ? regionData.certification
-        : fallbackRegionData.certification,
+      regionData?.certification !== ''
+        ? regionData?.certification
+        : fallbackRegionData?.certification,
     releaseDate:
-      regionData.release_date !== ''
-        ? regionData.releaseDate
-        : fallbackRegionData.releaseDate,
+      regionData?.releaseDate && regionData?.releaseDate !== ''
+        ? regionData?.releaseDate
+        : fallbackRegionData?.releaseDate,
     region:
-      regionData.releaseDate !== '' ? RELEASE_REGION : FALLBACK_RELEASE_REGION
+      regionData?.releaseDate && regionData?.releaseDate !== ''
+        ? regionData?.region
+        : fallbackRegionData?.region
   };
 }
 
