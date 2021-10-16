@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Box } from '~/components/ui';
-import { Header, Footer } from '~/components/common';
+import { Box } from '~/features/ui';
+import { Header, Footer } from '~/features/common';
 
 export function Layout({ children }) {
   return (

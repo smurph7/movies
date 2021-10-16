@@ -4,7 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { IoHeartOutline, IoPersonCircleOutline } from 'react-icons/io5';
 import { ExitIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 
-import { Box, Text, Flex, Button, ThemeChangeButton } from '~/components/ui';
+import { Box, Text, Flex, Button, ThemeChangeButton } from '~/features/ui';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,14 +12,10 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator
-} from '~/components/ui/dropdown-menu';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent
-} from '~/components/ui/popover';
-import { UserHeaderButton } from '~/components/user';
-import { useThemeChange } from '~/components/ui/theme-change-button/hooks';
+} from '~/features/ui/dropdown-menu';
+import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
+import { UserHeaderButton } from '~/features/user';
+import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
 
 export function Header() {

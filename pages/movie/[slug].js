@@ -4,7 +4,7 @@ import NextImage from 'next/image';
 import axios from 'axios';
 import { getPlaiceholder } from 'plaiceholder';
 
-import { Layout } from '~/components/common';
+import { Layout } from '~/features/common';
 import {
   Container,
   Box,
@@ -13,17 +13,17 @@ import {
   Grid,
   Button,
   Placeholder
-} from '~/components/ui';
-import { useMovie, useReleaseDates } from '~/components/movies/hooks';
+} from '~/features/ui';
+import { useMovie, useReleaseDates } from '~/features/movies/hooks';
 import { IMAGE_BASE_URL } from '~/utils/config';
-import { FavouriteButton } from '~/components/movies';
+import { FavouriteButton } from '~/features/movies';
 import { Media } from '~/styles/media';
 import { useBreakpoint } from '~/utils/use-breakpoint';
-import { useThemeChange } from '~/components/ui/theme-change-button/hooks';
+import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import {
   MovieProvider,
   useMovieContext
-} from '~/components/movies/hooks/use-movie-context';
+} from '~/features/movies/hooks/use-movie-context';
 
 export async function getStaticProps({ params }) {
   const splitSlug = params.slug?.split('-');
@@ -91,7 +91,18 @@ export default function Movie({ movie, imageProps }) {
       {isLoading ? (
         <Placeholder width="100%" height={600} />
       ) : (
-        <MovieBanner imageProps={imageProps} movie={movieQuery.data} />
+        <>
+          <MovieBanner imageProps={imageProps} movie={movieQuery.data} />
+          <Container size={5} css={{ height: '100%' }}>
+            <Box>hello there</Box>
+            {/* watch providers */}
+            {/* Regions */}
+            {/* Languages */}
+            {/* Cast  */}
+            {/* Reviews */}
+            {/* Status (col) */}
+          </Container>
+        </>
       )}
     </Layout>
   );

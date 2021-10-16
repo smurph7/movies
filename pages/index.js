@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { Container, StyledCarousel, Flex, Text } from '~/components/ui';
-import { Layout } from '~/components/common';
-import { MovieCard } from '~/components/movies';
+import { Container, StyledCarousel, Flex, Text } from '~/features/ui';
+import { Layout } from '~/features/common';
+import { MovieCard } from '~/features/movies';
 import {
   useNowPlayingMovies,
   usePopularMovies,
   useTrendingMovies,
   useUpcomingMovies
-} from '~/components/movies/hooks';
+} from '~/features/movies/hooks';
 
 const NUMBER_OF_PLACEHOLDERS = 6;
 

@@ -4,8 +4,8 @@ import NextImage from 'next/image';
 
 import { FavouriteButton } from '..';
 
-import { Box, Flex, Text, Card, Placeholder } from '~/components/ui';
-import { usePrefetchMovie } from '~/components/movies/hooks';
+import { Box, Flex, Text, Card, Placeholder } from '~/features/ui';
+import { usePrefetchMovie } from '~/features/movies/hooks';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 import { IMAGE_BASE_URL } from '~/utils/config';
 

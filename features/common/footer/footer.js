@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Text, Flex } from '~/components/ui';
+import { Text, Flex } from '~/features/ui';
 
 export function Footer() {
   return (

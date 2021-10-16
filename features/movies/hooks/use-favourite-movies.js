@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { transformMoviesData } from './transform-movie-data';
 
-import { useFavouritesQuery } from '~/components/user/hooks';
+import { useFavouritesQuery } from '~/features/user/hooks';
 
 export async function fetchMovie({ queryKey }) {
   const [, { favourites }] = queryKey;

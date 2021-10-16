@@ -3,17 +3,13 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { IoHeartOutline, IoHeart } from 'react-icons/io5';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { Text, Button } from '~/components/ui';
+import { Text, Button } from '~/features/ui';
 import {
   useAddFavouriteMutation,
   useIsFavouriteQuery,
   useRemoveFavouriteMutation
-} from '~/components/user/hooks';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent
-} from '~/components/ui/popover';
+} from '~/features/user/hooks';
+import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
 
 export function FavouriteButton({ movieId }) {
   const { user } = useUser();

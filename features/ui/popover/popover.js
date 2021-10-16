@@ -3,7 +3,7 @@ import * as PopoverPrimitive from '@radix-ui/react-popover';
 
 import { styled } from '../../../stitches.config';
 
-import { Box } from '~/components/ui';
+import { Box } from '~/features/ui';
 
 export function Popover({ trigger = 'onClick', children, ...props }) {
   const [isOpen, setIsOpen] = React.useState(false);

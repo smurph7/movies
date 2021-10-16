@@ -5,7 +5,7 @@ import { render, fireEvent } from '../../../test-utils';
 
 import { FavouriteButton } from './favourite-button';
 
-import * as useFavouriteHooks from '~/components/user/hooks/use-favourites';
+import * as useFavouriteHooks from '~/features/user/hooks/use-favourites';
 
 jest.mock('@auth0/nextjs-auth0', () => ({
   __esModule: true,

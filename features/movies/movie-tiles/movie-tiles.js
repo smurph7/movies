@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { MovieCard } from '../movie-card';
 
-import { Container, Flex, Grid, Text } from '~/components/ui';
+import { Container, Flex, Grid, Text } from '~/features/ui';
 
 export function MovieTiles({ title, movies, isLoading }) {
   return (

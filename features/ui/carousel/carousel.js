@@ -5,7 +5,7 @@ import { useComposedRefs } from '@radix-ui/react-compose-refs';
 import { createContext } from '@radix-ui/react-context';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { Box, Button, Flex } from '~/components/ui';
+import { Box, Button, Flex } from '~/features/ui';
 
 export function StyledCarousel({ children }) {
   return (

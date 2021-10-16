@@ -2,12 +2,8 @@ import * as React from 'react';
 
 import { useThemeChange } from './hooks/use-theme-change';
 
-import { Button, Text } from '~/components/ui';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent
-} from '~/components/ui/popover';
+import { Button, Text } from '~/features/ui';
+import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
 
 export function ThemeChangeButton() {
   const { themeText, changeTheme, icon } = useThemeChange();

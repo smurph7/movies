@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { keyframes } from '@stitches/react';
 
-import { Box } from '~/components/ui';
+import { Box } from '~/features/ui';
 
 const load = keyframes({
   from: {

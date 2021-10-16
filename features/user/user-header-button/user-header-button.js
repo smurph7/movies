@@ -6,7 +6,7 @@ import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 
-import { Button, Flex } from '~/components/ui';
+import { Button, Flex } from '~/features/ui';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -14,7 +14,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator
-} from '~/components/ui/dropdown-menu';
+} from '~/features/ui/dropdown-menu';
 
 export function UserHeaderButton() {
   const router = useRouter();
