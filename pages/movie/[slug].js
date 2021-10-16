@@ -20,6 +20,10 @@ import { FavouriteButton } from '~/components/movies';
 import { Media } from '~/styles/media';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 import { useThemeChange } from '~/components/ui/theme-change-button/hooks';
+import {
+  MovieProvider,
+  useMovieContext
+} from '~/components/movies/hooks/use-movie-context';
 
 export async function getStaticProps({ params }) {
   const splitSlug = params.slug?.split('-');
@@ -96,77 +100,90 @@ export default function Movie({ movie, imageProps }) {
 function MovieBanner({ imageProps, movie }) {
   const isMobile = useBreakpoint('bp3');
   const [bg, setBg] = React.useState('rgba(42,47,44,0.6)');
+  const [isOpen, setIsOpen] = React.useState(false);
+
   if (!movie) {
     return null;
   }
 
+  function handleOpen() {
+    setIsOpen(true);
+  }
+
+  function handleClose() {
+    setIsOpen(false);
+  }
+
   return (
-    <Box
-      css={{
-        width: '100%',
-        height: isMobile ? 'auto' : 600,
-        position: 'relative'
-      }}
-    >
-      <Media greaterThanOrEqual="bp3">
-        <Box
-          css={{
-            position: 'absolute',
-            bg,
-            width: '100%',
-            height: '100%',
-            zIndex: 1
-          }}
-        />
-        <NextImage
-          src={
-            movie.backdropPath
-              ? `${IMAGE_BASE_URL}original${movie.backdropPath}`
-              : '/movie-poster-placeholder.svg'
-          }
-          alt={`${movie.title}-backdrop`}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="top"
-          priority
-          placeholder="blur"
-          blurDataURL={imageProps.bgBlurDataUrl}
-          onLoad={() => setBg('rgba(42,47,44,0.9)')}
-        />
-      </Media>
-      <Container size={5} css={{ height: '100%' }}>
-        <Box
-          css={{
-            position: 'relative',
-            zIndex: 1,
-            width: '100%',
-            height: '100%'
-          }}
-        >
-          <Grid
-            align="center"
-            flow={{ '@bp1': 'row', '@bp3': 'column' }}
-            gap={5}
+    <MovieProvider value={{ isOpen, handleOpen, handleClose }}>
+      <Box
+        css={{
+          width: '100%',
+          height: isMobile ? 'auto' : 600,
+          position: 'relative'
+        }}
+      >
+        <Media greaterThanOrEqual="bp3">
+          <Box
             css={{
-              '@bp3': { float: 'left', left: '25%', height: '100%' }
+              position: 'absolute',
+              bg,
+              width: '100%',
+              height: '100%',
+              zIndex: 1
+            }}
+          />
+          <NextImage
+            src={
+              movie.backdropPath
+                ? `${IMAGE_BASE_URL}original${movie.backdropPath}`
+                : '/movie-poster-placeholder.svg'
+            }
+            alt={`${movie.title}-backdrop`}
+            layout="fill"
+            objectFit="cover"
+            objectPosition="top"
+            priority
+            placeholder="blur"
+            blurDataURL={imageProps.bgBlurDataUrl}
+            onLoad={() => setBg('rgba(42,47,44,0.9)')}
+          />
+        </Media>
+        <Container size={5} css={{ height: '100%' }}>
+          <Box
+            css={{
+              position: 'relative',
+              zIndex: 1,
+              width: '100%',
+              height: '100%'
             }}
           >
-            <MovieBannerImage
-              id={movie.id}
-              title={movie.title}
-              src={movie.posterPath}
-              imageProps={imageProps}
-              watchProviders={movie.watchProviders}
-            />
-            <MovieBannerDetails movie={movie} />
-          </Grid>
-        </Box>
-      </Container>
-    </Box>
+            <Grid
+              align="center"
+              flow={{ '@bp1': 'row', '@bp3': 'column' }}
+              gap={5}
+              css={{
+                '@bp3': { float: 'left', left: '25%', height: '100%' }
+              }}
+            >
+              <MovieBannerImage
+                id={movie.id}
+                title={movie.title}
+                src={movie.posterPath}
+                imageProps={imageProps}
+                watchProviders={movie.watchProviders}
+              />
+              <MovieBannerDetails movie={movie} />
+            </Grid>
+          </Box>
+        </Container>
+      </Box>
+    </MovieProvider>
   );
 }
 
 function MovieBannerImage({ id, title, src, imageProps, watchProviders }) {
+  const { isOpen, handleOpen } = useMovieContext();
   return (
     <Flex align="center" justify="center">
       <Flex direction="column" css={{ position: 'relative' }}>
@@ -184,8 +201,11 @@ function MovieBannerImage({ id, title, src, imageProps, watchProviders }) {
           placeholder="blur"
           blurDataURL={imageProps.posterBlurDataUrl}
         />
-        {watchProviders && (
-          <WatchProviderButton watchProviders={watchProviders} />
+        {watchProviders && !isOpen && (
+          <WatchProviderButton
+            watchProviders={watchProviders}
+            handleOpen={handleOpen}
+          />
         )}
         <FavouriteButton movieId={id} />
       </Flex>
@@ -194,11 +214,12 @@ function MovieBannerImage({ id, title, src, imageProps, watchProviders }) {
 }
 
 function WatchProviderButton({ watchProviders }) {
+  const { handleOpen } = useMovieContext();
   if (!watchProviders) {
     return null;
   }
 
-  const allProviders = [...watchProviders?.flatrate, ...watchProviders.buy];
+  const allProviders = [...watchProviders?.flatrate, ...watchProviders?.buy];
 
   const providerToDisplay = allProviders.reduce((prev, current) =>
     prev.displayPriority < current.displayPriority ? prev : current
@@ -207,6 +228,7 @@ function WatchProviderButton({ watchProviders }) {
   return (
     <Button
       variant="reset"
+      aria-label="Watch Providers"
       css={{
         width: '100%',
         height: '100%',
@@ -217,6 +239,7 @@ function WatchProviderButton({ watchProviders }) {
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0
       }}
+      onClick={handleOpen}
     >
       <Flex align="center" justify="center" gap={0}>
         <NextImage
@@ -231,15 +254,24 @@ function WatchProviderButton({ watchProviders }) {
           gap={1}
           css={{ width: '100%', textAlign: 'center' }}
         >
-          <Text color="contrast">Available on</Text>
-          <Text color="contrast">{providerToDisplay.providerName}</Text>
+          <Text color="contrast" fontSize={2}>
+            Available on
+          </Text>
+          <Text color="contrast" fontWeight="$bold">
+            {providerToDisplay.providerName}
+          </Text>
         </Flex>
       </Flex>
     </Button>
   );
 }
 
+function WatchProviders() {
+  return <Flex css={{ bg: '$indigo9' }}>overlay</Flex>;
+}
+
 function MovieBannerDetails({ movie }) {
+  const { isOpen } = useMovieContext();
   const isMobile = useBreakpoint('bp3');
   const { theme } = useThemeChange();
   const color = isMobile ? 'gray' : 'lightGray';
@@ -247,7 +279,9 @@ function MovieBannerDetails({ movie }) {
     return null;
   }
 
-  return (
+  return isOpen ? (
+    <WatchProviders />
+  ) : (
     <Flex
       direction="column"
       gap={3}
