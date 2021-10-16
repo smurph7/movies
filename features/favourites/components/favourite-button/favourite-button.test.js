@@ -5,7 +5,9 @@ import { render, fireEvent } from '../../../../test-utils';
 
 import { FavouriteButton } from './favourite-button';
 
-import * as useFavouriteHooks from '~/features/user/hooks/use-favourites';
+import * as useIsFavouriteHook from '~/features/favourites/queries/use-is-favourite';
+import * as useAddFavouriteHook from '~/features/favourites/queries/use-add-favourite';
+import * as useRemoveFavouriteHook from '~/features/favourites/queries/use-remove-favourite';
 
 jest.mock('@auth0/nextjs-auth0', () => ({
   __esModule: true,
@@ -18,33 +20,33 @@ jest.mock('use-debounce', () => ({
 
 describe('FavouriteButton', () => {
   let useUser;
-  let useIsFavouriteQuery;
-  let useAddFavouriteMutation;
-  let useRemoveFavouriteMutation;
+  let useIsFavourite;
+  let useAddFavourite;
+  let useRemoveFavourite;
 
   const addFavourite = jest.fn();
   const removeFavourite = jest.fn();
 
   beforeEach(() => {
     useUser = jest.spyOn(auth, 'useUser').mockReturnValue({ user: 'name' });
-    useIsFavouriteQuery = jest.spyOn(useFavouriteHooks, 'useIsFavouriteQuery');
-    useAddFavouriteMutation = jest
-      .spyOn(useFavouriteHooks, 'useAddFavouriteMutation')
+    useIsFavourite = jest.spyOn(useIsFavouriteHook, 'useIsFavourite');
+    useAddFavourite = jest
+      .spyOn(useAddFavouriteHook, 'useAddFavourite')
       .mockReturnValue({ mutate: addFavourite });
-    useRemoveFavouriteMutation = jest
-      .spyOn(useFavouriteHooks, 'useRemoveFavouriteMutation')
+    useRemoveFavourite = jest
+      .spyOn(useRemoveFavouriteHook, 'useRemoveFavourite')
       .mockReturnValue({ mutate: removeFavourite });
   });
 
   afterEach(() => {
     useUser.mockReset();
-    useIsFavouriteQuery.mockReset();
-    useAddFavouriteMutation.mockReset();
-    useRemoveFavouriteMutation.mockReset();
+    useIsFavourite.mockReset();
+    useAddFavourite.mockReset();
+    useRemoveFavourite.mockReset();
   });
 
   it('should display heart outline if not a favourite', () => {
-    useIsFavouriteQuery.mockReturnValue({ data: false });
+    useIsFavourite.mockReturnValue({ data: false });
     const { getByRole } = render(<FavouriteButton movieId="123" />);
     expect(
       getByRole('button', { name: 'favourite-heart-outline' })
@@ -52,7 +54,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should display filled heart if a favourite', () => {
-    useIsFavouriteQuery.mockReturnValue({ data: true });
+    useIsFavourite.mockReturnValue({ data: true });
     const { getByRole } = render(<FavouriteButton movieId="123" />);
     expect(
       getByRole('button', { name: 'favourite-heart' })
@@ -60,7 +62,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should add favourite on click if not a favourite', () => {
-    useIsFavouriteQuery.mockReturnValue({ data: false });
+    useIsFavourite.mockReturnValue({ data: false });
     const { getByRole } = render(<FavouriteButton movieId="123" />);
     const button = getByRole('button', { name: 'favourite-heart-outline' });
     fireEvent.click(button);
@@ -68,7 +70,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should remove favourite on click if a favourite', () => {
-    useIsFavouriteQuery.mockReturnValue({ data: true });
+    useIsFavourite.mockReturnValue({ data: true });
     const { getByRole } = render(<FavouriteButton movieId="123" />);
     const button = getByRole('button', { name: 'favourite-heart' });
     fireEvent.click(button);

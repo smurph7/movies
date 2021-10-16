@@ -2,10 +2,9 @@ import * as React from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 
-import { FavouriteButton } from '..';
-
 import { Box, Flex, Text, Card, Placeholder } from '~/features/ui';
-import { usePrefetchMovie } from '~/features/movies/hooks';
+import { FavouriteButton } from '~/features/favourites/components';
+import { usePrefetchMovie } from '~/features/movies/queries';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 import { IMAGE_BASE_URL } from '~/utils/config';
 

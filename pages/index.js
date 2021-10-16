@@ -8,7 +8,7 @@ import {
   usePopularMovies,
   useTrendingMovies,
   useUpcomingMovies
-} from '~/features/movies/hooks';
+} from '~/features/movies/queries';
 
 const NUMBER_OF_PLACEHOLDERS = 6;
 

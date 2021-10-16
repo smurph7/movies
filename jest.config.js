@@ -12,7 +12,7 @@ module.exports = {
   transformIgnorePatterns: ['/node_modules/'],
   moduleFileExtensions: ['js', 'jsx', 'css', 'ts', 'tsx'],
   moduleNameMapper: {
-    '^~/components(.*)$': '<rootDir>/components$1',
+    '^~/features(.*)$': '<rootDir>/features$1',
     '^~/config(.*)$': '<rootDir>/config$1',
     '^~/utils(.*)$': '<rootDir>/utils$1'
   }

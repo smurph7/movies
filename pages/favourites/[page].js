@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { useFavouriteMovies } from '~/features/movies/hooks/use-favourite-movies';
+import { useFavouriteMovies } from '~/features/favourites/queries';
 import { Layout } from '~/features/common/components';
 import { MovieTiles } from '~/features/movies/components';
 

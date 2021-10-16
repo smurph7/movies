@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator
 } from '~/features/ui/dropdown-menu';
 import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
-import { UserHeaderButton } from '~/features/user';
+import { UserHeaderButton } from '~/features/user/components';
 import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
 

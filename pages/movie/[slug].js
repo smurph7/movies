@@ -14,16 +14,13 @@ import {
   Button,
   Placeholder
 } from '~/features/ui';
-import { useMovie, useReleaseDates } from '~/features/movies/hooks';
-import { FavouriteButton } from '~/features/movies/components';
+import { FavouriteButton } from '~/features/favourites/components';
+import { useMovie, useReleaseDates } from '~/features/movies/queries';
+import { MovieProvider, useMovieContext } from '~/features/movies/hooks';
 import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 import { IMAGE_BASE_URL } from '~/utils/config';
-import {
-  MovieProvider,
-  useMovieContext
-} from '~/features/movies/hooks/use-movie-context';
 
 export async function getStaticProps({ params }) {
   const splitSlug = params.slug?.split('-');

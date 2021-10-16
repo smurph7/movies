@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
-import { transformMoviesData } from '../utils/transform-movie-data';
+import { useFavourites } from './use-favourites';
 
-import { useFavouritesQuery } from '~/features/user/hooks';
+import { transformMoviesData } from '~/features/movies/utils/transform-movie-data';
 
 export async function fetchMovie({ queryKey }) {
   const [, { favourites }] = queryKey;
@@ -29,7 +29,7 @@ export async function fetchMovie({ queryKey }) {
 }
 
 export function useFavouriteMovies() {
-  const { data: favourites } = useFavouritesQuery();
+  const { data: favourites } = useFavourites();
   return useQuery(['favouriteMovies', { favourites }], fetchMovie, {
     enabled: !!favourites,
     select: data => transformMoviesData({ results: data })

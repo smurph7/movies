@@ -24,7 +24,7 @@ jest.mock('next/image', () => ({
   default: ({ src, alt }) => mockNextImage({ src, alt })
 }));
 
-jest.mock('~/features/movies/components/favourite-button', () => ({
+jest.mock('~/features/favourites/components/favourite-button', () => ({
   // eslint-disable-next-line react/display-name
   FavouriteButton: () => <></>
 }));

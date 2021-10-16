@@ -2,7 +2,7 @@ import React from 'react';
 import * as auth from '@auth0/nextjs-auth0';
 import * as router from 'next/router';
 
-import { render, fireEvent } from '../../../test-utils';
+import { render, fireEvent } from '../../../../test-utils';
 
 import { UserHeaderButton } from '.';
 

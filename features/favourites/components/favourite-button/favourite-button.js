@@ -5,17 +5,19 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { Text, Button } from '~/features/ui';
 import {
-  useAddFavouriteMutation,
-  useIsFavouriteQuery,
-  useRemoveFavouriteMutation
-} from '~/features/user/hooks';
+  useAddFavourite,
+  useIsFavourite,
+  useRemoveFavourite
+} from '~/features/favourites/queries';
 import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
+
+// TODO fix clicking on button nav to movie
 
 export function FavouriteButton({ movieId }) {
   const { user } = useUser();
-  const { data: isFavourite } = useIsFavouriteQuery(movieId);
-  const { mutate: addFavourite } = useAddFavouriteMutation();
-  const { mutate: removeFavourite } = useRemoveFavouriteMutation();
+  const { data: isFavourite } = useIsFavourite(movieId);
+  const { mutate: addFavourite } = useAddFavourite();
+  const { mutate: removeFavourite } = useRemoveFavourite();
 
   const handleAddFavourite = useDebouncedCallback(
     () => addFavourite(movieId),
