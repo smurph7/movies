@@ -4,7 +4,7 @@ import NextImage from 'next/image';
 import axios from 'axios';
 import { getPlaiceholder } from 'plaiceholder';
 
-import { Layout } from '~/features/common';
+import { Layout } from '~/features/common/components';
 import {
   Container,
   Box,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Container, StyledCarousel, Flex, Text } from '~/features/ui';
-import { Layout } from '~/features/common';
+import { Layout } from '~/features/common/components';
 import { MovieCard } from '~/features/movies';
 import {
   useNowPlayingMovies,

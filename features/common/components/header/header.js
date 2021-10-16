@@ -62,7 +62,6 @@ function DesktopHeaderMenu() {
               size={2}
               ghost
               css={{ color: '$sage11' }}
-              onClick={() => console.log('heu')}
             >
               <IoHeartOutline size={24} />
             </Button>
