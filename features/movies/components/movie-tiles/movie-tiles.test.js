@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '../../../test-utils';
+import { render } from '../../../../test-utils';
 
 import { MovieTiles } from '.';
 
@@ -8,7 +8,7 @@ function mockMovieCard() {
   return <div data-testid="MovieCard" />;
 }
 
-jest.mock('~/components/movies/movie-card/movie-card', () => ({
+jest.mock('~/features/movies/components/movie-card/movie-card', () => ({
   MovieCard: mockMovieCard
 }));
 

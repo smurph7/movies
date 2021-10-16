@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '../../../test-utils';
+import { render } from '../../../../test-utils';
 
 import { MovieCard } from '.';
 
@@ -24,7 +24,7 @@ jest.mock('next/image', () => ({
   default: ({ src, alt }) => mockNextImage({ src, alt })
 }));
 
-jest.mock('~/components/movies/favourite-button', () => ({
+jest.mock('~/features/movies/components/favourite-button', () => ({
   // eslint-disable-next-line react/display-name
   FavouriteButton: () => <></>
 }));

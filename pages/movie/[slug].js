@@ -15,11 +15,11 @@ import {
   Placeholder
 } from '~/features/ui';
 import { useMovie, useReleaseDates } from '~/features/movies/hooks';
-import { IMAGE_BASE_URL } from '~/utils/config';
-import { FavouriteButton } from '~/features/movies';
+import { FavouriteButton } from '~/features/movies/components';
+import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
 import { useBreakpoint } from '~/utils/use-breakpoint';
-import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
+import { IMAGE_BASE_URL } from '~/utils/config';
 import {
   MovieProvider,
   useMovieContext
