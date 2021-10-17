@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import NextImage from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
+import { PlayIcon } from '@radix-ui/react-icons';
 
 import { Layout } from '~/features/common/components';
 import {
@@ -15,8 +16,13 @@ import {
   Placeholder,
   FloatingCard
 } from '~/features/ui';
+import { Dialog, DialogContent, DialogTrigger } from '~/features/ui/dialog';
 import { FavouriteButton } from '~/features/favourites/components';
-import { useMovie, useReleaseDates } from '~/features/movies/queries';
+import {
+  useMovie,
+  useReleaseDates,
+  useMovieTrailers
+} from '~/features/movies/queries';
 import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
 import { useBreakpoint } from '~/utils/use-breakpoint';
@@ -115,7 +121,6 @@ export default function Movie({ movie, imageProps }) {
           )}
           <Container size={5} css={{ height: '100%' }}>
             <FloatingCard>hello there</FloatingCard>
-            {/* more info ... genre */}
             {/* watch providers */}
             {/* Regions */}
             {/* Languages */}
@@ -304,6 +309,7 @@ function MovieBannerDetails({ movie }) {
       </Text>
       <Flex direction="column" gap={5}>
         <ReleaseDates id={movie.id} />
+        <MovieTrailer id={movie.id} />
         <Flex gap={2} wrap="wrap">
           {movie.genres.map(genre => (
             <Button css={{ bg: '$sage11NoDark', boxShadow: 'none' }}>
@@ -356,6 +362,55 @@ function ReleaseDates({ id }) {
           {releaseDate} ({data.region})
         </Text>
       )}
+    </Flex>
+  );
+}
+
+function MovieTrailer({ id }) {
+  const { data: trailers } = useMovieTrailers({ id });
+
+  const trailerToDisplay = trailers?.reduce((prev, current) =>
+    new Date(prev?.publishedAt) > new Date(current?.publishedAt)
+      ? prev
+      : current
+  );
+
+  return (
+    <Flex>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>
+            <Flex gap={2} align="center">
+              <PlayIcon /> Trailer
+            </Flex>
+          </Button>
+        </DialogTrigger>
+        <DialogContent
+          css={{
+            p: '$6',
+            bg: '$sage1'
+          }}
+        >
+          <Box
+            css={{
+              '@bp1': { width: 272, height: 153 },
+              '@bp2': { width: 480, height: 270 },
+              '@bp3': { width: 560, height: 315 },
+              '@bp4': { width: 752, height: 423 }
+            }}
+          >
+            <iframe
+              title="Youtube Trailer"
+              width="100%"
+              height="100%"
+              src={`https://www.youtube-nocookie.com/embed/${trailerToDisplay?.key}`}
+              frameBorder={0}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Flex>
   );
 }
