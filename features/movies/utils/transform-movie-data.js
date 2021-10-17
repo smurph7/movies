@@ -49,6 +49,7 @@ export function transformMovieData(data) {
     overview: data.overview,
     releaseYear: data.release_date.split('-')[0],
     tagline: data.tagline,
+    genres: data.genres,
     watchProviders: transformWatchProviders(data['watch/providers'].results.AU)
   };
 }

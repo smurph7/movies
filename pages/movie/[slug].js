@@ -304,6 +304,15 @@ function MovieBannerDetails({ movie }) {
       </Text>
       <Flex direction="column" gap={5}>
         <ReleaseDates id={movie.id} />
+        <Flex gap={2} wrap="wrap">
+          {movie.genres.map(genre => (
+            <Button css={{ bg: '$sage11NoDark', boxShadow: 'none' }}>
+              <Text fontSize={1} color="lightGray">
+                {genre.name}
+              </Text>
+            </Button>
+          ))}
+        </Flex>
         <Text color={color} italic>
           {movie.tagline}
         </Text>
