@@ -116,39 +116,80 @@ export function MovieBannerDetails({ movie }) {
   const { theme } = useThemeChange();
   const color = isMobile ? 'gray' : 'lightGray';
 
+  const number = new Intl.NumberFormat('en-US');
+
   return (
-    <Flex
-      direction="column"
-      gap={3}
-      css={{ bg: isMobile && theme === 'theme-default' && '$sage11' }}
-    >
-      <Text heading color={color} fontSize={6}>
-        {movie.title} ({movie.releaseYear})
-      </Text>
-      <Flex direction="column" gap={5}>
-        <ReleaseDates id={movie.id} />
-        <MovieTrailer id={movie.id} />
-        <Flex gap={2} wrap="wrap">
-          {movie.genres.map(genre => (
-            <Button
-              key={genre.name}
-              css={{ bg: '$sage11NoDark', boxShadow: 'none' }}
-            >
-              <Text fontSize={1} color="lightGray">
-                {genre.name}
-              </Text>
-            </Button>
-          ))}
-        </Flex>
-        <Text color={color} italic>
-          {movie.tagline}
+    <Flex direction="column" justify="center" gap={8} css={{ height: '100%' }}>
+      <Flex
+        direction="column"
+        justify="center"
+        gap={3}
+        css={{
+          bg: isMobile && theme === 'theme-default' && '$sage11'
+        }}
+      >
+        <Text heading color={color} fontSize={6}>
+          {movie.title} ({movie.releaseYear})
         </Text>
-        <Flex direction="column" gap={3}>
-          <Text color={color} heading>
-            Overview
+        <Flex direction="column" gap={5}>
+          <ReleaseDates id={movie.id} />
+          <MovieTrailer id={movie.id} />
+          <Flex gap={2} wrap="wrap">
+            {movie.genres.map(genre => (
+              <Button
+                key={genre.name}
+                css={{ bg: '$sage11NoDark', boxShadow: 'none' }}
+              >
+                <Text fontSize={1} color="lightGray">
+                  {genre.name}
+                </Text>
+              </Button>
+            ))}
+          </Flex>
+          <Text color={color} italic>
+            {movie.tagline}
           </Text>
-          <Text color={color} css={{ lineHeight: 1.2 }}>
-            {movie.overview}
+          <Flex direction="column" gap={3}>
+            <Text color={color} heading>
+              Overview
+            </Text>
+            <Text color={color} css={{ lineHeight: 1.2 }}>
+              {movie.overview}
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex gap={5}>
+        <Flex direction="column" gap={2}>
+          <Text color={color} fontWeight="bold" fontSize={2}>
+            Status
+          </Text>
+          <Text color={color} fontSize={2}>
+            {movie.status}
+          </Text>
+        </Flex>
+        <Flex direction="column" gap={2}>
+          <Text color={color} fontWeight="bold" fontSize={2}>
+            Run Time
+          </Text>
+          <Text color={color} fontSize={2}>
+            {movie.runtime}
+          </Text>
+        </Flex>
+        <Flex direction="column" gap={2}>
+          <Text color={color} fontWeight="bold" fontSize={2}>
+            Budget
+          </Text>
+          <Text color={color} fontSize={2}>
+            ${number.format(movie.budget)} (USD)
+          </Text>
+        </Flex>
+        <Flex direction="column" gap={2}>
+          <Text color={color} fontWeight="bold" fontSize={2}>
+            Revenue
+          </Text>
+          <Text color={color} fontSize={2}>
+            ${number.format(movie.revenue)} (USD)
           </Text>
         </Flex>
       </Flex>

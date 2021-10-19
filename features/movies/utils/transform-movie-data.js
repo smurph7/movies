@@ -39,6 +39,23 @@ export function transformMoviesData(data) {
   };
 }
 
+function getHoursAndMinutes(timeInMinutes) {
+  const num = timeInMinutes * 1;
+  if (typeof num === 'number' && num !== 0) {
+    const hours = num / 60;
+    const convertedHours = Math.floor(hours);
+    const minutes = (hours - convertedHours) * 60;
+    const convertedMinutes = Math.round(minutes);
+    if (convertedHours) {
+      return `${convertedHours}h${convertedHours > 1 ? `s` : ''} ${
+        convertedMinutes !== 0 ? `${convertedMinutes}m` : ''
+      }`;
+    }
+    return `${convertedMinutes}m`;
+  }
+  return null;
+}
+
 export function transformMovieData(data) {
   return {
     id: data.id,
@@ -49,6 +66,10 @@ export function transformMovieData(data) {
     overview: data.overview,
     releaseYear: data.release_date.split('-')[0],
     tagline: data.tagline,
-    genres: data.genres
+    genres: data.genres,
+    runtime: getHoursAndMinutes(data.runtime),
+    revenue: data.revenue,
+    status: data.status,
+    budget: data.budget
   };
 }

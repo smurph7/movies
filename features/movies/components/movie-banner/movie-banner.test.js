@@ -24,7 +24,15 @@ jest.mock('~/features/movies/components/watch-provider-button', () => ({
   WatchProviderButton: () => <></>
 }));
 
-// TODO mock release dates & trailer
+jest.mock('~/features/movies/components/release-dates', () => ({
+  // eslint-disable-next-line react/display-name
+  ReleaseDates: () => <></>
+}));
+
+jest.mock('~/features/movies/components/movie-trailer', () => ({
+  // eslint-disable-next-line react/display-name
+  MovieTrailer: () => <></>
+}));
 
 describe('Movie Banner', () => {
   describe('MovieBannerBackdrop', () => {
@@ -61,13 +69,21 @@ describe('Movie Banner', () => {
       const genre = { name: 'Comedy' };
       const genres = [genre];
       const tagline = 'The tagline!';
+      const status = 'Released';
+      const runtime = '1h15m';
+      const revenue = '123000000';
+      const budget = '100000000';
 
       const movie = {
         title,
         releaseYear,
         overview,
         genres,
-        tagline
+        tagline,
+        status,
+        runtime,
+        revenue,
+        budget
       };
       const { getByText } = render(<MovieBannerDetails movie={movie} />);
 
@@ -75,6 +91,10 @@ describe('Movie Banner', () => {
       expect(getByText(overview)).toBeInTheDocument();
       expect(getByText(genre.name)).toBeInTheDocument();
       expect(getByText(tagline)).toBeInTheDocument();
+      expect(getByText(status)).toBeInTheDocument();
+      expect(getByText(runtime)).toBeInTheDocument();
+      expect(getByText('$123,000,000 (USD)')).toBeInTheDocument();
+      expect(getByText('$100,000,000 (USD)')).toBeInTheDocument();
     });
   });
 });
