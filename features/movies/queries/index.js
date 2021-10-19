@@ -6,3 +6,4 @@ export { useMovie, usePrefetchMovie } from './use-movie';
 export { useReleaseDates } from './use-release-dates';
 export { useMovieTrailers } from './use-movie-trailers';
 export { useMovieWatchProviders } from './use-watch-providers';
+export { useSearchMovies } from './use-search-movies';
