@@ -113,21 +113,14 @@ export function MovieBannerImage({ id, title, src, posterBlurDataUrl }) {
 
 export function MovieBannerDetails({ movie }) {
   const isMobile = useBreakpoint('bp3');
-  const theme = useThemeStore(state => state.theme);
+  const color = isMobile ? 'gray' : 'lightGray';
 
   const number = new Intl.NumberFormat('en-US');
 
   return (
     <Flex direction="column" justify="center" gap={8} css={{ height: '100%' }}>
-      <Flex
-        direction="column"
-        justify="center"
-        gap={3}
-        css={{
-          bg: isMobile && theme === 'theme-default' && '$sage11'
-        }}
-      >
-        <Text heading color="lightGray" fontSize={6}>
+      <Flex direction="column" justify="center" gap={3}>
+        <Text heading color={color} fontSize={6}>
           {movie.title} {movie.releaseYear && `(${movie.releaseYear})`}
         </Text>
         <Flex direction="column" gap={5}>
@@ -147,69 +140,69 @@ export function MovieBannerDetails({ movie }) {
               ))}
           </Flex>
           {movie.tagline && (
-            <Text color="lightGray" italic>
+            <Text color={color} italic>
               {movie.tagline}
             </Text>
           )}
           {movie.overview && (
             <Flex direction="column" gap={3}>
-              <Text color="lightGray" heading>
+              <Text color={color} heading>
                 Overview
               </Text>
-              <Text color="lightGray" css={{ lineHeight: 1.2 }}>
+              <Text color={color} css={{ lineHeight: 1.2 }}>
                 {movie.overview}
               </Text>
             </Flex>
           )}
         </Flex>
       </Flex>
-      <Flex gap={5}>
+      <Flex gap={5} direction={{ '@bp1': 'column', '@bp3': 'row' }}>
         {movie.voteAverage && (
           <Flex direction="column" gap={2}>
-            <Text color="lightGray" fontWeight="bold" fontSize={2}>
+            <Text color={color} fontWeight="bold" fontSize={2}>
               User score
             </Text>
-            <Text color="lightGray" fontSize={2}>
+            <Text color={color} fontSize={2}>
               {Math.round((movie.voteAverage / 10) * 100)}%
             </Text>
           </Flex>
         )}
         {movie.status && (
           <Flex direction="column" gap={2}>
-            <Text color="lightGray" fontWeight="bold" fontSize={2}>
+            <Text color={color} fontWeight="bold" fontSize={2}>
               Status
             </Text>
-            <Text color="lightGray" fontSize={2}>
+            <Text color={color} fontSize={2}>
               {movie.status}
             </Text>
           </Flex>
         )}
         {movie.runtime && (
           <Flex direction="column" gap={2}>
-            <Text color="lightGray" fontWeight="bold" fontSize={2}>
+            <Text color={color} fontWeight="bold" fontSize={2}>
               Run Time
             </Text>
-            <Text color="lightGray" fontSize={2}>
+            <Text color={color} fontSize={2}>
               {movie.runtime}
             </Text>
           </Flex>
         )}
         {!!movie.budget && movie.budget > 0 && (
           <Flex direction="column" gap={2}>
-            <Text color="lightGray" fontWeight="bold" fontSize={2}>
+            <Text color={color} fontWeight="bold" fontSize={2}>
               Budget
             </Text>
-            <Text color="lightGray" fontSize={2}>
+            <Text color={color} fontSize={2}>
               ${number.format(movie.budget)} (USD)
             </Text>
           </Flex>
         )}
         {!!movie.revenue && movie.revenue > 0 && (
           <Flex direction="column" gap={2}>
-            <Text color="lightGray" fontWeight="bold" fontSize={2}>
+            <Text color={color} fontWeight="bold" fontSize={2}>
               Revenue
             </Text>
-            <Text color="lightGray" fontSize={2}>
+            <Text color={color} fontSize={2}>
               ${number.format(movie.revenue)} (USD)
             </Text>
           </Flex>

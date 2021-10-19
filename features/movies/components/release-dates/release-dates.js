@@ -20,7 +20,7 @@ export function ReleaseDates({ id }) {
   return (
     <Flex align="center" gap={1}>
       {data.certification && data.certification !== '' && (
-        <Box css={{ border: '1px solid $sage1NoDark', p: '$1' }}>
+        <Box css={{ border: '1px solid $sage10', p: '$1' }}>
           <Text color={color} fontSize={2}>
             {data.certification}
           </Text>
