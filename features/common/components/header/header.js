@@ -2,7 +2,12 @@ import * as React from 'react';
 import NextLink from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0';
 import { IoHeartOutline, IoPersonCircleOutline } from 'react-icons/io5';
-import { ExitIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
+import {
+  Cross1Icon,
+  ExitIcon,
+  HamburgerMenuIcon,
+  MagnifyingGlassIcon
+} from '@radix-ui/react-icons';
 
 import { SearchBar } from '../search';
 
@@ -19,8 +24,10 @@ import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
 import { UserHeaderButton } from '~/features/user/components';
 import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
+import { useBreakpoint } from '~/utils/use-breakpoint';
 
 export function Header() {
+  const isMobile = useBreakpoint('bp3');
   return (
     <Box
       css={{
@@ -32,8 +39,8 @@ export function Header() {
       }}
     >
       <Flex
-        direction="row"
         justify="space-between"
+        direction="row"
         align="center"
         gap={5}
         css={{ width: '100%' }}
@@ -43,7 +50,15 @@ export function Header() {
             Movies
           </Text>
         </NextLink>
-        <SearchBar />
+        {!isMobile && (
+          <Flex
+            justify="space-around"
+            align="center"
+            css={{ px: '$4', width: '80%' }}
+          >
+            <SearchBar />
+          </Flex>
+        )}
         <Media lessThan="bp3">
           <MobileHeaderMenu />
         </Media>
@@ -86,66 +101,101 @@ function DesktopHeaderMenu() {
 function MobileHeaderMenu() {
   const { user } = useUser();
   const { themeText, changeTheme, icon } = useThemeChange();
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  function handleOpen() {
+    setIsOpen(true);
+  }
+
+  function handleClose() {
+    setIsOpen(false);
+  }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button size={2} css={{ color: '$sage11' }}>
-          <HamburgerMenuIcon style={{ width: 24, height: 24 }} />
+    <Flex align="center">
+      {isOpen ? (
+        <Box
+          css={{
+            top: 0,
+            left: 0,
+            position: 'absolute',
+            zIndex: 20,
+            bg: '$sage1',
+            width: '100%',
+            p: '$3'
+          }}
+        >
+          <Flex align="center">
+            <SearchBar />
+            <Button ghost css={{ color: '$sage11' }} onClick={handleClose}>
+              <Cross1Icon />
+            </Button>
+          </Flex>
+        </Box>
+      ) : (
+        <Button ghost css={{ color: '$sage11' }} onClick={handleOpen}>
+          <MagnifyingGlassIcon style={{ width: 30, height: 30 }} />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" variant="mobile">
-        <DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="mobile" onClick={changeTheme}>
-            <Flex align="center" gap={2}>
-              {icon}
-              <Text color="gray">{themeText}</Text>
-            </Flex>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <NextLink href="/favourites/1">
-            <DropdownMenuItem variant="mobile">
+      )}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button size={2} css={{ color: '$sage11' }}>
+            <HamburgerMenuIcon style={{ width: 24, height: 24 }} />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" variant="mobile">
+          <DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="mobile" onClick={changeTheme}>
               <Flex align="center" gap={2}>
-                <IoHeartOutline size={24} />
-                <Text color="gray">Favourites</Text>
+                {icon}
+                <Text color="gray">{themeText}</Text>
               </Flex>
             </DropdownMenuItem>
-          </NextLink>
-          <DropdownMenuSeparator />
-          {user ? (
-            <>
-              <NextLink href="/profile">
-                <DropdownMenuItem variant="mobile">
-                  <Flex align="center" gap={2}>
-                    <IoPersonCircleOutline size={24} />
-                    <Text color="gray">Profile</Text>
-                  </Flex>
-                </DropdownMenuItem>
-              </NextLink>
-              <DropdownMenuSeparator />
-              <NextLink href="/api/auth/logout">
-                <DropdownMenuItem variant="mobile">
-                  <Flex align="center" gap={2}>
-                    <ExitIcon style={{ width: 24, height: 24 }} />
-                    <Text color="gray">Log out</Text>
-                  </Flex>
-                </DropdownMenuItem>
-              </NextLink>
-            </>
-          ) : (
-            <NextLink href="/api/auth/login">
+            <DropdownMenuSeparator />
+            <NextLink href="/favourites/1">
               <DropdownMenuItem variant="mobile">
                 <Flex align="center" gap={2}>
-                  <IoPersonCircleOutline size={24} />
-                  <Text color="gray">Log in</Text>
+                  <IoHeartOutline size={24} />
+                  <Text color="gray">Favourites</Text>
                 </Flex>
               </DropdownMenuItem>
             </NextLink>
-          )}
-          <DropdownMenuSeparator />
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+            <DropdownMenuSeparator />
+            {user ? (
+              <>
+                <NextLink href="/profile">
+                  <DropdownMenuItem variant="mobile">
+                    <Flex align="center" gap={2}>
+                      <IoPersonCircleOutline size={24} />
+                      <Text color="gray">Profile</Text>
+                    </Flex>
+                  </DropdownMenuItem>
+                </NextLink>
+                <DropdownMenuSeparator />
+                <NextLink href="/api/auth/logout">
+                  <DropdownMenuItem variant="mobile">
+                    <Flex align="center" gap={2}>
+                      <ExitIcon style={{ width: 24, height: 24 }} />
+                      <Text color="gray">Log out</Text>
+                    </Flex>
+                  </DropdownMenuItem>
+                </NextLink>
+              </>
+            ) : (
+              <NextLink href="/api/auth/login">
+                <DropdownMenuItem variant="mobile">
+                  <Flex align="center" gap={2}>
+                    <IoPersonCircleOutline size={24} />
+                    <Text color="gray">Log in</Text>
+                  </Flex>
+                </DropdownMenuItem>
+              </NextLink>
+            )}
+            <DropdownMenuSeparator />
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </Flex>
   );
 }
