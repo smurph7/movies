@@ -8,7 +8,6 @@ import { Layout } from '~/features/common/components';
 import {
   Container,
   Box,
-  Text,
   Flex,
   Button,
   Placeholder,
@@ -22,12 +21,7 @@ import {
   MovieBannerImage,
   MovieBannerDetails
 } from '~/features/movies/components';
-import {
-  useMovie,
-  useReleaseDates,
-  useMovieTrailers
-} from '~/features/movies/queries';
-import { useBreakpoint } from '~/utils/use-breakpoint';
+import { useMovie, useMovieTrailers } from '~/features/movies/queries';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
 export async function getStaticProps({ params }) {
@@ -133,37 +127,6 @@ export default function Movie({ movie, imageProps }) {
         </>
       )}
     </Layout>
-  );
-}
-
-function ReleaseDates({ id }) {
-  const { data } = useReleaseDates({ id });
-  const isMobile = useBreakpoint('bp3');
-  const color = isMobile ? 'gray' : 'lightGray';
-
-  if (!data) {
-    return <Box css={{ p: '$3' }} />;
-  }
-
-  const releaseDate = new Intl.DateTimeFormat('en-AU').format(
-    new Date(data.releaseDate)
-  );
-
-  return (
-    <Flex align="center" gap={1}>
-      {data.certification && data.certification !== '' && (
-        <Box css={{ border: '1px solid $sage1NoDark', p: '$1' }}>
-          <Text color={color} fontSize={2}>
-            {data.certification}
-          </Text>
-        </Box>
-      )}
-      {data.releaseDate && (
-        <Text color={color} fontSize={2}>
-          {releaseDate} ({data.region})
-        </Text>
-      )}
-    </Flex>
   );
 }
 

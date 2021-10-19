@@ -5,6 +5,7 @@ import { WatchProviderButton } from '../watch-provider-button';
 
 import { Container, Box, Text, Flex, Grid, Button } from '~/features/ui';
 import { FavouriteButton } from '~/features/favourites/components';
+import { ReleaseDates } from '~/features/movies/components';
 import { useMovieWatchProviders } from '~/features/movies/queries';
 import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import { useBreakpoint } from '~/utils/use-breakpoint';
@@ -125,7 +126,7 @@ export function MovieBannerDetails({ movie }) {
         {movie.title} ({movie.releaseYear})
       </Text>
       <Flex direction="column" gap={5}>
-        {/* <ReleaseDates id={movie.id} /> */}
+        <ReleaseDates id={movie.id} />
         {/* <MovieTrailer id={movie.id} /> */}
         <Flex gap={2} wrap="wrap">
           {movie.genres.map(genre => (

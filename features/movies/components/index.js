@@ -7,3 +7,4 @@ export {
   MovieBannerImage,
   MovieBannerDetails
 } from './movie-banner';
+export { ReleaseDates } from './release-dates';
