@@ -10,7 +10,7 @@ export function ReleaseDates({ id }) {
   const color = isMobile ? 'gray' : 'lightGray';
 
   if (!data?.releaseDate) {
-    return <Box css={{ p: '$3' }} />;
+    return null;
   }
 
   const releaseDate = new Intl.DateTimeFormat('en-AU').format(

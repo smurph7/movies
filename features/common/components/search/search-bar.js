@@ -81,7 +81,7 @@ export function SearchBar() {
                 width={40}
               />
               <Text fontSize={2}>
-                {movie.title} ({movie.releaseYear})
+                {movie.title} {movie.releaseYear && `(${movie.releaseYear})`}
               </Text>
             </Flex>
           </components.Option>
