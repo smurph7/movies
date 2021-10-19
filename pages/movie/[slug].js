@@ -2,18 +2,9 @@ import * as React from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
-import { PlayIcon } from '@radix-ui/react-icons';
 
 import { Layout } from '~/features/common/components';
-import {
-  Container,
-  Box,
-  Flex,
-  Button,
-  Placeholder,
-  FloatingCard
-} from '~/features/ui';
-import { Dialog, DialogContent, DialogTrigger } from '~/features/ui/dialog';
+import { Container, Placeholder, FloatingCard } from '~/features/ui';
 import {
   MovieBanner,
   MovieBannerBackdrop,
@@ -21,7 +12,7 @@ import {
   MovieBannerImage,
   MovieBannerDetails
 } from '~/features/movies/components';
-import { useMovie, useMovieTrailers } from '~/features/movies/queries';
+import { useMovie } from '~/features/movies/queries';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
 export async function getStaticProps({ params }) {
@@ -116,8 +107,7 @@ export default function Movie({ movie, imageProps }) {
             </MovieBanner>
           )}
           <Container size={5} css={{ height: '100%' }}>
-            <FloatingCard>hello there</FloatingCard>
-            {/* watch providers */}
+            {/* <FloatingCard>hello there</FloatingCard> */}
             {/* Regions */}
             {/* Languages */}
             {/* Cast  */}
@@ -127,54 +117,5 @@ export default function Movie({ movie, imageProps }) {
         </>
       )}
     </Layout>
-  );
-}
-
-function MovieTrailer({ id }) {
-  const { data: trailers } = useMovieTrailers({ id });
-
-  const trailerToDisplay = trailers?.reduce((prev, current) =>
-    new Date(prev?.publishedAt) > new Date(current?.publishedAt)
-      ? prev
-      : current
-  );
-
-  return (
-    <Flex>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>
-            <Flex gap={2} align="center">
-              <PlayIcon /> Trailer
-            </Flex>
-          </Button>
-        </DialogTrigger>
-        <DialogContent
-          css={{
-            p: '$6',
-            bg: '$sage3'
-          }}
-        >
-          <Box
-            css={{
-              '@bp1': { width: 272, height: 153 },
-              '@bp2': { width: 480, height: 270 },
-              '@bp3': { width: 560, height: 315 },
-              '@bp4': { width: 752, height: 423 }
-            }}
-          >
-            <iframe
-              title="Youtube Trailer"
-              width="100%"
-              height="100%"
-              src={`https://www.youtube-nocookie.com/embed/${trailerToDisplay?.key}`}
-              frameBorder={0}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </Box>
-        </DialogContent>
-      </Dialog>
-    </Flex>
   );
 }

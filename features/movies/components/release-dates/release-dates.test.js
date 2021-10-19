@@ -26,6 +26,7 @@ describe('ReleaseDates', () => {
   afterEach(() => {
     useReleaseDates.mockReset();
   });
+
   it('should display certification', () => {
     const { getByText } = render(<ReleaseDates id={123} />);
     expect(getByText('PG')).toBeInTheDocument();
