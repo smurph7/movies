@@ -162,6 +162,14 @@ export function MovieBannerDetails({ movie }) {
       <Flex gap={5}>
         <Flex direction="column" gap={2}>
           <Text color={color} fontWeight="bold" fontSize={2}>
+            User score
+          </Text>
+          <Text color={color} fontSize={2}>
+            {Math.round((movie.voteAverage / 10) * 100)}%
+          </Text>
+        </Flex>
+        <Flex direction="column" gap={2}>
+          <Text color={color} fontWeight="bold" fontSize={2}>
             Status
           </Text>
           <Text color={color} fontSize={2}>

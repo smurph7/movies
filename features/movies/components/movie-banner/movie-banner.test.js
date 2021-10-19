@@ -73,6 +73,7 @@ describe('Movie Banner', () => {
       const runtime = '1h15m';
       const revenue = '123000000';
       const budget = '100000000';
+      const voteAverage = '9.1';
 
       const movie = {
         title,
@@ -83,7 +84,8 @@ describe('Movie Banner', () => {
         status,
         runtime,
         revenue,
-        budget
+        budget,
+        voteAverage
       };
       const { getByText } = render(<MovieBannerDetails movie={movie} />);
 
@@ -95,6 +97,7 @@ describe('Movie Banner', () => {
       expect(getByText(runtime)).toBeInTheDocument();
       expect(getByText('$123,000,000 (USD)')).toBeInTheDocument();
       expect(getByText('$100,000,000 (USD)')).toBeInTheDocument();
+      expect(getByText('91%')).toBeInTheDocument();
     });
   });
 });

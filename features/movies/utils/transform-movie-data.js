@@ -47,7 +47,7 @@ function getHoursAndMinutes(timeInMinutes) {
     const minutes = (hours - convertedHours) * 60;
     const convertedMinutes = Math.round(minutes);
     if (convertedHours) {
-      return `${convertedHours}h${convertedHours > 1 ? `s` : ''} ${
+      return `${convertedHours}h ${
         convertedMinutes !== 0 ? `${convertedMinutes}m` : ''
       }`;
     }
