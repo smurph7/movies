@@ -2,12 +2,9 @@ import * as React from 'react';
 import NextImage from 'next/image';
 
 import { Text, Flex, Button } from '~/features/ui';
-import { useMovieWatchProviders } from '~/features/movies/queries';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
-export function WatchProviderButton({ id }) {
-  const { data: watchProviders } = useMovieWatchProviders({ id });
-
+export function WatchProviderButton({ watchProviders }) {
   if (!watchProviders) {
     return null;
   }

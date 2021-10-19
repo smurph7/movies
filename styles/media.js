@@ -1,4 +1,5 @@
 import { createMedia } from '@artsy/fresnel';
+
 import { breakpoints } from '~/utils/config';
 
 const AppMedia = createMedia({

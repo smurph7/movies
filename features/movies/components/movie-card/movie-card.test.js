@@ -6,10 +6,6 @@ import { MovieCard } from '.';
 
 import { IMAGE_BASE_URL } from '~/utils/config';
 
-function mockNextImage({ src, alt }) {
-  return <img src={src} alt={alt} />;
-}
-
 function mockNextLink({ href, children }) {
   return (
     <div data-testid="movie-link" href={href}>

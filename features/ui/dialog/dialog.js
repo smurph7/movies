@@ -31,10 +31,6 @@ const StyledContent = styled(DialogPrimitive.Content, {
   maxHeight: '85vh',
   padding: '$4',
   marginTop: '-5vh',
-  // animation: `${fadeIn} 125ms linear, ${moveDown} 125ms cubic-bezier(0.22, 1, 0.36, 1)`,
-
-  // Among other things, prevents text alignment inconsistencies when dialog can't be centered in the viewport evenly.
-  // Affects animated and non-animated dialogs alike.
   willChange: 'transform',
 
   '&:focus': {

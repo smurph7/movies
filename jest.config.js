@@ -14,6 +14,7 @@ module.exports = {
   moduleNameMapper: {
     '^~/features(.*)$': '<rootDir>/features$1',
     '^~/config(.*)$': '<rootDir>/config$1',
-    '^~/utils(.*)$': '<rootDir>/utils$1'
+    '^~/utils(.*)$': '<rootDir>/utils$1',
+    '^~/styles(.*)$': '<rootDir>/styles$1'
   }
 };
