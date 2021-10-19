@@ -4,6 +4,8 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { IoHeartOutline, IoPersonCircleOutline } from 'react-icons/io5';
 import { ExitIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 
+import { SearchBar } from '../search';
+
 import { Box, Text, Flex, Button, ThemeChangeButton } from '~/features/ui';
 import {
   DropdownMenu,
@@ -33,6 +35,7 @@ export function Header() {
         direction="row"
         justify="space-between"
         align="center"
+        gap={5}
         css={{ width: '100%' }}
       >
         <NextLink href="/">
@@ -40,6 +43,7 @@ export function Header() {
             Movies
           </Text>
         </NextLink>
+        <SearchBar />
         <Media lessThan="bp3">
           <MobileHeaderMenu />
         </Media>
