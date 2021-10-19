@@ -11,8 +11,6 @@ import {
 } from '~/features/favourites/queries';
 import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
 
-// TODO fix clicking on button nav to movie
-
 export function FavouriteButton({ id }) {
   const { user } = useUser();
   const { data: isFavourite } = useIsFavourite(id);
@@ -26,7 +24,8 @@ export function FavouriteButton({ id }) {
     200
   );
 
-  function handleClick() {
+  function handleClick(e) {
+    e.stopPropagation();
     if (user) {
       if (isFavourite) {
         handleRemoveFavourite();
