@@ -20,6 +20,16 @@ function AllTheProviders({ children }) {
   );
 }
 
+function mockNextImage({ src, alt }) {
+  return <img src={src} alt={alt} />;
+}
+
+jest.mock('next/image', () => ({
+  __esModule: true,
+  // eslint-disable-next-line
+  default: ({ src, alt }) => mockNextImage({ src, alt })
+}));
+
 function customRender(ui, options) {
   return render(ui, { wrapper: AllTheProviders, ...options });
 }
