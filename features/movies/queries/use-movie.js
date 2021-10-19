@@ -6,9 +6,7 @@ import { moviesAxios } from '../../../api-client';
 export async function fetchMovie({ queryKey }) {
   const [, { id }] = queryKey;
 
-  const { data } = await moviesAxios.get(
-    `/movie/${id}?append_to_response=watch/providers`
-  );
+  const { data } = await moviesAxios.get(`/movie/${id}`);
 
   return data;
 }
