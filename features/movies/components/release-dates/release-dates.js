@@ -9,7 +9,7 @@ export function ReleaseDates({ id }) {
   const isMobile = useBreakpoint('bp3');
   const color = isMobile ? 'gray' : 'lightGray';
 
-  if (!data) {
+  if (!data?.releaseDate) {
     return <Box css={{ p: '$3' }} />;
   }
 

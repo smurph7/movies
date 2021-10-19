@@ -8,6 +8,10 @@ import { useMovieTrailers } from '~/features/movies/queries';
 export function MovieTrailer({ id }) {
   const { data: trailers } = useMovieTrailers({ id });
 
+  if (trailers?.length === 0) {
+    return null;
+  }
+
   const trailerToDisplay = trailers?.reduce((prev, current) =>
     new Date(prev?.publishedAt) > new Date(current?.publishedAt)
       ? prev
