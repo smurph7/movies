@@ -194,7 +194,7 @@ export function MovieBannerDetails({ movie }) {
             </Text>
           </Flex>
         )}
-        {movie.budget && (
+        {!!movie.budget && movie.budget > 0 && (
           <Flex direction="column" gap={2}>
             <Text color="lightGray" fontWeight="bold" fontSize={2}>
               Budget
@@ -204,7 +204,7 @@ export function MovieBannerDetails({ movie }) {
             </Text>
           </Flex>
         )}
-        {movie.revenue && (
+        {!!movie.revenue && movie.revenue > 0 && (
           <Flex direction="column" gap={2}>
             <Text color="lightGray" fontWeight="bold" fontSize={2}>
               Revenue
