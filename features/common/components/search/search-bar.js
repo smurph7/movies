@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Select, { components } from 'react-select';
-import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useDebounce } from 'use-debounce';
@@ -11,13 +10,12 @@ import { Box, Text, Flex } from '~/features/ui';
 import { usePrefetchMovie, useSearchMovies } from '~/features/movies/queries';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { getUrlFromString } from '~/utils/get-url-from-string';
-import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
+import { useThemeStore } from '~/features/ui/theme-change-button/use-theme-store';
 
 export function SearchBar() {
-  const router = useRouter();
-  let color = sageDark;
-  const { themeText } = useThemeChange();
+  const [color, setColor] = React.useState(sage);
   const [query, setQuery] = React.useState();
+  const theme = useThemeStore(state => state.theme);
   const [debouncedQuery] = useDebounce(query, 250);
   const searchMoviesQuery = useSearchMovies({ query: debouncedQuery });
   const results = searchMoviesQuery.data?.results.map(result => ({
@@ -25,19 +23,16 @@ export function SearchBar() {
     label: result.title
   }));
 
-  if (themeText === 'theme-default') {
-    color = sage;
-  }
+  React.useEffect(() => {
+    if (theme === 'theme-default') {
+      setColor(sage);
+    } else {
+      setColor(sageDark);
+    }
+  }, [theme]);
 
   function handleInputChange(newValue) {
     setQuery(newValue);
-  }
-
-  function handlePressEnter(e) {
-    // e.stopPropagation();
-    // if (e.key === 'Enter') {
-    //   router.push(`/search?q=${debouncedQuery}`);
-    // }
   }
 
   function CustomOption(props) {
@@ -116,13 +111,19 @@ export function SearchBar() {
       borderBottomRightRadius: 10,
       borderTopRightRadius: 10,
       height: '40px',
-      fontSize: '17px'
+      fontSize: '17px',
+      backgroundColor: color.sage3
     }),
     menu: provided => ({
       ...provided,
       marginTop: 0,
       zIndex: 11,
-      fontFamily: 'Inter, sans-serif'
+      fontFamily: 'Inter, sans-serif',
+      backgroundColor: color.sage3
+    }),
+    input: provided => ({
+      ...provided,
+      color: color.sage11
     })
   };
 
@@ -137,7 +138,6 @@ export function SearchBar() {
           DropdownIndicator: CustomDropDownIndicator,
           Option: CustomOption
         }}
-        onKeyDown={handlePressEnter}
         placeholder="Search"
       />
     </Box>

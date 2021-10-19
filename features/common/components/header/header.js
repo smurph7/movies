@@ -122,7 +122,8 @@ function MobileHeaderMenu() {
             zIndex: 20,
             bg: '$sage1',
             width: '100%',
-            p: '$3'
+            p: '$3',
+            pl: '$6'
           }}
         >
           <Flex align="center">
