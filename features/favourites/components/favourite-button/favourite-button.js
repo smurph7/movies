@@ -13,19 +13,16 @@ import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
 
 // TODO fix clicking on button nav to movie
 
-export function FavouriteButton({ movieId }) {
+export function FavouriteButton({ id }) {
   const { user } = useUser();
-  const { data: isFavourite } = useIsFavourite(movieId);
+  const { data: isFavourite } = useIsFavourite(id);
   const { mutate: addFavourite } = useAddFavourite();
   const { mutate: removeFavourite } = useRemoveFavourite();
 
-  const handleAddFavourite = useDebouncedCallback(
-    () => addFavourite(movieId),
-    200
-  );
+  const handleAddFavourite = useDebouncedCallback(() => addFavourite(id), 200);
 
   const handleRemoveFavourite = useDebouncedCallback(
-    () => removeFavourite(movieId),
+    () => removeFavourite(id),
     200
   );
 

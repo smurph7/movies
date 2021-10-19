@@ -67,7 +67,7 @@ export function MovieCard({ movie, isLoading }) {
                 </Text>
               </Flex>
             )}
-            <FavouriteButton movieId={movie.id} />
+            <FavouriteButton id={movie.id} />
           </Box>
         </NextLink>
       </Box>

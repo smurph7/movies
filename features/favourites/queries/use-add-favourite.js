@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import { useFavourites } from './use-favourites';
 
-async function addFavourite(movieId, { currentFavourites = [] }) {
-  const newFavourite = currentFavourites.includes(movieId) ? [] : [movieId];
+async function addFavourite(id, { currentFavourites = [] }) {
+  const newFavourite = currentFavourites.includes(id) ? [] : [id];
   const favourites = [...currentFavourites, ...newFavourite];
   const { data } = await axios.patch('/api/auth/profile', { favourites });
   return data;
@@ -14,13 +14,13 @@ export function useAddFavourite() {
   const { data: currentFavourites } = useFavourites();
   const queryClient = useQueryClient();
   const queryKey = ['favourites'];
-  return useMutation(movieId => addFavourite(movieId, { currentFavourites }), {
-    onMutate: async movieId => {
+  return useMutation(id => addFavourite(id, { currentFavourites }), {
+    onMutate: async id => {
       await queryClient.cancelQueries(queryKey);
       const previous = queryClient.getQueryData(queryKey);
       queryClient.setQueryData(queryKey, old => {
         const oldFavourites = old ?? [];
-        const newFavourite = oldFavourites.includes(movieId) ? [] : [movieId];
+        const newFavourite = oldFavourites.includes(id) ? [] : [id];
 
         return [...oldFavourites, ...newFavourite];
       });
