@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Select, { components } from 'react-select';
+import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useDebounce } from 'use-debounce';
@@ -13,6 +14,8 @@ import { getUrlFromString } from '~/utils/get-url-from-string';
 import { useThemeStore } from '~/features/ui/theme-change-button/use-theme-store';
 
 export function SearchBar() {
+  const router = useRouter();
+  const selectRef = React.useRef();
   const [color, setColor] = React.useState(sage);
   const [query, setQuery] = React.useState();
   const theme = useThemeStore(state => state.theme);
@@ -33,6 +36,19 @@ export function SearchBar() {
 
   function handleInputChange(newValue) {
     setQuery(newValue);
+  }
+
+  function handleKeyDown(input) {
+    const { focusedOption } = selectRef.current.state;
+    if (input.code === 'Enter' && focusedOption) {
+      router.push(
+        `/movie/${getUrlFromString(focusedOption?.title)}-${focusedOption?.id}`
+      );
+    }
+  }
+
+  function handleClearValue() {
+    selectRef.current.clearValue();
   }
 
   function CustomOption(props) {
@@ -123,13 +139,18 @@ export function SearchBar() {
     }),
     input: provided => ({
       ...provided,
-      color: color.sage11
+      color: color.sage12
+    }),
+    placeholder: provided => ({
+      ...provided,
+      color: color.sage10
     })
   };
 
   return (
     <Box css={{ width: '100%' }}>
       <Select
+        ref={selectRef}
         options={results}
         onInputChange={handleInputChange}
         inputValue={query}
@@ -139,6 +160,9 @@ export function SearchBar() {
           Option: CustomOption
         }}
         placeholder="Search"
+        onKeyDown={handleKeyDown}
+        onFocus={handleClearValue}
+        isClearable
       />
     </Box>
   );
