@@ -16,7 +16,7 @@ export function MovieCard({ movie, isLoading }) {
   const { handlePrefetch } = usePrefetchMovie();
 
   function handlePrefetchMovie() {
-    handlePrefetch({ id: `${movie.id}` });
+    handlePrefetch({ id: `${movie?.id}` });
   }
 
   if (isLoading) {

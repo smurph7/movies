@@ -5,6 +5,8 @@ import { MovieCard } from '../movie-card';
 import { Container, Flex, Grid, Text } from '~/features/ui';
 
 export function MovieTiles({ title, movies, isLoading }) {
+  const placeholders = [...Array.from({ length: 10 })];
+  const movieArray = movies ?? placeholders;
   return (
     <Container size={5} css={{ pt: '$5' }}>
       <Flex direction="column" gap={4} align="center">
@@ -21,8 +23,8 @@ export function MovieTiles({ title, movies, isLoading }) {
           }}
           gap={{ '@bp1': 3, '@bp3': 2 }}
         >
-          {movies?.map(movie => (
-            <MovieCard key={movie.id} movie={movie} isLoading={isLoading} />
+          {movieArray?.map(movie => (
+            <MovieCard key={movie?.id} movie={movie} isLoading={isLoading} />
           ))}
         </Grid>
       </Flex>

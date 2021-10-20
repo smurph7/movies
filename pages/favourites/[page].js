@@ -36,7 +36,7 @@ export default function Favourites() {
         <MovieTiles
           title="Favourites"
           movies={favouritesQuery?.data?.results}
-          isLoading={favouritesQuery.isLoading}
+          isLoading={favouritesQuery.isLoading || favouritesQuery.isIdle}
         />
         <Flex justify="center">
           <Pagination
