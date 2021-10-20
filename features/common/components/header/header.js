@@ -131,7 +131,8 @@ function MobileHeaderMenu() {
             bg: '$sage1',
             width: '100%',
             p: '$3',
-            pl: '$6'
+            pl: '$6',
+            willChange: 'transform'
           }}
         >
           <Flex align="center">

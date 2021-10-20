@@ -39,7 +39,7 @@ export function transformMoviesData(data) {
           title: result.title,
           posterPath: result.poster_path,
           voteAverage: result.vote_average,
-          releaseYear: result.release_date.split('-')[0]
+          releaseYear: result.release_date?.split('-')[0]
         };
       })
       .filter(result => result !== undefined)

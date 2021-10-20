@@ -10,7 +10,6 @@ export async function fetchMovie({ queryKey }) {
   const [, { favourites }] = queryKey;
   const requests = favourites.map(favourite => {
     if (favourite === null) {
-      console.log('favourite', favourite);
       return;
     }
     return new Promise(resolve => {

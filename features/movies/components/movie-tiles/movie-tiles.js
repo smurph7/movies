@@ -13,8 +13,9 @@ export function MovieTiles({ title, movies, isLoading }) {
         </Text>
         <Grid
           columns={{
-            '@bp2': '2',
-            '@bp3': '3',
+            '@bp1': '2',
+            '@bp2': '3',
+            '@bp3': '4',
             '@bp4': '5',
             '@bp5': '5'
           }}
