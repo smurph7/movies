@@ -8,19 +8,22 @@ import { transformMoviesData } from '~/features/movies/utils/transform-movie-dat
 
 export async function fetchMovie({ queryKey }) {
   const [, { favourites }] = queryKey;
-  const requests = favourites.map(
-    favourite =>
-      new Promise(resolve => {
-        moviesAxios
-          .get(`/movie/${favourite}`)
-          .then(({ data }) => {
-            resolve(data);
-          })
-          .catch(error => {
-            resolve(error);
-          });
-      })
-  );
+  const requests = favourites.map(favourite => {
+    if (favourite === null) {
+      console.log('favourite', favourite);
+      return;
+    }
+    return new Promise(resolve => {
+      moviesAxios
+        .get(`/movie/${favourite}`)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch(error => {
+          resolve(error);
+        });
+    });
+  });
 
   return Promise.all(requests)
     .then(data => data)
