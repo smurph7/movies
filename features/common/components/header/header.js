@@ -45,20 +45,28 @@ export function Header() {
         gap={5}
         css={{ width: '100%' }}
       >
-        <NextLink href="/">
-          <Text aria-label="home" link linkVariant="subtle" heading>
-            Movies
-          </Text>
-        </NextLink>
-        {!isMobile && (
-          <Flex
-            justify="space-around"
-            align="center"
-            css={{ px: '$4', width: '80%' }}
-          >
-            <SearchBar />
-          </Flex>
-        )}
+        <Flex
+          justify="space-between"
+          direction="row"
+          align="center"
+          gap={5}
+          css={{ width: '90%' }}
+        >
+          <NextLink href="/">
+            <Text aria-label="home" link linkVariant="subtle" heading>
+              Movies
+            </Text>
+          </NextLink>
+          {!isMobile && (
+            <Flex
+              justify="space-around"
+              align="center"
+              css={{ px: '$4', width: '75%' }}
+            >
+              <SearchBar />
+            </Flex>
+          )}
+        </Flex>
         <Media lessThan="bp3">
           <MobileHeaderMenu />
         </Media>

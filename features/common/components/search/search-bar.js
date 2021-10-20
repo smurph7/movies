@@ -5,7 +5,12 @@ import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useDebounce } from 'use-debounce';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import { sage, sageDark } from '@radix-ui/colors';
+import {
+  sage as sageLight,
+  sageDark,
+  green as greenLight,
+  greenDark
+} from '@radix-ui/colors';
 
 import { Box, Text, Flex } from '~/features/ui';
 import { usePrefetchMovie, useSearchMovies } from '~/features/movies/queries';
@@ -16,7 +21,8 @@ import { useThemeStore } from '~/features/ui/theme-change-button/use-theme-store
 export function SearchBar() {
   const router = useRouter();
   const selectRef = React.useRef();
-  const [color, setColor] = React.useState(sage);
+  const [sage, setSage] = React.useState(sageLight);
+  const [green, setGreen] = React.useState(greenLight);
   const [query, setQuery] = React.useState();
   const theme = useThemeStore(state => state.theme);
   const [debouncedQuery] = useDebounce(query, 250);
@@ -28,9 +34,11 @@ export function SearchBar() {
 
   React.useEffect(() => {
     if (theme === 'theme-default') {
-      setColor(sage);
+      setSage(sageLight);
+      setGreen(greenLight);
     } else {
-      setColor(sageDark);
+      setSage(sageDark);
+      setGreen(greenDark);
     }
   }, [theme]);
 
@@ -109,17 +117,17 @@ export function SearchBar() {
       fontSize: '17px',
       fontFamily: 'Inter, sans-serif',
       cursor: 'pointer',
-      backgroundColor: isFocused ? color.sage7 : color.sage3,
+      backgroundColor: isFocused ? green.green7 : sage.sage3,
       ':hover': {
         ...styles[':hover'],
-        backgroundColor: isFocused && color.sage7
+        backgroundColor: isFocused && green.green7
       },
       ':active': {
         ...styles[':active'],
-        backgroundColor: isFocused && color.sage7
+        backgroundColor: isFocused && green.green7
       }
     }),
-    control: provided => ({
+    control: (provided, state) => ({
       ...provided,
       fontFamily: 'Inter, sans-serif',
       borderBottomLeftRadius: 10,
@@ -128,22 +136,28 @@ export function SearchBar() {
       borderTopRightRadius: 10,
       height: '40px',
       fontSize: '17px',
-      backgroundColor: color.sage3
+      backgroundColor: sage.sage3,
+      boxShadow: state.isFocused ? 0 : 0,
+      borderColor: state.isFocused ? green.green8 : sage.sage11,
+      '&:hover': {
+        borderColor: state.isFocused ? green.green8 : sage.sage11
+      }
     }),
     menu: provided => ({
       ...provided,
       marginTop: 0,
       zIndex: 11,
       fontFamily: 'Inter, sans-serif',
-      backgroundColor: color.sage3
+      backgroundColor: sage.sage3
     }),
     input: provided => ({
       ...provided,
-      color: color.sage12
+      color: sage.sage12,
+      border: 'none'
     }),
     placeholder: provided => ({
       ...provided,
-      color: color.sage10
+      color: sage.sage10
     })
   };
 
