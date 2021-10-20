@@ -1,16 +1,33 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 
-import { useFavouriteMovies } from '~/features/favourites/queries';
-import { Layout } from '~/features/common/components';
+import {
+  useFavouriteMovies,
+  useFavouritesTotal
+} from '~/features/favourites/queries';
+import { Layout, Pagination } from '~/features/common/components';
 import { MovieTiles } from '~/features/movies/components';
 import { Flex } from '~/features/ui';
-import { Pagination } from '~/features/common/components/pagination';
+import { useTotalPages } from '~/features/common/hooks/use-total-pages';
 
 export default function Favourites() {
   const router = useRouter();
   const page = router.query?.page;
-  const favouritesQuery = useFavouriteMovies({ page });
+  const resultsPerPage = 20;
+
+  const favouritesQuery = useFavouriteMovies({ page, resultsPerPage });
+  const { data: totalFavourites } = useFavouritesTotal();
+
+  function handlePageChange(newPage) {
+    router.push(`/favourites/${newPage}`, null, { shallow: true });
+  }
+
+  const totalPages = useTotalPages({
+    total: totalFavourites,
+    resultsPerPage,
+    page,
+    handlePageChange
+  });
 
   return (
     <Layout>
@@ -23,10 +40,10 @@ export default function Favourites() {
         <Flex justify="center">
           <Pagination
             currentPage={page}
-            setCurrentPage={newPage =>
-              router.push(`/favourites/${newPage + 1}`, null, { shallow: true })
-            }
-            totalPages={3}
+            setCurrentPage={handlePageChange}
+            totalPages={totalPages}
+            edgePageCount={2}
+            middlePagesSiblingCount={2}
           >
             <Flex align="center" justify="center" gap={2}>
               <Pagination.PrevButton />

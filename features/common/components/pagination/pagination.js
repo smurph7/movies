@@ -24,10 +24,11 @@ const PaginationContext = React.createContext(defaultState);
 
 export function PrevButton({ className, children, ...buttonProps }) {
   const pagination = React.useContext(PaginationContext);
+  const currentPage = Number(pagination.currentPage);
 
   function handlePrevious() {
-    if (pagination.currentPage + 1 > 1) {
-      pagination.setCurrentPage(pagination.currentPage - 1);
+    if (currentPage > 1) {
+      pagination.setCurrentPage(currentPage - 1);
     }
   }
 
@@ -36,7 +37,7 @@ export function PrevButton({ className, children, ...buttonProps }) {
       variant="round"
       {...buttonProps}
       onClick={handlePrevious}
-      disabled={pagination.currentPage === 0}
+      disabled={currentPage === 1}
     >
       {children ?? <ArrowLeftIcon />}
     </Button>
@@ -45,10 +46,11 @@ export function PrevButton({ className, children, ...buttonProps }) {
 
 export function NextButton({ className, children, ...buttonProps }) {
   const pagination = React.useContext(PaginationContext);
+  const currentPage = Number(pagination.currentPage);
 
   function handleNext() {
-    if (pagination.currentPage + 1 < pagination.pages.length) {
-      pagination.setCurrentPage(pagination.currentPage + 1);
+    if (currentPage < pagination.pages.length) {
+      pagination.setCurrentPage(currentPage + 1);
     }
   }
 
@@ -57,7 +59,7 @@ export function NextButton({ className, children, ...buttonProps }) {
       variant="round"
       {...buttonProps}
       onClick={handleNext}
-      disabled={pagination.currentPage === pagination.pages.length - 1}
+      disabled={currentPage === pagination.pages.length}
     >
       {children ?? <ArrowRightIcon />}
     </Button>
@@ -83,7 +85,8 @@ export function PageButton() {
   const pagination = React.useContext(PaginationContext);
 
   function renderPageButton(page) {
-    const isActive = pagination.currentPage + 1 === page;
+    const isActive = Number(pagination.currentPage) === page;
+
     return (
       <Button
         variant="round"
@@ -92,7 +95,7 @@ export function PageButton() {
           bg: isActive ? '$sage11' : 'sage1',
           color: isActive ? '$sage1' : 'sage7'
         }}
-        onClick={() => pagination.setCurrentPage(page - 1)}
+        onClick={() => pagination.setCurrentPage(page)}
       >
         {page}
       </Button>
