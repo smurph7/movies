@@ -20,6 +20,7 @@ export default function Favourites() {
 
   function handlePageChange(newPage) {
     router.push(`/favourites/${newPage}`, null, { shallow: true });
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }
 
   const totalPages = useTotalPages({
