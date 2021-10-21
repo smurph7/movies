@@ -60,7 +60,7 @@ export function MovieBannerBackdrop({ title, backdropPath, bgBlurDataUrl }) {
 
 export function MovieBannerDetailSection({ children }) {
   return (
-    <Container size={5} css={{ height: '100%' }}>
+    <Container size={6} css={{ height: '100%' }}>
       <Box
         css={{
           position: 'relative',

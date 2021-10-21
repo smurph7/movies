@@ -4,13 +4,14 @@ import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
 
 import { Layout, ErrorMessageView } from '~/features/common/components';
-import { Container, Placeholder, FloatingCard } from '~/features/ui';
+import { Container, Placeholder, Flex } from '~/features/ui';
 import {
   MovieBanner,
   MovieBannerBackdrop,
   MovieBannerDetailSection,
   MovieBannerImage,
-  MovieBannerDetails
+  MovieBannerDetails,
+  MovieReviews
 } from '~/features/movies/components';
 import { useMovie } from '~/features/movies/queries';
 import { IMAGE_BASE_URL } from '~/utils/config';
@@ -94,7 +95,7 @@ export default function Movie({ movie, imageProps }) {
       ) : isLoading ? (
         <Placeholder width="100%" height={600} />
       ) : (
-        <>
+        <Flex direction="column" gap={5}>
           {movieQuery.data && (
             <MovieBanner imageProps={imageProps} movie={movieQuery.data}>
               <MovieBannerBackdrop
@@ -114,7 +115,8 @@ export default function Movie({ movie, imageProps }) {
               </MovieBannerDetailSection>
             </MovieBanner>
           )}
-          <Container size={5} css={{ height: '100%' }}>
+          <Container size={5} css={{ width: '100%', height: '100%' }}>
+            <MovieReviews id={movieQuery.data?.id} />
             {/* <FloatingCard>hello there</FloatingCard> */}
             {/* Regions */}
             {/* Languages */}
@@ -122,7 +124,7 @@ export default function Movie({ movie, imageProps }) {
             {/* Reviews */}
             {/* Status (col) */}
           </Container>
-        </>
+        </Flex>
       )}
     </Layout>
   );

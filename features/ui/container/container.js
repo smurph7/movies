@@ -19,9 +19,12 @@ export const Container = styled('div', {
         maxWidth: '865px'
       },
       5: {
-        maxWidth: '1200px'
+        maxWidth: '1000px'
       },
       6: {
+        maxWidth: '1200px'
+      },
+      7: {
         maxWidth: '1400px'
       }
     }

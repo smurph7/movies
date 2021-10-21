@@ -100,6 +100,9 @@ export const Text = styled('p', {
       },
       contrast: {
         color: '$hiContrast'
+      },
+      loContrast: {
+        color: '$loContrast'
       }
     },
     truncate: {

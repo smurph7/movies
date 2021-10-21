@@ -8,7 +8,7 @@ export function MovieTiles({ title, movies, isLoading }) {
   const placeholders = [...Array.from({ length: 10 })];
   const movieArray = movies ?? placeholders;
   return (
-    <Container size={5} css={{ pt: '$5' }}>
+    <Container size={6} css={{ pt: '$5' }}>
       <Flex direction="column" gap={4} align="center">
         <Text heading fontSize={5}>
           {title}
