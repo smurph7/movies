@@ -17,7 +17,7 @@ export function LoginView({
   return (
     <Flex direction="column" align="center" gap={5} css={{ p: '$4' }}>
       <Box css={{ color: '$green9' }}>{icon}</Box>
-      <Text>{text}</Text>
+      <Text color="gray">{text}</Text>
       <Button
         variant="green"
         size={2}
