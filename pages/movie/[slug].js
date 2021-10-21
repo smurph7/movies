@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
 
-import { Layout } from '~/features/common/components';
+import { Layout, ErrorMessageView } from '~/features/common/components';
 import { Container, Placeholder, FloatingCard } from '~/features/ui';
 import {
   MovieBanner,
@@ -53,6 +53,8 @@ export async function getStaticProps({ params }) {
     movie = data;
   } catch (error) {
     movie = {};
+    bgBlurDataUrl = {};
+    posterBlurDataUrl = {};
   }
 
   return {
@@ -83,7 +85,13 @@ export default function Movie({ movie, imageProps }) {
 
   return (
     <Layout>
-      {isLoading ? (
+      {/* eslint-disable-next-line no-nested-ternary */}
+      {movieQuery.isError ? (
+        <ErrorMessageView
+          icon={null}
+          message={`Sorry, we couldn't find the movie you were looking for.`}
+        />
+      ) : isLoading ? (
         <Placeholder width="100%" height={600} />
       ) : (
         <>
