@@ -4,7 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 
 async function getFavourites() {
   const { data } = await axios.get('/api/auth/profile');
-  return data.user_metadata.favourites;
+  return data?.user_metadata?.favourites ?? [];
 }
 
 export function useFavourites({ queryConfig } = {}) {

@@ -8,7 +8,7 @@ import {
 } from '~/features/favourites/queries';
 import { Layout, Pagination, LoginView } from '~/features/common/components';
 import { MovieTiles } from '~/features/movies/components';
-import { Flex } from '~/features/ui';
+import { Flex, Text } from '~/features/ui';
 import { useTotalPages } from '~/features/common/hooks/use-total-pages';
 import { usePageChange } from '~/features/common/hooks/use-page-change';
 
@@ -38,7 +38,15 @@ export default function Favourites() {
             movies={favouritesQuery?.data?.results}
             isLoading={favouritesQuery.isLoading || favouritesQuery.isIdle}
           />
-          {favouritesQuery?.data?.results?.length > 0 && (
+          {totalFavourites === 0 && (
+            <Flex direction="column" align="center" gap={2}>
+              <Text color="gray">You don't have any favourites yet.</Text>
+              <Text color="gray">
+                Add some movies to your favourites to see them here.
+              </Text>
+            </Flex>
+          )}
+          {totalFavourites > 0 && (
             <Flex justify="center">
               <Pagination
                 currentPage={page}
