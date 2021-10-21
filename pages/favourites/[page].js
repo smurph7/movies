@@ -10,20 +10,17 @@ import { Layout, Pagination } from '~/features/common/components';
 import { MovieTiles } from '~/features/movies/components';
 import { Flex, Text } from '~/features/ui';
 import { useTotalPages } from '~/features/common/hooks/use-total-pages';
+import { usePageChange } from '~/features/common/hooks/use-page-change';
 
 export default function Favourites() {
   const { user, isLoading: userIsLoading } = useUser();
   const router = useRouter();
   const page = router.query?.page;
   const resultsPerPage = 10;
+  const { handlePageChange } = usePageChange();
 
   const favouritesQuery = useFavouriteMovies({ page, resultsPerPage });
   const { data: totalFavourites } = useFavouritesTotal();
-
-  function handlePageChange(newPage) {
-    router.push(`/favourites/${newPage}`, null, { shallow: true });
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  }
 
   const totalPages = useTotalPages({
     total: totalFavourites,
@@ -45,7 +42,9 @@ export default function Favourites() {
             <Flex justify="center">
               <Pagination
                 currentPage={page}
-                setCurrentPage={handlePageChange}
+                setCurrentPage={newPage =>
+                  handlePageChange(`/favourites/${newPage}`)
+                }
                 totalPages={totalPages}
                 edgePageCount={2}
                 middlePagesSiblingCount={2}

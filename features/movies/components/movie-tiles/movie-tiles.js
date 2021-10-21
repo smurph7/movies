@@ -23,8 +23,12 @@ export function MovieTiles({ title, movies, isLoading }) {
           }}
           gap={{ '@bp1': 3, '@bp3': 2 }}
         >
-          {movieArray?.map(movie => (
-            <MovieCard key={movie?.id} movie={movie} isLoading={isLoading} />
+          {movieArray?.map((movie, index) => (
+            <MovieCard
+              key={`${movie?.id}-${index}`}
+              movie={movie}
+              isLoading={isLoading}
+            />
           ))}
         </Grid>
       </Flex>
