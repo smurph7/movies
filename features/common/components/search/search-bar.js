@@ -14,13 +14,15 @@ import {
 
 import { Box, Text, Flex } from '~/features/ui';
 import { usePrefetchMovie, useSearchMovies } from '~/features/movies/queries';
+import { useThemeStore } from '~/features/ui/theme-change-button/use-theme-store';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { getUrlFromString } from '~/utils/get-url-from-string';
-import { useThemeStore } from '~/features/ui/theme-change-button/use-theme-store';
+import { useBreakpoint } from '~/utils/use-breakpoint';
 
 export function SearchBar() {
   const router = useRouter();
   const selectRef = React.useRef();
+  const { boolean: isMobile } = useBreakpoint('bp3');
   const [sage, setSage] = React.useState(sageLight);
   const [green, setGreen] = React.useState(greenLight);
   const [query, setQuery] = React.useState();
@@ -31,6 +33,12 @@ export function SearchBar() {
     ...result,
     label: result.title
   }));
+
+  React.useEffect(() => {
+    if (isMobile) {
+      selectRef.current.focus();
+    }
+  }, [isMobile]);
 
   React.useEffect(() => {
     if (theme === 'theme-default') {
