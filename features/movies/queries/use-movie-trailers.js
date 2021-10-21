@@ -23,7 +23,7 @@ export async function fetchMovieTrailers({ queryKey }) {
 }
 
 export function useMovieTrailers({ id }) {
-  return useQuery(['movieTrailers', { id }], fetchMovieTrailers, {
+  return useQuery(['trailers', { id }], fetchMovieTrailers, {
     enabled: !!id,
     select: data => transformTrailerData(data)
   });

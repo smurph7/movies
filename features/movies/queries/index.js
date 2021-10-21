@@ -7,3 +7,4 @@ export { useReleaseDates } from './use-release-dates';
 export { useMovieTrailers } from './use-movie-trailers';
 export { useMovieWatchProviders } from './use-watch-providers';
 export { useSearchMovies } from './use-search-movies';
+export { useMovieReviews } from './use-movie-reviews';
