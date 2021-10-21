@@ -111,7 +111,7 @@ export function MovieBannerImage({ id, title, src, posterBlurDataUrl }) {
 }
 
 export function MovieBannerDetails({ movie }) {
-  const isMobile = useBreakpoint('bp3');
+  const { boolean: isMobile } = useBreakpoint('bp3');
   const color = isMobile ? 'gray' : 'lightGray';
 
   const number = new Intl.NumberFormat('en-US');
