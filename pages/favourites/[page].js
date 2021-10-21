@@ -6,9 +6,9 @@ import {
   useFavouriteMovies,
   useFavouritesTotal
 } from '~/features/favourites/queries';
-import { Layout, Pagination } from '~/features/common/components';
+import { Layout, Pagination, LoginView } from '~/features/common/components';
 import { MovieTiles } from '~/features/movies/components';
-import { Flex, Text } from '~/features/ui';
+import { Flex } from '~/features/ui';
 import { useTotalPages } from '~/features/common/hooks/use-total-pages';
 import { usePageChange } from '~/features/common/hooks/use-page-change';
 
@@ -59,9 +59,8 @@ export default function Favourites() {
           )}
         </Flex>
       ) : (
-        // TODO add sign in view
         <Flex justify="center" css={{ p: '$8' }}>
-          <Text>Please log in to view your favourites</Text>
+          <LoginView text="Please log in to view your favourites" />
         </Flex>
       )}
     </Layout>
