@@ -7,13 +7,12 @@ import { Container, Box, Text, Flex, Grid, Button } from '~/features/ui';
 import { FavouriteButton } from '~/features/favourites/components';
 import { ReleaseDates, MovieTrailer } from '~/features/movies/components';
 import { useMovieWatchProviders } from '~/features/movies/queries';
-import { useThemeStore } from '~/features/ui/theme-change-button/use-theme-store';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { Media } from '~/styles/media';
 
 export function MovieBanner({ ...props }) {
-  const isMobile = useBreakpoint('bp3');
+  const { boolean: isMobile } = useBreakpoint('bp3');
 
   return (
     <Box

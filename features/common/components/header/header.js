@@ -27,7 +27,9 @@ import { Media } from '~/styles/media';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 
 export function Header() {
-  const isMobile = useBreakpoint('bp3');
+  const { boolean: isMobile, isLoading: isBreakpointLoading } =
+    useBreakpoint('bp3');
+
   return (
     <Box
       css={{
@@ -57,7 +59,7 @@ export function Header() {
               Movies
             </Text>
           </NextLink>
-          {!isMobile && (
+          {!isMobile && !isBreakpointLoading && (
             <Flex
               justify="space-around"
               align="center"

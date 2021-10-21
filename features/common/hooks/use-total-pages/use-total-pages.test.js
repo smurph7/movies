@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import { useTotalPages } from './use-total-pages';
 
-describe('usePagination', () => {
+describe('useTotalPages', () => {
   it('should return correct number of total pages based on total and resultsPerPage', () => {
     const { result } = renderHook(() =>
       useTotalPages({

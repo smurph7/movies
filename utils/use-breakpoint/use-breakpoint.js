@@ -31,5 +31,8 @@ function useWindowSize() {
 export function useBreakpoint(breakpointVal) {
   const breakpoint = breakpoints[breakpointVal];
   const size = useWindowSize();
-  return size.width < breakpoint;
+  return {
+    isLoading: size.width === undefined,
+    boolean: size.width < breakpoint
+  };
 }

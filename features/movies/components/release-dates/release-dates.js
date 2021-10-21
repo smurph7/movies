@@ -6,7 +6,7 @@ import { useBreakpoint } from '~/utils/use-breakpoint';
 
 export function ReleaseDates({ id }) {
   const { data } = useReleaseDates({ id });
-  const isMobile = useBreakpoint('bp3');
+  const { boolean: isMobile } = useBreakpoint('bp3');
   const color = isMobile ? 'gray' : 'lightGray';
 
   if (!data?.releaseDate) {

@@ -6,7 +6,7 @@ import * as releaseDatesHook from '../../queries/use-release-dates';
 import { ReleaseDates } from '.';
 
 jest.mock('~/utils/use-breakpoint/use-breakpoint', () => ({
-  useBreakpoint: () => false
+  useBreakpoint: () => ({ boolean: false })
 }));
 
 describe('ReleaseDates', () => {
