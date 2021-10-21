@@ -176,7 +176,7 @@ export function MovieBannerDetails({ movie }) {
             </Text>
           </Flex>
         )}
-        {movie.runtime && (
+        {!!movie.runtime && (
           <Flex direction="column" gap={2}>
             <Text color={color} fontWeight="bold" fontSize={2}>
               Run Time
