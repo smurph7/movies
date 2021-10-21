@@ -82,7 +82,7 @@ export function Header() {
 
 function DesktopHeaderMenu() {
   return (
-    <Flex direction="row" align="center" gap={3}>
+    <Flex direction="row" align="center" gap={1}>
       <Popover trigger="hover">
         <NextLink href="/favourites/1">
           <PopoverTrigger asChild>

@@ -30,11 +30,12 @@ export function UserHeaderButton() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          size={2}
-          css={{ minWidth: 70 }}
+          size={user ? 3 : 2}
+          ghost={!!user}
+          css={user ? { width: 44, height: 44, p: '$2' } : { minWidth: 70 }}
+          aria-label={user ? 'user' : 'login'}
           disabled={isLoading}
           onClick={handleLogin}
-          aria-label={user ? 'user' : 'login'}
         >
           <Flex align="center" gap={2}>
             {!user && <IoPersonCircleOutline size={20} />}
@@ -47,14 +48,12 @@ export function UserHeaderButton() {
                     className="profile"
                     src={user.picture}
                     alt="profile"
-                    width={22}
-                    height={22}
+                    width={32}
+                    height={32}
                   />
                 ) : (
                   <IoPersonCircleOutline size={20} />
                 )}
-
-                {user?.name}
               </>
             ) : (
               'Login / Signup'
@@ -63,7 +62,7 @@ export function UserHeaderButton() {
         </Button>
       </DropdownMenuTrigger>
       {user && (
-        <DropdownMenuContent align="center">
+        <DropdownMenuContent align="start">
           <DropdownMenuGroup>
             <NextLink href="/profile">
               <DropdownMenuItem aria-label="profile">Profile</DropdownMenuItem>

@@ -21,6 +21,8 @@ export const itemCss = css(baseItemCss, {
   position: 'relative',
   color: '$sage11',
   fontFamily: '$body',
+  p: '$3',
+  fontSize: '$3',
 
   '&:focus': {
     outline: 'none',
@@ -34,6 +36,8 @@ export const itemCss = css(baseItemCss, {
   variants: {
     variant: {
       mobile: {
+        px: '$2',
+        py: 0,
         height: 60
       }
     }

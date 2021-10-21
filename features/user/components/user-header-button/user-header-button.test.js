@@ -35,7 +35,7 @@ describe('UserHeaderButton', () => {
     });
 
     const { getByText } = render(<UserHeaderButton />);
-    const login = getByText('Login or Register');
+    const login = getByText('Login / Signup');
     expect(login).toBeInTheDocument();
     fireEvent.click(login);
     expect(push).toHaveBeenCalledWith('/api/auth/login');
@@ -51,13 +51,13 @@ describe('UserHeaderButton', () => {
     expect(welcome).toBeInTheDocument();
   });
 
-  it('should display user name if user', async () => {
+  it('should display user picture if user', async () => {
     useUser.mockReturnValue({
-      user: { name: 'User' },
+      user: { name: 'User', picture: '/user-picture.jpg' },
       isLoading: false
     });
-    const { getByText } = render(<UserHeaderButton />);
-    const user = getByText('User');
+    const { getByAltText } = render(<UserHeaderButton />);
+    const user = getByAltText('profile');
     expect(user).toBeInTheDocument();
   });
 });
