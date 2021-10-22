@@ -9,4 +9,4 @@ export {
 } from './movie-banner';
 export { ReleaseDates } from './release-dates';
 export { Trailer } from './trailer';
-export { MovieReviews } from './movie-reviews';
+export { Reviews } from './reviews';

@@ -2,16 +2,16 @@ import * as React from 'react';
 
 import { render, fireEvent } from '../../../../test-utils';
 
-import { MovieReviews } from '.';
+import { Reviews } from '.';
 
-import * as movieReviews from '~/features/movies/queries/use-reviews';
+import * as reviews from '~/features/movies/queries/use-reviews';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useRef: jest.fn()
 }));
 
-describe('MovieReviews', () => {
+describe('Reviews', () => {
   let useReviews;
   let useRef;
 
@@ -26,7 +26,7 @@ describe('MovieReviews', () => {
   });
 
   beforeEach(() => {
-    useReviews = jest.spyOn(movieReviews, 'useReviews');
+    useReviews = jest.spyOn(reviews, 'useReviews');
     useRef = jest.spyOn(React, 'useRef').mockReturnValue(ref);
     jest.spyOn(console, 'error').mockImplementation(() => {});
   });
@@ -56,7 +56,7 @@ describe('MovieReviews', () => {
     ];
     useReviews.mockReturnValue({ data: { results } });
 
-    const { getByText, queryByText } = render(<MovieReviews id={123} />);
+    const { getByText, queryByText } = render(<Reviews id={123} />);
     expect(getByText('A review by author')).toBeInTheDocument();
     expect(getByText('Written by author on 26/09/2021')).toBeInTheDocument();
     expect(getByText(content)).toBeInTheDocument();
@@ -86,7 +86,7 @@ describe('MovieReviews', () => {
     ];
     useReviews.mockReturnValue({ data: { results } });
 
-    const { getByText } = render(<MovieReviews id={123} />);
+    const { getByText } = render(<Reviews id={123} />);
     const viewAllReviewsButton = getByText('View all reviews');
     fireEvent.click(viewAllReviewsButton);
     expect(getByText('A review by author')).toBeInTheDocument();
@@ -113,7 +113,7 @@ describe('MovieReviews', () => {
     ];
     useReviews.mockReturnValue({ data: { results } });
 
-    const { getByText, queryByText } = render(<MovieReviews id={123} />);
+    const { getByText, queryByText } = render(<Reviews id={123} />);
     const viewAllReviewsButton = getByText('View all reviews');
     fireEvent.click(viewAllReviewsButton);
     const viewLessReviewsButton = getByText('View less');
@@ -135,7 +135,7 @@ describe('MovieReviews', () => {
       }
     ];
     useReviews.mockReturnValue({ data: { results } });
-    const { getByText } = render(<MovieReviews id={123} />);
+    const { getByText } = render(<Reviews id={123} />);
     expect(getByText('View more')).toBeInTheDocument();
   });
 
@@ -152,7 +152,7 @@ describe('MovieReviews', () => {
       }
     ];
     useReviews.mockReturnValue({ data: { results } });
-    const { getByText } = render(<MovieReviews id={123} />);
+    const { getByText } = render(<Reviews id={123} />);
     const button = getByText('View more');
     fireEvent.click(button);
     expect(getByText('View less')).toBeInTheDocument();
@@ -171,7 +171,7 @@ describe('MovieReviews', () => {
       }
     ];
     useReviews.mockReturnValue({ data: { results } });
-    const { getByText, queryByText } = render(<MovieReviews id={123} />);
+    const { getByText, queryByText } = render(<Reviews id={123} />);
 
     const viewMoreButton = getByText('View more');
     fireEvent.click(viewMoreButton);

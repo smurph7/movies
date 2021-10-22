@@ -82,7 +82,7 @@ function ReviewCard({ review }) {
   );
 }
 
-export function MovieReviews({ id }) {
+export function Reviews({ id }) {
   const [isShowingAll, setShowingAll] = React.useState(false);
   const reviewsQuery = useReviews({ id });
 
