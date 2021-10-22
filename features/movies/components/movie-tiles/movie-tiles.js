@@ -19,7 +19,7 @@ export function MovieTiles({ title, movies, isLoading, placeholderLength }) {
             '@bp2': '3',
             '@bp3': '5'
           }}
-          gap={{ '@bp1': 3, '@bp3': 2 }}
+          gap={{ '@bp1': 3, '@bp2': 1, '@bp3': 2 }}
         >
           {movieArray?.map((movie, index) => (
             <MovieCard
