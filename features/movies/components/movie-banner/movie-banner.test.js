@@ -29,9 +29,9 @@ jest.mock('~/features/movies/components/release-dates', () => ({
   ReleaseDates: () => <></>
 }));
 
-jest.mock('~/features/movies/components/movie-trailer', () => ({
+jest.mock('~/features/movies/components/trailer', () => ({
   // eslint-disable-next-line react/display-name
-  MovieTrailer: () => <></>
+  Trailer: () => <></>
 }));
 
 describe('Movie Banner', () => {

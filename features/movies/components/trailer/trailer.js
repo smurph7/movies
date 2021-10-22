@@ -5,7 +5,7 @@ import { Box, Flex, Button } from '~/features/ui';
 import { Dialog, DialogContent, DialogTrigger } from '~/features/ui/dialog';
 import { useTrailers } from '~/features/movies/queries';
 
-export function MovieTrailer({ id }) {
+export function Trailer({ id }) {
   const { data: trailers } = useTrailers({ id });
 
   if (trailers?.length === 0) {

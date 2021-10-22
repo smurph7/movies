@@ -8,5 +8,5 @@ export {
   MovieBannerDetails
 } from './movie-banner';
 export { ReleaseDates } from './release-dates';
-export { MovieTrailer } from './movie-trailer';
+export { Trailer } from './trailer';
 export { MovieReviews } from './movie-reviews';

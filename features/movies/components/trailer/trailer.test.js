@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { render, fireEvent } from '../../../../test-utils';
-import * as movieTrailersHook from '../../queries/use-trailers';
+import * as trailersHook from '../../queries/use-trailers';
 
-import { MovieTrailer } from '.';
+import { Trailer } from '.';
 
-describe('MovieTrailer', () => {
+describe('Trailer', () => {
   let useTrailers;
   const trailers = [
     { key: 'a', publishedAt: '2021-10-01 19:07:36 UTC' },
@@ -13,11 +13,9 @@ describe('MovieTrailer', () => {
   ];
 
   beforeEach(() => {
-    useTrailers = jest
-      .spyOn(movieTrailersHook, 'useTrailers')
-      .mockReturnValueOnce({
-        data: trailers
-      });
+    useTrailers = jest.spyOn(trailersHook, 'useTrailers').mockReturnValueOnce({
+      data: trailers
+    });
   });
 
   afterEach(() => {
@@ -25,12 +23,12 @@ describe('MovieTrailer', () => {
   });
 
   it('should display Play Trailer button', () => {
-    const { getByRole } = render(<MovieTrailer id={123} />);
+    const { getByRole } = render(<Trailer id={123} />);
     expect(getByRole('button', { name: 'play-trailer' })).toBeInTheDocument();
   });
 
   it('should display dialog with youtube iframe on click button', () => {
-    const { getByRole, getByTitle } = render(<MovieTrailer id={123} />);
+    const { getByRole, getByTitle } = render(<Trailer id={123} />);
 
     const button = getByRole('button', { name: 'play-trailer' });
     fireEvent.click(button);
