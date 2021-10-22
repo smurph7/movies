@@ -181,6 +181,7 @@ function CarouselNext({ ...nextProps }) {
 
   return (
     <Button
+      aria-label="scroll-right"
       {...nextProps}
       css={{
         p: '$3',
@@ -210,6 +211,7 @@ function CarouselPrevious({ ...prevProps }) {
 
   return (
     <Button
+      aria-label="scroll-left"
       {...prevProps}
       css={{
         p: '$3',
