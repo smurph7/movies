@@ -42,10 +42,12 @@ export function CastMemberCard({ castMember, isLoading }) {
         gap={1}
         css={{ bg: '$sage1', p: '$3', userSelect: 'auto', cursor: 'text' }}
       >
-        <Text heading css={{ fontSize: '$3' }}>
+        <Text heading truncate css={{ fontSize: '$3' }}>
           {castMember?.name}
         </Text>
-        <Text fontSize={2}>{castMember?.character}</Text>
+        <Text fontSize={2} truncate>
+          {castMember?.character}
+        </Text>
       </Flex>
     </Card>
   );

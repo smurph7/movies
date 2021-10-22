@@ -56,14 +56,10 @@ function ReviewCard({ review }) {
       <Flex direction="column">
         <Text
           ref={ref}
+          truncate={isTruncated}
           css={{
             lineHeight: 1.4,
-            whiteSpace: 'normal',
-            display: '-webkit-box !important',
-            ' -webkit-line-clamp': isTruncated ? 3 : 'inherit',
-            '-webkit-box-orient': 'vertical',
-            textOverflow: 'ellipsis',
-            overflow: 'hidden'
+            WebkitLineClamp: isTruncated ? 3 : 'inherit'
           }}
         >
           {review.content}
