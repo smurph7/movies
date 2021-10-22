@@ -8,7 +8,7 @@ import { usePrefetchMovie } from '~/features/movies/queries';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
-export function MovieCard({ movie, isLoading }) {
+export function MovieCard({ movie, isLoading, ...props }) {
   const imageBaseUrl = `${IMAGE_BASE_URL}w342`;
 
   const href = `/movie/${getUrlFromString(movie?.title)}-${movie?.id}`;
@@ -28,7 +28,7 @@ export function MovieCard({ movie, isLoading }) {
   }
 
   return (
-    <Card bounceOnHover onMouseEnter={handlePrefetchMovie}>
+    <Card bounceOnHover onMouseEnter={handlePrefetchMovie} {...props}>
       <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
         <NextLink href={href}>
           <Box

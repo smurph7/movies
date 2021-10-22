@@ -100,6 +100,12 @@ function MovieSection({ title, results, isLoading }) {
               key={movie?.id ?? index}
               movie={movie}
               isLoading={isLoading}
+              css={{
+                '@bp1': {
+                  width: '170px',
+                  height: '255px'
+                }
+              }}
             />
           ))}
         </StyledCarousel>
