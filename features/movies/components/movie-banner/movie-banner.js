@@ -36,7 +36,8 @@ export function MovieBannerBackdrop({ title, backdropPath, bgBlurDataUrl }) {
           bg,
           width: '100%',
           height: '100%',
-          zIndex: 1
+          zIndex: 1,
+          userSelect: 'none'
         }}
       />
       <NextImage
@@ -88,7 +89,10 @@ export function MovieBannerImage({ id, title, src, posterBlurDataUrl }) {
   const { data: watchProviders } = useMovieWatchProviders({ id });
   return (
     <Flex align="center" justify="center">
-      <Flex direction="column" css={{ position: 'relative' }}>
+      <Flex
+        direction="column"
+        css={{ position: 'relative', userSelect: 'none' }}
+      >
         <NextImage
           className={watchProviders ? 'top-rounded' : 'rounded'}
           src={
