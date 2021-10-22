@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 
 import { Flex } from '~/features/ui';
@@ -13,7 +14,39 @@ import { usePageChange } from '~/features/common/hooks/use-page-change';
 import { useTotalPages } from '~/features/common/hooks/use-total-pages';
 import { getStringFromUrl } from '~/utils/get-string-from-url';
 
-export default function Genre() {
+export async function getStaticProps({ params }) {
+  const splitSlug = params.slug?.split('-');
+  const id = splitSlug ? splitSlug[splitSlug?.length - 1] : undefined;
+  let genre;
+
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/discover/movie?with_genres=${id}&page=${params.page}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`
+        }
+      }
+    );
+
+    genre = data;
+  } catch (error) {
+    genre = {};
+  }
+
+  return {
+    props: {
+      genre
+    },
+    revalidate: 60 * 60
+  };
+}
+
+export async function getStaticPaths() {
+  return { paths: [], fallback: true };
+}
+
+export default function Genre({ genre: initialGenre }) {
   const router = useRouter();
   const { slug, page } = router.query;
   const resultsPerPage = 20;
@@ -22,7 +55,7 @@ export default function Genre() {
   const id = splitSlug ? splitSlug[splitSlug?.length - 1] : undefined;
   const genre = splitSlug?.slice(0, -1).join('-');
 
-  const genreQuery = useGenre({ id, page });
+  const genreQuery = useGenre({ id, page, genre: initialGenre });
   const isLoading = genreQuery.isLoading || genreQuery.isIdle;
 
   const { handlePageChange } = usePageChange();
