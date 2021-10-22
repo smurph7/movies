@@ -224,7 +224,8 @@ function CarouselPrevious({ ...prevProps }) {
           display: 'none'
         },
         '&:disabled': {
-          opacity: 0
+          opacity: 0,
+          cursor: 'pointer'
         }
       }}
       tabIndex={-1}
