@@ -5,6 +5,7 @@ import { usePageChange } from './use-page-change';
 
 describe('usePageChange', () => {
   let useRouter;
+  const newPage = 2;
   const href = '/favourites/2';
   const push = jest.fn();
   window.scrollTo = jest.fn();
@@ -12,7 +13,7 @@ describe('usePageChange', () => {
   beforeEach(() => {
     useRouter = jest
       .spyOn(nextRouter, 'useRouter')
-      .mockImplementation(() => ({ push }));
+      .mockReturnValue({ push, asPath: '/favourites/1' });
   });
 
   afterEach(() => {
@@ -22,7 +23,7 @@ describe('usePageChange', () => {
   it('should route to given href on handlePageChange', () => {
     const { result, waitFor } = renderHook(() => usePageChange());
 
-    waitFor(() => result.current.handlePageChange(href));
+    waitFor(() => result.current.handlePageChange(newPage));
     expect(push).toHaveBeenCalledWith(href, null, { shallow: true });
   });
 

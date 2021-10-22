@@ -40,16 +40,16 @@ export function MovieCard({ movie, isLoading }) {
           >
             <NextImage
               src={
-                movie.posterPath
-                  ? `${imageBaseUrl}${movie.posterPath}`
+                movie?.posterPath
+                  ? `${imageBaseUrl}${movie?.posterPath}`
                   : '/movie-poster-placeholder.svg'
               }
-              alt={movie.title}
+              alt={movie?.title}
               layout="fill"
               objectFit="cover"
               priority
             />
-            {!movie.posterPath && (
+            {!movie?.posterPath && (
               <Flex
                 align="center"
                 justify="center"
@@ -63,11 +63,11 @@ export function MovieCard({ movie, isLoading }) {
                 }}
               >
                 <Text color="gray">
-                  {movie.title} ({movie.releaseYear})
+                  {movie?.title} ({movie?.releaseYear})
                 </Text>
               </Flex>
             )}
-            <FavouriteButton id={movie.id} />
+            <FavouriteButton id={movie?.id} />
           </Box>
         </NextLink>
       </Box>

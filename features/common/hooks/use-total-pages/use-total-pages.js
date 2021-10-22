@@ -10,10 +10,12 @@ export function useTotalPages({
     const maxPages = 500;
     const totalRawPages = Math.ceil(total / resultsPerPage) || page;
 
+    const totalPages = totalRawPages > maxPages ? maxPages : totalRawPages;
+
     if (page > maxPages || page > totalRawPages) {
-      handlePageChange(totalRawPages);
+      handlePageChange(totalPages);
     }
-    return totalRawPages > maxPages ? maxPages : totalRawPages;
+    return totalPages;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total, page]);
 }

@@ -51,9 +51,7 @@ export default function Favourites() {
             <Flex justify="center">
               <Pagination
                 currentPage={page}
-                setCurrentPage={newPage =>
-                  handlePageChange(`/favourites/${newPage}`)
-                }
+                setCurrentPage={newPage => handlePageChange(newPage)}
                 totalPages={totalPages}
                 edgePageCount={2}
                 middlePagesSiblingCount={2}
