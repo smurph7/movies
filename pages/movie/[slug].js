@@ -11,7 +11,8 @@ import {
   MovieBannerDetailSection,
   MovieBannerImage,
   MovieBannerDetails,
-  Reviews
+  Reviews,
+  Cast
 } from '~/features/movies/components';
 import { useMovie } from '~/features/movies/queries';
 import { IMAGE_BASE_URL } from '~/utils/config';
@@ -116,8 +117,8 @@ export default function Movie({ movie, imageProps }) {
             </MovieBanner>
           )}
           <Container size={5} css={{ height: '100%' }}>
+            <Cast id={movieQuery.data?.id} />
             <Reviews id={movieQuery.data?.id} />
-            {/* Cast  */}
           </Container>
         </Flex>
       )}
