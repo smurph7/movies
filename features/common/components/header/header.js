@@ -121,7 +121,8 @@ function MobileHeaderMenu() {
             zIndex: 20,
             bg: '$sage1',
             width: '100%',
-            p: '$3',
+            px: '$3',
+            pt: '$5',
             pl: '$6',
             willChange: 'transform'
           }}
