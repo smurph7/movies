@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StarIcon } from '@radix-ui/react-icons';
 
 import { Flex, Text, FloatingCard, Button } from '~/features/ui';
-import { useMovieReviews } from '~/features/movies/queries';
+import { useReviews } from '~/features/movies/queries';
 
 function ReviewCard({ review }) {
   const ref = React.useRef();
@@ -84,7 +84,7 @@ function ReviewCard({ review }) {
 
 export function MovieReviews({ id }) {
   const [isShowingAll, setShowingAll] = React.useState(false);
-  const reviewsQuery = useMovieReviews({ id });
+  const reviewsQuery = useReviews({ id });
 
   if (!reviewsQuery.data?.results?.length > 0) {
     return null;

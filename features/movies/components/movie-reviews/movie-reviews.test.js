@@ -4,7 +4,7 @@ import { render, fireEvent } from '../../../../test-utils';
 
 import { MovieReviews } from '.';
 
-import * as movieReviews from '~/features/movies/queries/use-movie-reviews';
+import * as movieReviews from '~/features/movies/queries/use-reviews';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -12,7 +12,7 @@ jest.mock('react', () => ({
 }));
 
 describe('MovieReviews', () => {
-  let useMovieReviews;
+  let useReviews;
   let useRef;
 
   const ref = { current: {} };
@@ -26,13 +26,13 @@ describe('MovieReviews', () => {
   });
 
   beforeEach(() => {
-    useMovieReviews = jest.spyOn(movieReviews, 'useMovieReviews');
+    useReviews = jest.spyOn(movieReviews, 'useReviews');
     useRef = jest.spyOn(React, 'useRef').mockReturnValue(ref);
     jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
-    useMovieReviews.mockReset();
+    useReviews.mockReset();
     useRef.mockReset();
   });
 
@@ -54,7 +54,7 @@ describe('MovieReviews', () => {
         authorDetails: { rating: 10 }
       }
     ];
-    useMovieReviews.mockReturnValue({ data: { results } });
+    useReviews.mockReturnValue({ data: { results } });
 
     const { getByText, queryByText } = render(<MovieReviews id={123} />);
     expect(getByText('A review by author')).toBeInTheDocument();
@@ -84,7 +84,7 @@ describe('MovieReviews', () => {
         authorDetails: { rating: 10 }
       }
     ];
-    useMovieReviews.mockReturnValue({ data: { results } });
+    useReviews.mockReturnValue({ data: { results } });
 
     const { getByText } = render(<MovieReviews id={123} />);
     const viewAllReviewsButton = getByText('View all reviews');
@@ -111,7 +111,7 @@ describe('MovieReviews', () => {
         authorDetails: { rating: 10 }
       }
     ];
-    useMovieReviews.mockReturnValue({ data: { results } });
+    useReviews.mockReturnValue({ data: { results } });
 
     const { getByText, queryByText } = render(<MovieReviews id={123} />);
     const viewAllReviewsButton = getByText('View all reviews');
@@ -134,7 +134,7 @@ describe('MovieReviews', () => {
         authorDetails: { rating: 10 }
       }
     ];
-    useMovieReviews.mockReturnValue({ data: { results } });
+    useReviews.mockReturnValue({ data: { results } });
     const { getByText } = render(<MovieReviews id={123} />);
     expect(getByText('View more')).toBeInTheDocument();
   });
@@ -151,7 +151,7 @@ describe('MovieReviews', () => {
         authorDetails: { rating: 10 }
       }
     ];
-    useMovieReviews.mockReturnValue({ data: { results } });
+    useReviews.mockReturnValue({ data: { results } });
     const { getByText } = render(<MovieReviews id={123} />);
     const button = getByText('View more');
     fireEvent.click(button);
@@ -170,7 +170,7 @@ describe('MovieReviews', () => {
         authorDetails: { rating: 10 }
       }
     ];
-    useMovieReviews.mockReturnValue({ data: { results } });
+    useReviews.mockReturnValue({ data: { results } });
     const { getByText, queryByText } = render(<MovieReviews id={123} />);
 
     const viewMoreButton = getByText('View more');

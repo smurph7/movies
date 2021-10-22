@@ -22,7 +22,7 @@ function transformReviewData(data) {
   };
 }
 
-export async function fetchMovieReviews({ queryKey }) {
+export async function fetchReviews({ queryKey }) {
   const [, { id }] = queryKey;
 
   const { data } = await moviesAxios.get(`/movie/${id}/reviews`);
@@ -30,8 +30,8 @@ export async function fetchMovieReviews({ queryKey }) {
   return data;
 }
 
-export function useMovieReviews({ id }) {
-  return useQuery(['reviews', { id }], fetchMovieReviews, {
+export function useReviews({ id }) {
+  return useQuery(['reviews', { id }], fetchReviews, {
     enabled: !!id,
     select: data => transformReviewData(data)
   });
