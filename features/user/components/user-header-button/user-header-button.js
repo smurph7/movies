@@ -56,7 +56,7 @@ export function UserHeaderButton() {
                 )}
               </>
             ) : (
-              'Login / Signup'
+              'Login'
             )}
           </Flex>
         </Button>

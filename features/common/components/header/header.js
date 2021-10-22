@@ -33,6 +33,7 @@ export function Header() {
 
   return (
     <Flex
+      justify="space-between"
       align="center"
       css={{
         p: '$4',
@@ -40,24 +41,29 @@ export function Header() {
         position: 'relative'
       }}
     >
-      <Box css={{ width: '25%' }}>
+      <Box>
         <NextLink href="/">
-          <Box
+          <Button
+            variant="reset"
             aria-label="home"
             css={{
-              cursor: 'pointer',
               '@bp1': { width: 200, height: 48 },
               '@bp4': { width: 250, height: 60 }
             }}
           >
-            <NextImage src="/logo-full.png" width={250} height={60} />
-          </Box>
+            <NextImage
+              src="/logo-full.png"
+              alt="logo"
+              width={250}
+              height={60}
+            />
+          </Button>
         </NextLink>
       </Box>
-      <Box css={{ width: '50%' }}>
+      <Flex justify="center" css={{ width: '100%' }}>
         {!isMobile && !isBreakpointLoading && <SearchBar />}
-      </Box>
-      <Box css={{ width: '25%' }}>
+      </Flex>
+      <Box>
         <Media lessThan="bp3">
           <MobileHeaderMenu />
         </Media>
@@ -121,8 +127,8 @@ function MobileHeaderMenu() {
             zIndex: 20,
             bg: '$sage1',
             width: '100%',
-            px: '$3',
-            pt: '$5',
+            p: '$3',
+            py: '$5',
             pl: '$6',
             willChange: 'transform'
           }}

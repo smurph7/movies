@@ -170,8 +170,14 @@ export function SearchBar() {
   };
 
   return (
-    <Box css={{ width: '100%' }}>
+    <Box
+      css={{
+        '@bp1': { width: '100%' },
+        '@bp3': { width: '75%' }
+      }}
+    >
       <Select
+        aria-label="search"
         ref={selectRef}
         options={results}
         onInputChange={handleInputChange}

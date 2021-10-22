@@ -35,7 +35,7 @@ describe('UserHeaderButton', () => {
     });
 
     const { getByText } = render(<UserHeaderButton />);
-    const login = getByText('Login / Signup');
+    const login = getByText('Login');
     expect(login).toBeInTheDocument();
     fireEvent.click(login);
     expect(push).toHaveBeenCalledWith('/api/auth/login');
