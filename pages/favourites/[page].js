@@ -77,7 +77,7 @@ export default function Favourites() {
           </Flex>
         ) : (
           <Flex justify="center" css={{ p: '$8' }}>
-            <LoginView text="Please log in to view your favourites" />
+            <LoginView text="Please log in to view your favourites." />
           </Flex>
         )}
       </Layout>

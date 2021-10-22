@@ -6,7 +6,7 @@ import { Box, Flex, Text, Button } from '~/features/ui';
 
 export function LoginView({
   icon = <IoPersonCircleOutline size={48} />,
-  text = 'Please login to view this page'
+  text = 'Please login to view this page.'
 }) {
   const router = useRouter();
 
@@ -17,7 +17,9 @@ export function LoginView({
   return (
     <Flex direction="column" align="center" gap={5} css={{ p: '$4' }}>
       <Box css={{ color: '$green9' }}>{icon}</Box>
-      <Text color="gray">{text}</Text>
+      <Text color="gray" css={{ textAlign: 'center' }}>
+        {text}
+      </Text>
       <Button
         variant="green"
         size={2}
