@@ -29,6 +29,8 @@ export function transformWatchProviders(watchProviders) {
 export function transformMoviesData(data) {
   return {
     ...data,
+    totalPages: data?.total_pages,
+    totalResults: data?.total_results,
     results: data.results
       .map(result => {
         if (!result) {
