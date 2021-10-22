@@ -8,6 +8,11 @@ module.exports = {
         source: '/favourites',
         destination: '/favourites/1',
         permanent: true
+      },
+      {
+        source: '/genre/:slug',
+        destination: '/genre/:slug/1',
+        permanent: true
       }
     ];
   }
