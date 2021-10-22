@@ -166,6 +166,10 @@ export function SearchBar() {
     placeholder: provided => ({
       ...provided,
       color: sage.sage10
+    }),
+    indicatorSeparator: provided => ({
+      ...provided,
+      backgroundColor: sage.sage8
     })
   };
 
