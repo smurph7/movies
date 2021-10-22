@@ -62,7 +62,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       movie,
-      imageProps: {
+      imageprops: {
         bgBlurDataUrl,
         posterBlurDataUrl
       }
@@ -75,7 +75,7 @@ export async function getStaticPaths() {
   return { paths: [], fallback: true };
 }
 
-export default function Movie({ movie, imageProps }) {
+export default function Movie({ movie, imageprops }) {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -98,18 +98,18 @@ export default function Movie({ movie, imageProps }) {
       ) : (
         <Flex direction="column" gap={5}>
           {movieQuery.data && (
-            <MovieBanner imageProps={imageProps} movie={movieQuery.data}>
+            <MovieBanner imageprops={imageprops} movie={movieQuery.data}>
               <MovieBannerBackdrop
                 title={movieQuery.data?.title}
                 backdropPath={movieQuery.data?.backdropPath}
-                bgBlurDataUrl={imageProps?.bgBlurDataUrl}
+                bgBlurDataUrl={imageprops?.bgBlurDataUrl}
               />
               <MovieBannerDetailSection>
                 <MovieBannerImage
                   id={movieQuery.data?.id}
                   title={movieQuery.data?.title}
                   src={movieQuery.data?.posterPath}
-                  posterBlurDataUrl={imageProps?.posterBlurDataUrl}
+                  posterBlurDataUrl={imageprops?.posterBlurDataUrl}
                   watchProviders={movieQuery.data?.watchProviders}
                 />
                 <MovieBannerDetails movie={movieQuery.data} />
