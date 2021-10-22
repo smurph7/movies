@@ -12,7 +12,7 @@ export async function fetchMovie({ queryKey }) {
 }
 
 export function useMovie({ id, movie }) {
-  return useQuery(['movie', { id }], fetchMovie, {
+  return useQuery(['movie', { id: id?.toString() }], fetchMovie, {
     enabled: !!id,
     initialData: movie,
     select: data => transformMovieData(data)
@@ -23,9 +23,13 @@ export function usePrefetchMovie() {
   const queryClient = useQueryClient();
 
   async function handlePrefetch({ id }) {
-    await queryClient.prefetchQuery(['movie', { id }], fetchMovie, {
-      staleTime: 5 * 60 * 1000 // 5 minutes
-    });
+    await queryClient.prefetchQuery(
+      ['movie', { id: id?.toString() }],
+      fetchMovie,
+      {
+        staleTime: 5 * 60 * 1000 // 5 minutes
+      }
+    );
   }
   return { handlePrefetch };
 }

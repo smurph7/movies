@@ -14,7 +14,7 @@ export async function fetchGenre({ queryKey }) {
 }
 
 export function useGenre({ id, page, genre }) {
-  return useQuery(['genre', { id, page }], fetchGenre, {
+  return useQuery(['genre', { id: id?.toString(), page }], fetchGenre, {
     enabled: !!id,
     initialData: genre,
     select: data => transformMoviesData(data)
@@ -25,9 +25,13 @@ export function usePrefetchGenre() {
   const queryClient = useQueryClient();
 
   async function handlePrefetch({ id, page = 1 }) {
-    await queryClient.prefetchQuery(['genre', { id, page }], fetchGenre, {
-      staleTime: 5 * 60 * 1000 // 5 minutes
-    });
+    await queryClient.prefetchQuery(
+      ['genre', { id: id?.toString(), page }],
+      fetchGenre,
+      {
+        staleTime: 5 * 60 * 1000 // 5 minutes
+      }
+    );
   }
   return { handlePrefetch };
 }

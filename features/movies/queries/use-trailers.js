@@ -23,7 +23,7 @@ export async function fetchTrailers({ queryKey }) {
 }
 
 export function useTrailers({ id }) {
-  return useQuery(['trailers', { id }], fetchTrailers, {
+  return useQuery(['trailers', { id: id?.toString() }], fetchTrailers, {
     enabled: !!id,
     select: data => transformTrailerData(data)
   });

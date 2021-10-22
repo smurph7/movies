@@ -12,8 +12,12 @@ export async function fetchMovieWatchProviders({ queryKey }) {
 }
 
 export function useMovieWatchProviders({ id }) {
-  return useQuery(['watchProviders', { id }], fetchMovieWatchProviders, {
-    enabled: !!id,
-    select: data => transformWatchProviders(data?.results?.AU)
-  });
+  return useQuery(
+    ['watchProviders', { id: id?.toString() }],
+    fetchMovieWatchProviders,
+    {
+      enabled: !!id,
+      select: data => transformWatchProviders(data?.results?.AU)
+    }
+  );
 }

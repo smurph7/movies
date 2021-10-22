@@ -31,7 +31,7 @@ export async function fetchReviews({ queryKey }) {
 }
 
 export function useReviews({ id }) {
-  return useQuery(['reviews', { id }], fetchReviews, {
+  return useQuery(['reviews', { id: id?.toString() }], fetchReviews, {
     enabled: !!id,
     select: data => transformReviewData(data)
   });
