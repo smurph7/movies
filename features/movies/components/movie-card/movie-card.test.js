@@ -14,12 +14,6 @@ function mockNextLink({ href, children }) {
   );
 }
 
-jest.mock('next/image', () => ({
-  __esModule: true,
-  // eslint-disable-next-line
-  default: ({ src, alt }) => mockNextImage({ src, alt })
-}));
-
 jest.mock('~/features/favourites/components/favourite-button', () => ({
   // eslint-disable-next-line react/display-name
   FavouriteButton: () => <></>

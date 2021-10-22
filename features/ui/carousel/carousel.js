@@ -7,7 +7,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { Box, Button, Flex } from '~/features/ui';
 
-export function StyledCarousel({ children }) {
+export function StyledCarousel({ children, ...props }) {
   return (
     <Carousel css={{ position: 'relative' }}>
       <CarouselSlideList
@@ -23,7 +23,7 @@ export function StyledCarousel({ children }) {
           }
         }}
       >
-        <Flex gap={1} css={{ pt: '$2' }}>
+        <Flex gap={1} css={{ pt: '$2', ...props }}>
           {children?.map((slide, index) => (
             <CarouselSlide key={slide?.key ?? index}>{slide}</CarouselSlide>
           ))}

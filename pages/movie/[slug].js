@@ -116,9 +116,14 @@ export default function Movie({ movie, imageProps }) {
               </MovieBannerDetailSection>
             </MovieBanner>
           )}
-          <Container size={5} css={{ height: '100%' }}>
-            <Cast id={movieQuery.data?.id} />
-            <Reviews id={movieQuery.data?.id} />
+          <Container
+            size={{ '@bp1': 1, '@bp2': 2, '@bp3': 3, '@bp4': 4, '@bp5': 5 }}
+            css={{ height: '100%' }}
+          >
+            <Flex direction="column" gap={5} css={{ height: '100%' }}>
+              <Cast id={movieQuery.data?.id} />
+              <Reviews id={movieQuery.data?.id} />
+            </Flex>
           </Container>
         </Flex>
       )}

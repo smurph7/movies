@@ -11,6 +11,7 @@ export const Card = styled('div', {
   boxShadow: '0 6px 10px -5px rgba(0, 0, 0, 0.2)',
   transition: 'all 0.3s ease',
   userSelect: 'none',
+  zIndex: 1000,
   '@bp1': {
     width: '280px',
     height: '421px'
@@ -34,6 +35,12 @@ export const Card = styled('div', {
           transform: 'translateY(-5px)',
           boxShadow: '0 20px 20px -15px rgba(0, 0, 0, 0.3)'
         }
+      }
+    },
+    hasLabel: {
+      true: {
+        width: '200px',
+        height: '300px'
       }
     }
   }

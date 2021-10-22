@@ -11,3 +11,4 @@ export { ReleaseDates } from './release-dates';
 export { Trailer } from './trailer';
 export { Reviews } from './reviews';
 export { Cast } from './cast';
+export { CastMemberCard } from './cast-member-card';
