@@ -1,5 +1,6 @@
 import * as React from 'react';
 import NextImage from 'next/image';
+import { useRouter } from 'next/router';
 
 import { WatchProviderButton } from '../watch-provider-button';
 
@@ -10,6 +11,7 @@ import { useMovieWatchProviders } from '~/features/movies/queries';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { Media } from '~/styles/media';
+import { getUrlFromString } from '~/utils/get-url-from-string';
 
 export function MovieBanner({ ...props }) {
   const { boolean: isMobile } = useBreakpoint('bp3');
@@ -116,6 +118,7 @@ export function MovieBannerImage({ id, title, src, posterBlurDataUrl }) {
 
 export function MovieBannerDetails({ movie }) {
   const { boolean: isMobile } = useBreakpoint('bp3');
+  const router = useRouter();
   const color = isMobile ? 'gray' : 'lightGray';
 
   const number = new Intl.NumberFormat('en-US');
@@ -135,6 +138,11 @@ export function MovieBannerDetails({ movie }) {
                 <Button
                   key={genre.name}
                   css={{ bg: '$sage11NoDark', boxShadow: 'none' }}
+                  onClick={() =>
+                    router.push(
+                      `/genre/${getUrlFromString(`/${genre.name}-${genre.id}`)}`
+                    )
+                  }
                 >
                   <Text fontSize={1} color="lightGray">
                     {genre.name}
