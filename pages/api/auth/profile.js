@@ -67,7 +67,6 @@ async function profile(req, res) {
     }
   } catch (error) {
     const statusCode = error.response?.status ?? 500;
-    console.error(error);
     return res.status(statusCode).json(error);
   }
 }
