@@ -8,3 +8,4 @@ export { useTrailers } from './use-trailers';
 export { useMovieWatchProviders } from './use-watch-providers';
 export { useSearchMovies } from './use-search-movies';
 export { useReviews } from './use-reviews';
+export { useCast } from './use-cast';
