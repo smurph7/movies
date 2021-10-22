@@ -7,14 +7,7 @@ export function Layout({ children }) {
   return (
     <Box css={{ bg: '$sage2' }}>
       <Header />
-      <Box
-        css={{
-          '@bp1': { minHeight: '50vh' },
-          '@bp3': { minHeight: '80vh' }
-        }}
-      >
-        {children}
-      </Box>
+      <Box css={{ minHeight: '80vh' }}>{children}</Box>
       <Footer />
     </Box>
   );
