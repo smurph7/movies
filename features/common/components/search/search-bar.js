@@ -146,9 +146,9 @@ export function SearchBar() {
       fontSize: '17px',
       backgroundColor: sage.sage3,
       boxShadow: state.isFocused ? 0 : 0,
-      borderColor: state.isFocused ? green.green8 : sage.sage11,
+      borderColor: state.isFocused ? green.green8 : sage.sage7,
       '&:hover': {
-        borderColor: state.isFocused ? green.green8 : sage.sage11
+        borderColor: state.isFocused ? green.green8 : sage.sage7
       }
     }),
     menu: provided => ({
