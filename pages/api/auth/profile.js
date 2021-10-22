@@ -22,7 +22,7 @@ async function getAccessToken() {
   return data;
 }
 
-async function getProfile({ req, res, url }) {
+async function getProfile({ res, url }) {
   const { access_token: accessToken } = await getAccessToken();
   const { data } = await axios.get(url, {
     headers: {

@@ -34,6 +34,7 @@ export function PrevButton({ className, children, ...buttonProps }) {
 
   return (
     <Button
+      aria-label="previous-page"
       variant="round"
       {...buttonProps}
       onClick={handlePrevious}
@@ -56,6 +57,7 @@ export function NextButton({ className, children, ...buttonProps }) {
 
   return (
     <Button
+      aria-label="next-page"
       variant="round"
       {...buttonProps}
       onClick={handleNext}
@@ -89,6 +91,7 @@ export function PageButton() {
 
     return (
       <Button
+        aria-label="go-to-page"
         variant="round"
         key={page}
         css={{
