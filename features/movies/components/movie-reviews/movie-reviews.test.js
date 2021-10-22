@@ -36,7 +36,7 @@ describe('MovieReviews', () => {
     useRef.mockReset();
   });
 
-  it('should display reviews', () => {
+  it('should display one review initially', () => {
     const content = 'This is a review.';
     const results = [
       {
@@ -45,14 +45,81 @@ describe('MovieReviews', () => {
         createdAt: '2021-09-26T06:24:52.368Z',
         content,
         authorDetails: { rating: 10 }
+      },
+      {
+        author: 'authorTwo',
+        id: '2',
+        createdAt: '2021-09-26T06:24:52.368Z',
+        content,
+        authorDetails: { rating: 10 }
+      }
+    ];
+    useMovieReviews.mockReturnValue({ data: { results } });
+
+    const { getByText, queryByText } = render(<MovieReviews id={123} />);
+    expect(getByText('A review by author')).toBeInTheDocument();
+    expect(getByText('Written by author on 26/09/2021')).toBeInTheDocument();
+    expect(getByText(content)).toBeInTheDocument();
+    expect(queryByText('A review by authorTwo')).not.toBeInTheDocument();
+    expect(
+      queryByText('Written by authorTwo on 26/09/2021')
+    ).not.toBeInTheDocument();
+  });
+
+  it('should display all reviews on click View all reviews', () => {
+    const content = 'This is a review.';
+    const results = [
+      {
+        author: 'author',
+        id: '1',
+        createdAt: '2021-09-26T06:24:52.368Z',
+        content,
+        authorDetails: { rating: 10 }
+      },
+      {
+        author: 'authorTwo',
+        id: '2',
+        createdAt: '2021-09-26T06:24:52.368Z',
+        content,
+        authorDetails: { rating: 10 }
       }
     ];
     useMovieReviews.mockReturnValue({ data: { results } });
 
     const { getByText } = render(<MovieReviews id={123} />);
+    const viewAllReviewsButton = getByText('View all reviews');
+    fireEvent.click(viewAllReviewsButton);
     expect(getByText('A review by author')).toBeInTheDocument();
-    expect(getByText('Written by author on 26/09/2021')).toBeInTheDocument();
-    expect(getByText(content)).toBeInTheDocument();
+    expect(getByText('A review by authorTwo')).toBeInTheDocument();
+  });
+
+  it('should hide all but the first review on click View less', () => {
+    const content = 'This is a review.';
+    const results = [
+      {
+        author: 'author',
+        id: '1',
+        createdAt: '2021-09-26T06:24:52.368Z',
+        content,
+        authorDetails: { rating: 10 }
+      },
+      {
+        author: 'authorTwo',
+        id: '2',
+        createdAt: '2021-09-26T06:24:52.368Z',
+        content,
+        authorDetails: { rating: 10 }
+      }
+    ];
+    useMovieReviews.mockReturnValue({ data: { results } });
+
+    const { getByText, queryByText } = render(<MovieReviews id={123} />);
+    const viewAllReviewsButton = getByText('View all reviews');
+    fireEvent.click(viewAllReviewsButton);
+    const viewLessReviewsButton = getByText('View less');
+    fireEvent.click(viewLessReviewsButton);
+    expect(getByText('A review by author')).toBeInTheDocument();
+    expect(queryByText('A review by authorTwo')).not.toBeInTheDocument();
   });
 
   it('should truncate long reviews', () => {

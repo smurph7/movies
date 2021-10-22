@@ -25,22 +25,24 @@ function ReviewCard({ review }) {
           <Text heading css={{ fontSize: '$3' }}>
             A review by {review?.author}
           </Text>
-          <Flex
-            align="center"
-            gap={1}
-            css={{
-              bg: '$hiContrast',
-              borderRadius: '$2',
-              px: '$2',
-              py: '$1',
-              color: '$loContrast'
-            }}
-          >
-            <StarIcon style={{ width: 18, height: 18 }} />
-            <Text fontSize={1} color="loContrast">
-              {review?.authorDetails?.rating}
-            </Text>
-          </Flex>
+          {review?.authorDetails?.rating && (
+            <Flex
+              align="center"
+              gap={1}
+              css={{
+                bg: '$hiContrast',
+                borderRadius: '$2',
+                px: '$2',
+                py: '$1',
+                color: '$loContrast'
+              }}
+            >
+              <StarIcon style={{ width: 18, height: 18 }} />
+              <Text fontSize={1} color="loContrast">
+                {review?.authorDetails?.rating}
+              </Text>
+            </Flex>
+          )}
         </Flex>
         <Text fontSize={1}>
           Written by {review?.author} on {createdDate}
@@ -81,20 +83,32 @@ function ReviewCard({ review }) {
 }
 
 export function MovieReviews({ id }) {
+  const [isShowingAll, setShowingAll] = React.useState(false);
   const reviewsQuery = useMovieReviews({ id });
 
   if (!reviewsQuery.data?.results?.length > 0) {
     return null;
   }
 
+  const reviewsToDisplay = isShowingAll
+    ? reviewsQuery.data?.results
+    : [reviewsQuery.data?.results[0]];
+
   return (
     <Flex direction="column" gap={4}>
       <Text heading>Reviews</Text>
       <Flex direction="column" gap={3}>
-        {reviewsQuery.data?.results?.map(review => (
+        {reviewsToDisplay?.map(review => (
           <ReviewCard key={review.id} review={review} />
         ))}
       </Flex>
+      <Button
+        ghost
+        css={{ alignSelf: 'start', color: '$sage11' }}
+        onClick={() => setShowingAll(!isShowingAll)}
+      >
+        View {isShowingAll ? 'less' : 'all reviews'}
+      </Button>
     </Flex>
   );
 }

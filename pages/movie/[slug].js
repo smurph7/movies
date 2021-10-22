@@ -115,14 +115,9 @@ export default function Movie({ movie, imageProps }) {
               </MovieBannerDetailSection>
             </MovieBanner>
           )}
-          <Container size={5} css={{ width: '100%', height: '100%' }}>
+          <Container size={5} css={{ height: '100%' }}>
             <MovieReviews id={movieQuery.data?.id} />
-            {/* <FloatingCard>hello there</FloatingCard> */}
-            {/* Regions */}
-            {/* Languages */}
             {/* Cast  */}
-            {/* Reviews */}
-            {/* Status (col) */}
           </Container>
         </Flex>
       )}
