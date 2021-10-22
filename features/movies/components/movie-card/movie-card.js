@@ -4,7 +4,7 @@ import NextImage from 'next/image';
 
 import { Box, Flex, Text, Card, Placeholder } from '~/features/ui';
 import { FavouriteButton } from '~/features/favourites/components';
-import { usePrefetchMovie } from '~/features/movies/queries';
+import { usePrefetchMovie, usePrefetchCast } from '~/features/movies/queries';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
@@ -13,10 +13,12 @@ export function MovieCard({ movie, isLoading, ...props }) {
 
   const href = `/movie/${getUrlFromString(movie?.title)}-${movie?.id}`;
 
-  const { handlePrefetch } = usePrefetchMovie();
+  const { handlePrefetch: prefetchMovie } = usePrefetchMovie();
+  const { handlePrefetch: prefetchCast } = usePrefetchCast();
 
-  function handlePrefetchMovie() {
-    handlePrefetch({ id: `${movie?.id}` });
+  function handlePrefetch() {
+    prefetchMovie({ id: `${movie?.id}` });
+    prefetchCast({ id: `${movie?.id}` });
   }
 
   if (isLoading) {
@@ -28,7 +30,7 @@ export function MovieCard({ movie, isLoading, ...props }) {
   }
 
   return (
-    <Card bounceOnHover onMouseEnter={handlePrefetchMovie} {...props}>
+    <Card bounceOnHover onMouseEnter={handlePrefetch} {...props}>
       <Box css={{ position: 'relative', width: '100%', height: '100%' }}>
         <NextLink href={href}>
           <Box

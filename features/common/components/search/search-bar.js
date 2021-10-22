@@ -13,7 +13,11 @@ import {
 } from '@radix-ui/colors';
 
 import { Box, Text, Flex } from '~/features/ui';
-import { usePrefetchMovie, useSearchMovies } from '~/features/movies/queries';
+import {
+  usePrefetchCast,
+  usePrefetchMovie,
+  useSearchMovies
+} from '~/features/movies/queries';
 import { useThemeStore } from '~/features/ui/theme-change-button/use-theme-store';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { getUrlFromString } from '~/utils/get-url-from-string';
@@ -70,14 +74,17 @@ export function SearchBar() {
   function CustomOption(props) {
     const { innerProps, innerRef, data: movie, isFocused } = props;
     const href = `/movie/${getUrlFromString(movie?.title)}-${movie?.id}`;
-    const { handlePrefetch } = usePrefetchMovie();
 
-    function handlePrefetchMovie() {
-      handlePrefetch({ id: `${movie.id}` });
+    const { handlePrefetch: prefetchMovie } = usePrefetchMovie();
+    const { handlePrefetch: prefetchCast } = usePrefetchCast();
+
+    function handlePrefetch() {
+      prefetchMovie({ id: `${movie?.id}` });
+      prefetchCast({ id: `${movie?.id}` });
     }
 
     if (isFocused) {
-      handlePrefetchMovie();
+      handlePrefetch();
     }
 
     return (
