@@ -140,7 +140,9 @@ export function MovieBannerDetails({ movie }) {
                   css={{ bg: '$sage11NoDark', boxShadow: 'none' }}
                   onClick={() =>
                     router.push(
-                      `/genre/${getUrlFromString(`/${genre.name}-${genre.id}`)}`
+                      `/genre/${getUrlFromString(
+                        `/${genre.name}-${genre.id}`
+                      )}/1`
                     )
                   }
                 >

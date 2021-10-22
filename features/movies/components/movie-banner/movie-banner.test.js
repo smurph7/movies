@@ -1,6 +1,7 @@
 import React from 'react';
+import * as nextRouter from 'next/router';
 
-import { render } from '../../../../test-utils';
+import { render, fireEvent } from '../../../../test-utils';
 
 import { MovieBannerBackdrop, MovieBannerImage, MovieBannerDetails } from '.';
 
@@ -62,31 +63,31 @@ describe('Movie Banner', () => {
   });
 
   describe('MovieBannerDetails', () => {
-    it('should display movie details', () => {
-      const title = 'The Title!';
-      const releaseYear = '2020';
-      const overview = 'The overview!';
-      const genre = { name: 'Comedy' };
-      const genres = [genre];
-      const tagline = 'The tagline!';
-      const status = 'Released';
-      const runtime = '1h15m';
-      const revenue = '123000000';
-      const budget = '100000000';
-      const voteAverage = '9.1';
+    const title = 'The Title!';
+    const releaseYear = '2020';
+    const overview = 'The overview!';
+    const genre = { name: 'Comedy', id: '123' };
+    const genres = [genre];
+    const tagline = 'The tagline!';
+    const status = 'Released';
+    const runtime = '1h15m';
+    const revenue = '123000000';
+    const budget = '100000000';
+    const voteAverage = '9.1';
 
-      const movie = {
-        title,
-        releaseYear,
-        overview,
-        genres,
-        tagline,
-        status,
-        runtime,
-        revenue,
-        budget,
-        voteAverage
-      };
+    const movie = {
+      title,
+      releaseYear,
+      overview,
+      genres,
+      tagline,
+      status,
+      runtime,
+      revenue,
+      budget,
+      voteAverage
+    };
+    it('should display movie details', () => {
       const { getByText } = render(<MovieBannerDetails movie={movie} />);
 
       expect(getByText(`${title} (${releaseYear})`)).toBeInTheDocument();
@@ -98,6 +99,22 @@ describe('Movie Banner', () => {
       expect(getByText('$123,000,000 (USD)')).toBeInTheDocument();
       expect(getByText('$100,000,000 (USD)')).toBeInTheDocument();
       expect(getByText('91%')).toBeInTheDocument();
+    });
+
+    it('should link to genre page on click genre button', () => {
+      const href = '/genre/comedy-123/1';
+      const push = jest.fn();
+
+      const useRouter = jest
+        .spyOn(nextRouter, 'useRouter')
+        .mockImplementation(() => ({ push }));
+
+      const { getByText } = render(<MovieBannerDetails movie={movie} />);
+      const genreButton = getByText(genre.name);
+      fireEvent.click(genreButton);
+      expect(push).toHaveBeenCalledWith(href);
+
+      useRouter.mockReset();
     });
   });
 });
