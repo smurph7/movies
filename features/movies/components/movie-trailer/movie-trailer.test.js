@@ -1,27 +1,27 @@
 import React from 'react';
 
 import { render, fireEvent } from '../../../../test-utils';
-import * as movieTrailersHook from '../../queries/use-movie-trailers';
+import * as movieTrailersHook from '../../queries/use-trailers';
 
 import { MovieTrailer } from '.';
 
 describe('MovieTrailer', () => {
-  let useMovieTrailers;
+  let useTrailers;
   const trailers = [
     { key: 'a', publishedAt: '2021-10-01 19:07:36 UTC' },
     { key: 'b', publishedAt: '2021-08-02 22:04:37 UTC' }
   ];
 
   beforeEach(() => {
-    useMovieTrailers = jest
-      .spyOn(movieTrailersHook, 'useMovieTrailers')
+    useTrailers = jest
+      .spyOn(movieTrailersHook, 'useTrailers')
       .mockReturnValueOnce({
         data: trailers
       });
   });
 
   afterEach(() => {
-    useMovieTrailers.mockReset();
+    useTrailers.mockReset();
   });
 
   it('should display Play Trailer button', () => {

@@ -14,7 +14,7 @@ function transformTrailerData(data) {
   }));
 }
 
-export async function fetchMovieTrailers({ queryKey }) {
+export async function fetchTrailers({ queryKey }) {
   const [, { id }] = queryKey;
 
   const { data } = await moviesAxios.get(`/movie/${id}/videos`);
@@ -22,8 +22,8 @@ export async function fetchMovieTrailers({ queryKey }) {
   return data;
 }
 
-export function useMovieTrailers({ id }) {
-  return useQuery(['trailers', { id }], fetchMovieTrailers, {
+export function useTrailers({ id }) {
+  return useQuery(['trailers', { id }], fetchTrailers, {
     enabled: !!id,
     select: data => transformTrailerData(data)
   });
