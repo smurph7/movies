@@ -7,7 +7,10 @@ import { WatchProviderButton } from '../watch-provider-button';
 import { Container, Box, Text, Flex, Grid, Button } from '~/features/ui';
 import { FavouriteButton } from '~/features/favourites/components';
 import { ReleaseDates, Trailer } from '~/features/movies/components';
-import { useMovieWatchProviders } from '~/features/movies/queries';
+import {
+  useMovieWatchProviders,
+  usePrefetchGenre
+} from '~/features/movies/queries';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { Media } from '~/styles/media';
@@ -89,6 +92,7 @@ export function MovieBannerDetailSection({ children }) {
 
 export function MovieBannerImage({ id, title, src, posterBlurDataUrl }) {
   const { data: watchProviders } = useMovieWatchProviders({ id });
+
   return (
     <Flex align="center" justify="center">
       <Flex
@@ -119,9 +123,14 @@ export function MovieBannerImage({ id, title, src, posterBlurDataUrl }) {
 export function MovieBannerDetails({ movie }) {
   const { boolean: isMobile } = useBreakpoint('bp3');
   const router = useRouter();
+  const { handlePrefetch } = usePrefetchGenre();
   const color = isMobile ? 'gray' : 'lightGray';
 
   const number = new Intl.NumberFormat('en-US');
+
+  function handlePrefetchGenre({ genre }) {
+    handlePrefetch({ id: `${genre?.id}` });
+  }
 
   return (
     <Flex direction="column" justify="center" gap={8} css={{ height: '100%' }}>
@@ -138,6 +147,9 @@ export function MovieBannerDetails({ movie }) {
                 <Button
                   key={genre.name}
                   css={{ bg: '$sage11NoDark', boxShadow: 'none' }}
+                  onMouseEnter={() => {
+                    handlePrefetchGenre({ genre });
+                  }}
                   onClick={() =>
                     router.push(
                       `/genre/${getUrlFromString(

@@ -21,13 +21,13 @@ export function useGenre({ id, page, genre }) {
   });
 }
 
-// export function usePrefetchMovie() {
-//   const queryClient = useQueryClient();
+export function usePrefetchGenre() {
+  const queryClient = useQueryClient();
 
-//   async function handlePrefetch({ id }) {
-//     await queryClient.prefetchQuery(['movie', { id }], fetchMovie, {
-//       staleTime: 5 * 60 * 1000 // 5 minutes
-//     });
-//   }
-//   return { handlePrefetch };
-// }
+  async function handlePrefetch({ id, page = 1 }) {
+    await queryClient.prefetchQuery(['genre', { id, page }], fetchGenre, {
+      staleTime: 5 * 60 * 1000 // 5 minutes
+    });
+  }
+  return { handlePrefetch };
+}
