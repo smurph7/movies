@@ -30,8 +30,8 @@ export function usePagination({
       return pages.slice(-middlePageCount);
     }
     return pages.slice(
-      currentPage - middlePagesSiblingCount,
-      currentPage + middlePagesSiblingCount + 1
+      Number(currentPage) - middlePagesSiblingCount,
+      Number(currentPage) + middlePagesSiblingCount + 1
     );
   }, [currentPage, pages]);
 
