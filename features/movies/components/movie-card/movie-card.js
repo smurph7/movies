@@ -60,8 +60,9 @@ export function MovieCard({ movie, isLoading, ...props }) {
                   height: '100%',
                   position: 'relative',
                   zIndex: 1,
-                  pt: '$10',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  '@bp1': { pt: '$10' },
+                  '@bp2': { pt: '$8' }
                 }}
               >
                 <Text color="gray">
