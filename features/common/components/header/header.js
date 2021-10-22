@@ -1,5 +1,6 @@
 import * as React from 'react';
 import NextLink from 'next/link';
+import NextImage from 'next/image';
 import { useUser } from '@auth0/nextjs-auth0';
 import { IoHeartOutline, IoPersonCircleOutline } from 'react-icons/io5';
 import {
@@ -31,58 +32,46 @@ export function Header() {
     useBreakpoint('bp3');
 
   return (
-    <Box
+    <Flex
+      align="center"
       css={{
         p: '$4',
-        '@bp1': { px: '$6' },
-        '@bp3': { px: '$8' },
-        display: 'flex',
+        '@bp5': { px: '$8' },
         position: 'relative'
       }}
     >
-      <Flex
-        justify="space-between"
-        direction="row"
-        align="center"
-        gap={5}
-        css={{ width: '100%' }}
-      >
-        <Flex
-          justify="space-between"
-          direction="row"
-          align="center"
-          gap={5}
-          css={{ width: '90%' }}
-        >
-          <NextLink href="/">
-            <Text aria-label="home" link linkVariant="subtle" heading>
-              Movies
-            </Text>
-          </NextLink>
-          {!isMobile && !isBreakpointLoading && (
-            <Flex
-              justify="space-around"
-              align="center"
-              css={{ px: '$4', width: '75%' }}
-            >
-              <SearchBar />
-            </Flex>
-          )}
-        </Flex>
+      <Box css={{ width: '25%' }}>
+        <NextLink href="/">
+          <Box
+            aria-label="home"
+            css={{
+              cursor: 'pointer',
+              '@bp1': { width: 200, height: 48 },
+              '@bp4': { width: 250, height: 60 }
+            }}
+          >
+            <NextImage src="/logo-full.png" width={250} height={60} />
+          </Box>
+        </NextLink>
+      </Box>
+      <Box css={{ width: '50%' }}>
+        {!isMobile && !isBreakpointLoading && <SearchBar />}
+      </Box>
+      <Box css={{ width: '25%' }}>
         <Media lessThan="bp3">
           <MobileHeaderMenu />
         </Media>
         <Media greaterThanOrEqual="bp3">
           <DesktopHeaderMenu />
         </Media>
-      </Flex>
-    </Box>
+      </Box>
+    </Flex>
   );
 }
 
 function DesktopHeaderMenu() {
   return (
-    <Flex direction="row" align="center" gap={1}>
+    <Flex direction="row" justify="end" align="center" gap={1}>
       <Popover trigger="hover">
         <NextLink href="/favourites/1">
           <PopoverTrigger asChild>

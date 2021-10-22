@@ -31,7 +31,8 @@ export function Trailer({ id }) {
         <DialogContent
           css={{
             p: '$6',
-            bg: '$sage3'
+            bg: '$sage3',
+            borderRadius: '$2'
           }}
         >
           <Box
