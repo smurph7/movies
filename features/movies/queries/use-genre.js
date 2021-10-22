@@ -26,7 +26,7 @@ export function usePrefetchGenre() {
 
   async function handlePrefetch({ id, page = 1 }) {
     await queryClient.prefetchQuery(
-      ['genre', { id: id?.toString(), page }],
+      ['genre', { id: id?.toString(), page: page?.toString() }],
       fetchGenre,
       {
         staleTime: 5 * 60 * 1000 // 5 minutes
