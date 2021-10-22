@@ -80,13 +80,17 @@ export default function Genre({ genre: initialGenre }) {
       />
       <Layout>
         <Flex direction="column" gap={5}>
-          <MovieTiles
-            title={title}
-            movies={genreQuery?.data?.results}
-            isLoading={isLoading}
-            placeholderLength={resultsPerPage}
-          />
-          {genreQuery?.data?.totalResults === 0 && <ErrorMessageView />}
+          {genreQuery?.data?.totalResults === 0 || genreQuery.isError ? (
+            <ErrorMessageView />
+          ) : (
+            <MovieTiles
+              title={title}
+              movies={genreQuery?.data?.results}
+              isLoading={isLoading}
+              placeholderLength={resultsPerPage}
+            />
+          )}
+
           {genreQuery?.data?.totalResults > 0 && (
             <Flex justify="center">
               <Pagination

@@ -13,7 +13,9 @@ export function useTotalPages({
     const totalPages = totalRawPages > maxPages ? maxPages : totalRawPages;
 
     if (page > maxPages || page > totalRawPages) {
-      handlePageChange(totalPages);
+      if (total) {
+        handlePageChange(totalPages);
+      }
     }
     return totalPages;
     // eslint-disable-next-line react-hooks/exhaustive-deps

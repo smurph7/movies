@@ -31,8 +31,8 @@ export function transformMoviesData(data) {
     ...data,
     totalPages: data?.total_pages,
     totalResults: data?.total_results,
-    results: data.results
-      .map(result => {
+    results: data?.results
+      ?.map(result => {
         if (!result) {
           return;
         }

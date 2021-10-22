@@ -8,7 +8,6 @@ export function Footer() {
     <Flex
       justify="space-around"
       direction={{ '@bp1': 'columnReverse', '@bp2': 'row' }}
-      reverse
       align="center"
       gap={{ '@bp1': 5, '@bp2': 1 }}
       css={{
