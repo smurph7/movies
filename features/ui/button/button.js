@@ -24,14 +24,14 @@ const StyledButton = styled('button', {
   fontFamily: '$body',
   fontVariantNumeric: 'tabular-nums',
   fontSize: '$2',
+  '&:hover': {
+    cursor: 'pointer'
+  },
   '&:disabled': {
     backgroundColor: '$sage2',
     boxShadow: 'inset 0 0 0 1px $colors$sage7',
     color: '$sage8',
     cursor: 'not-allowed'
-  },
-  '&:hover': {
-    cursor: 'pointer'
   },
   variants: {
     size: {

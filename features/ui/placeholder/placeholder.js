@@ -12,7 +12,7 @@ const load = keyframes({
   }
 });
 
-export function Placeholder({ width, height }) {
+export function Placeholder({ width, height, ...props }) {
   return (
     <Box
       data-testid="placeholder"
@@ -35,7 +35,8 @@ export function Placeholder({ width, height }) {
           background:
             'linear-gradient(to left, rgba(251,251,251, .05), rgba(251,251,251, .3), rgba(251,251,251, .6), rgba(251,251,251, .3), rgba(251,251,251, .05))',
           animation: `${load} 1s infinite`
-        }
+        },
+        ...props
       }}
     />
   );
