@@ -13,21 +13,35 @@ describe('Trailer', () => {
   ];
 
   beforeEach(() => {
-    useTrailers = jest.spyOn(trailersHook, 'useTrailers').mockReturnValueOnce({
-      data: trailers
-    });
+    useTrailers = jest.spyOn(trailersHook, 'useTrailers');
   });
 
   afterEach(() => {
     useTrailers.mockReset();
   });
 
+  it('should not display Play Trailer button if trailer does not exist', () => {
+    useTrailers.mockReturnValueOnce({ data: [] });
+    const { queryByRole } = render(<Trailer id={123} />);
+
+    expect(
+      queryByRole('button', { name: 'play-trailer' })
+    ).not.toBeInTheDocument();
+  });
+
   it('should display Play Trailer button', () => {
+    useTrailers.mockReturnValueOnce({
+      data: trailers
+    });
+
     const { getByRole } = render(<Trailer id={123} />);
     expect(getByRole('button', { name: 'play-trailer' })).toBeInTheDocument();
   });
 
   it('should display dialog with youtube iframe on click button', () => {
+    useTrailers.mockReturnValueOnce({
+      data: trailers
+    });
     const { getByRole, getByTitle } = render(<Trailer id={123} />);
 
     const button = getByRole('button', { name: 'play-trailer' });

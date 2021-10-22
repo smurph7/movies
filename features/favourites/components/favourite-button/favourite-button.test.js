@@ -28,7 +28,7 @@ describe('FavouriteButton', () => {
   const removeFavourite = jest.fn();
 
   beforeEach(() => {
-    useUser = jest.spyOn(auth, 'useUser').mockReturnValue({ user: 'name' });
+    useUser = jest.spyOn(auth, 'useUser');
     useIsFavourite = jest.spyOn(useIsFavouriteHook, 'useIsFavourite');
     useAddFavourite = jest
       .spyOn(useAddFavouriteHook, 'useAddFavourite')
@@ -46,6 +46,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should display heart outline if not a favourite', () => {
+    useUser.mockReturnValueOnce({ user: 'name' });
     useIsFavourite.mockReturnValue({ data: false });
     const { getByRole } = render(<FavouriteButton id="123" />);
     expect(
@@ -54,6 +55,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should display filled heart if a favourite', () => {
+    useUser.mockReturnValueOnce({ user: 'name' });
     useIsFavourite.mockReturnValue({ data: true });
     const { getByRole } = render(<FavouriteButton id="123" />);
     expect(
@@ -61,7 +63,17 @@ describe('FavouriteButton', () => {
     ).toBeInTheDocument();
   });
 
+  it('should not add favourite if no user', () => {
+    useUser.mockReturnValueOnce({});
+    useIsFavourite.mockReturnValue({ data: false });
+    const { getByRole } = render(<FavouriteButton id="123" />);
+    const button = getByRole('button', { name: 'favourite-heart-outline' });
+    fireEvent.click(button);
+    expect(addFavourite).not.toHaveBeenCalled();
+  });
+
   it('should add favourite on click if not a favourite', () => {
+    useUser.mockReturnValueOnce({ user: 'name' });
     useIsFavourite.mockReturnValue({ data: false });
     const { getByRole } = render(<FavouriteButton id="123" />);
     const button = getByRole('button', { name: 'favourite-heart-outline' });
@@ -70,6 +82,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should remove favourite on click if a favourite', () => {
+    useUser.mockReturnValueOnce({ user: 'name' });
     useIsFavourite.mockReturnValue({ data: true });
     const { getByRole } = render(<FavouriteButton id="123" />);
     const button = getByRole('button', { name: 'favourite-heart' });
