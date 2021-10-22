@@ -1,11 +1,21 @@
 import * as React from 'react';
 
-import { Layout, ErrorMessageView } from '~/features/common/components';
+import {
+  Layout,
+  ErrorMessageView,
+  Metadata
+} from '~/features/common/components';
 
 export default function Custom404Page() {
   return (
-    <Layout>
-      <ErrorMessageView />
-    </Layout>
+    <>
+      <Metadata
+        title="Not found"
+        description={`Sorry, we couldn't find what you were looking for.`}
+      />
+      <Layout>
+        <ErrorMessageView />
+      </Layout>
+    </>
   );
 }

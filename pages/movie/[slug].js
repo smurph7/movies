@@ -3,7 +3,11 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
 
-import { Layout, ErrorMessageView } from '~/features/common/components';
+import {
+  Layout,
+  ErrorMessageView,
+  Metadata
+} from '~/features/common/components';
 import { Container, Placeholder, Flex } from '~/features/ui';
 import {
   MovieBanner,
@@ -85,48 +89,58 @@ export default function Movie({ movie, imageprops }) {
   const movieQuery = useMovie({ id, movie });
   const isLoading = movieQuery.isLoading || movieQuery.isIdle;
 
+  const title = `${movieQuery?.data?.title} ${
+    movieQuery?.data?.releaseYear && `(${movieQuery?.data?.releaseYear})`
+  }`;
+
   return (
-    <Layout>
-      {/* eslint-disable-next-line no-nested-ternary */}
-      {movieQuery.isError ? (
-        <ErrorMessageView
-          icon={null}
-          message={`Sorry, we couldn't find the movie you were looking for.`}
-        />
-      ) : isLoading ? (
-        <Placeholder width="100%" height={600} />
-      ) : (
-        <Flex direction="column" gap={5}>
-          {movieQuery.data && (
-            <MovieBanner imageprops={imageprops} movie={movieQuery.data}>
-              <MovieBannerBackdrop
-                title={movieQuery.data?.title}
-                backdropPath={movieQuery.data?.backdropPath}
-                bgBlurDataUrl={imageprops?.bgBlurDataUrl}
-              />
-              <MovieBannerDetailSection>
-                <MovieBannerImage
-                  id={movieQuery.data?.id}
+    <>
+      <Metadata
+        title={movieQuery?.data?.title ? title : 'Not found'}
+        description={movieQuery?.data?.overview ?? 'Not found'}
+      />
+      <Layout>
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {movieQuery.isError ? (
+          <ErrorMessageView
+            icon={null}
+            message={`Sorry, we couldn't find the movie you were looking for.`}
+          />
+        ) : isLoading ? (
+          <Placeholder width="100%" height={600} />
+        ) : (
+          <Flex direction="column" gap={5}>
+            {movieQuery.data && (
+              <MovieBanner imageprops={imageprops} movie={movieQuery.data}>
+                <MovieBannerBackdrop
                   title={movieQuery.data?.title}
-                  src={movieQuery.data?.posterPath}
-                  posterBlurDataUrl={imageprops?.posterBlurDataUrl}
-                  watchProviders={movieQuery.data?.watchProviders}
+                  backdropPath={movieQuery.data?.backdropPath}
+                  bgBlurDataUrl={imageprops?.bgBlurDataUrl}
                 />
-                <MovieBannerDetails movie={movieQuery.data} />
-              </MovieBannerDetailSection>
-            </MovieBanner>
-          )}
-          <Container
-            size={{ '@bp1': 1, '@bp2': 2, '@bp3': 3, '@bp4': 4, '@bp5': 5 }}
-            css={{ height: '100%' }}
-          >
-            <Flex direction="column" gap={5} css={{ height: '100%' }}>
-              <Cast id={movieQuery.data?.id} />
-              <Reviews id={movieQuery.data?.id} />
-            </Flex>
-          </Container>
-        </Flex>
-      )}
-    </Layout>
+                <MovieBannerDetailSection>
+                  <MovieBannerImage
+                    id={movieQuery.data?.id}
+                    title={movieQuery.data?.title}
+                    src={movieQuery.data?.posterPath}
+                    posterBlurDataUrl={imageprops?.posterBlurDataUrl}
+                    watchProviders={movieQuery.data?.watchProviders}
+                  />
+                  <MovieBannerDetails movie={movieQuery.data} />
+                </MovieBannerDetailSection>
+              </MovieBanner>
+            )}
+            <Container
+              size={{ '@bp1': 1, '@bp2': 2, '@bp3': 3, '@bp4': 4, '@bp5': 5 }}
+              css={{ height: '100%' }}
+            >
+              <Flex direction="column" gap={5} css={{ height: '100%' }}>
+                <Cast id={movieQuery.data?.id} />
+                <Reviews id={movieQuery.data?.id} />
+              </Flex>
+            </Container>
+          </Flex>
+        )}
+      </Layout>
+    </>
   );
 }

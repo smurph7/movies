@@ -6,7 +6,8 @@ import { Flex } from '~/features/ui';
 import {
   ErrorMessageView,
   Layout,
-  Pagination
+  Pagination,
+  Metadata
 } from '~/features/common/components';
 import { MovieTiles } from '~/features/movies/components';
 import { useGenre } from '~/features/movies/queries';
@@ -66,38 +67,45 @@ export default function Genre({ genre: initialGenre }) {
     handlePageChange
   });
 
+  const title =
+    splitSlug && genreQuery?.data?.totalResults > 0
+      ? getStringFromUrl(genre)
+      : '';
+
   return (
-    <Layout>
-      <Flex direction="column" gap={5}>
-        <MovieTiles
-          title={
-            splitSlug && genreQuery?.data?.totalResults > 0
-              ? getStringFromUrl(genre)
-              : ''
-          }
-          movies={genreQuery?.data?.results}
-          isLoading={isLoading}
-          placeholderLength={resultsPerPage}
-        />
-        {genreQuery?.data?.totalResults === 0 && <ErrorMessageView />}
-        {genreQuery?.data?.totalResults > 0 && (
-          <Flex justify="center">
-            <Pagination
-              currentPage={page}
-              setCurrentPage={newPage => handlePageChange(newPage)}
-              totalPages={totalPages}
-              edgePageCount={2}
-              middlePagesSiblingCount={2}
-            >
-              <Flex align="center" justify="center" gap={2}>
-                <Pagination.PrevButton />
-                <Pagination.PageButton />
-                <Pagination.NextButton />
-              </Flex>
-            </Pagination>
-          </Flex>
-        )}
-      </Flex>
-    </Layout>
+    <>
+      <Metadata
+        title={`Genre${title && ` - ${title}`}`}
+        description={`Movies by genre${title && ` - ${title}`}`}
+      />
+      <Layout>
+        <Flex direction="column" gap={5}>
+          <MovieTiles
+            title={title}
+            movies={genreQuery?.data?.results}
+            isLoading={isLoading}
+            placeholderLength={resultsPerPage}
+          />
+          {genreQuery?.data?.totalResults === 0 && <ErrorMessageView />}
+          {genreQuery?.data?.totalResults > 0 && (
+            <Flex justify="center">
+              <Pagination
+                currentPage={page}
+                setCurrentPage={newPage => handlePageChange(newPage)}
+                totalPages={totalPages}
+                edgePageCount={2}
+                middlePagesSiblingCount={2}
+              >
+                <Flex align="center" justify="center" gap={2}>
+                  <Pagination.PrevButton />
+                  <Pagination.PageButton />
+                  <Pagination.NextButton />
+                </Flex>
+              </Pagination>
+            </Flex>
+          )}
+        </Flex>
+      </Layout>
+    </>
   );
 }

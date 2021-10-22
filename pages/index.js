@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Container, StyledCarousel, Flex, Text } from '~/features/ui';
-import { Layout } from '~/features/common/components';
+import { Layout, Metadata } from '~/features/common/components';
 import { MovieCard } from '~/features/movies/components';
 import {
   useNowPlayingMovies,
@@ -14,14 +14,20 @@ const NUMBER_OF_PLACEHOLDERS = 6;
 
 export default function Home() {
   return (
-    <Layout>
-      <Flex direction="column" align="center" gap={5} css={{ pt: '$3' }}>
-        <PopularMovieSection />
-        <UpcomingMovieSection />
-        <NowPlayingMovieSection />
-        <TrendingMovieSection />
-      </Flex>
-    </Layout>
+    <>
+      <Metadata
+        title="Home"
+        description="Welcome to Movies! Search for information about all of your favourite movies."
+      />
+      <Layout>
+        <Flex direction="column" align="center" gap={5} css={{ pt: '$3' }}>
+          <PopularMovieSection />
+          <UpcomingMovieSection />
+          <NowPlayingMovieSection />
+          <TrendingMovieSection />
+        </Flex>
+      </Layout>
+    </>
   );
 }
 

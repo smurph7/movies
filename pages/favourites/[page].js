@@ -6,7 +6,12 @@ import {
   useFavouriteMovies,
   useFavouritesTotal
 } from '~/features/favourites/queries';
-import { Layout, Pagination, LoginView } from '~/features/common/components';
+import {
+  Layout,
+  Pagination,
+  LoginView,
+  Metadata
+} from '~/features/common/components';
 import { MovieTiles } from '~/features/movies/components';
 import { Flex, Text } from '~/features/ui';
 import { useTotalPages } from '~/features/common/hooks/use-total-pages';
@@ -30,46 +35,52 @@ export default function Favourites() {
   });
 
   return (
-    <Layout>
-      {user || userIsLoading ? (
-        <Flex direction="column" gap={5}>
-          <MovieTiles
-            title="Favourites"
-            movies={favouritesQuery?.data?.results}
-            isLoading={favouritesQuery.isLoading || favouritesQuery.isIdle}
-            placeholderLength={resultsPerPage}
-          />
-          {totalFavourites === 0 && (
-            <Flex direction="column" align="center" gap={2}>
-              <Text color="gray">You don't have any favourites yet.</Text>
-              <Text color="gray">
-                Add some movies to your favourites to see them here.
-              </Text>
-            </Flex>
-          )}
-          {totalFavourites > 0 && (
-            <Flex justify="center">
-              <Pagination
-                currentPage={page}
-                setCurrentPage={newPage => handlePageChange(newPage)}
-                totalPages={totalPages}
-                edgePageCount={2}
-                middlePagesSiblingCount={2}
-              >
-                <Flex align="center" justify="center" gap={2}>
-                  <Pagination.PrevButton />
-                  <Pagination.PageButton />
-                  <Pagination.NextButton />
-                </Flex>
-              </Pagination>
-            </Flex>
-          )}
-        </Flex>
-      ) : (
-        <Flex justify="center" css={{ p: '$8' }}>
-          <LoginView text="Please log in to view your favourites" />
-        </Flex>
-      )}
-    </Layout>
+    <>
+      <Metadata
+        title="Favourites"
+        description="View your favourite movies here!"
+      />
+      <Layout>
+        {user || userIsLoading ? (
+          <Flex direction="column" gap={5}>
+            <MovieTiles
+              title="Favourites"
+              movies={favouritesQuery?.data?.results}
+              isLoading={favouritesQuery.isLoading || favouritesQuery.isIdle}
+              placeholderLength={resultsPerPage}
+            />
+            {totalFavourites === 0 && (
+              <Flex direction="column" align="center" gap={2}>
+                <Text color="gray">You don't have any favourites yet.</Text>
+                <Text color="gray">
+                  Add some movies to your favourites to see them here.
+                </Text>
+              </Flex>
+            )}
+            {totalFavourites > 0 && (
+              <Flex justify="center">
+                <Pagination
+                  currentPage={page}
+                  setCurrentPage={newPage => handlePageChange(newPage)}
+                  totalPages={totalPages}
+                  edgePageCount={2}
+                  middlePagesSiblingCount={2}
+                >
+                  <Flex align="center" justify="center" gap={2}>
+                    <Pagination.PrevButton />
+                    <Pagination.PageButton />
+                    <Pagination.NextButton />
+                  </Flex>
+                </Pagination>
+              </Flex>
+            )}
+          </Flex>
+        ) : (
+          <Flex justify="center" css={{ p: '$8' }}>
+            <LoginView text="Please log in to view your favourites" />
+          </Flex>
+        )}
+      </Layout>
+    </>
   );
 }
