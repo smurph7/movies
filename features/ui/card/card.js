@@ -12,16 +12,20 @@ export const Card = styled('div', {
   transition: 'all 0.3s ease',
   userSelect: 'none',
   '@bp1': {
-    width: '170px',
-    height: '255px'
+    width: '280px',
+    height: '421px'
   },
-  '@bp3': {
+  '@bp2': {
     width: '180px',
     height: '270px'
   },
+  '@bp3': {
+    width: '140px',
+    height: '210px'
+  },
   '@bp4': {
-    width: '233px',
-    height: '350px'
+    width: '180px',
+    height: '270px'
   },
   variants: {
     bounceOnHover: {

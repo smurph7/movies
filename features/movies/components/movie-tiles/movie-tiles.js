@@ -4,8 +4,8 @@ import { MovieCard } from '../movie-card';
 
 import { Container, Flex, Grid, Text } from '~/features/ui';
 
-export function MovieTiles({ title, movies, isLoading }) {
-  const placeholders = [...Array.from({ length: 10 })];
+export function MovieTiles({ title, movies, isLoading, placeholderLength }) {
+  const placeholders = [...Array.from({ length: placeholderLength })];
   const movieArray = movies ?? placeholders;
   return (
     <Container size={6} css={{ pt: '$5' }}>
@@ -15,11 +15,9 @@ export function MovieTiles({ title, movies, isLoading }) {
         </Text>
         <Grid
           columns={{
-            '@bp1': '2',
+            '@bp1': '3',
             '@bp2': '3',
-            '@bp3': '4',
-            '@bp4': '5',
-            '@bp5': '5'
+            '@bp3': '5'
           }}
           gap={{ '@bp1': 3, '@bp3': 2 }}
         >

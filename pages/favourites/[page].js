@@ -16,7 +16,7 @@ export default function Favourites() {
   const { user, isLoading: userIsLoading } = useUser();
   const router = useRouter();
   const page = router.query?.page;
-  const resultsPerPage = 10;
+  const resultsPerPage = 15;
   const { handlePageChange } = usePageChange();
 
   const favouritesQuery = useFavouriteMovies({ page, resultsPerPage });
@@ -37,6 +37,7 @@ export default function Favourites() {
             title="Favourites"
             movies={favouritesQuery?.data?.results}
             isLoading={favouritesQuery.isLoading || favouritesQuery.isIdle}
+            placeholderLength={resultsPerPage}
           />
           {totalFavourites === 0 && (
             <Flex direction="column" align="center" gap={2}>
