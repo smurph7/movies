@@ -39,6 +39,7 @@ export function CastMemberCard({ castMember, isLoading }) {
       </Box>
       <Flex
         direction="column"
+        justify="center"
         gap={1}
         css={{
           bg: '$sage1',
@@ -51,7 +52,7 @@ export function CastMemberCard({ castMember, isLoading }) {
         <Text heading truncate css={{ fontSize: '$3' }}>
           {castMember?.name}
         </Text>
-        <Text fontSize={2} truncate>
+        <Text fontSize={1} truncate>
           {castMember?.character}
         </Text>
       </Flex>
