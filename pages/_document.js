@@ -47,6 +47,7 @@ export default class Document extends NextDocument {
             href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
             rel="stylesheet"
           />
+          <link rel="icon" href="/logo-icon.png" />
         </Head>
         <body style={{ margin: ' 0px' }}>
           <Main />
