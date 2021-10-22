@@ -40,7 +40,13 @@ export function CastMemberCard({ castMember, isLoading }) {
       <Flex
         direction="column"
         gap={1}
-        css={{ bg: '$sage1', p: '$3', userSelect: 'auto', cursor: 'text' }}
+        css={{
+          bg: '$sage1',
+          p: '$3',
+          userSelect: 'auto',
+          cursor: 'text',
+          minHeight: 40
+        }}
       >
         <Text heading truncate css={{ fontSize: '$3' }}>
           {castMember?.name}

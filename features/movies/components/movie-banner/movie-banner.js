@@ -170,7 +170,7 @@ export function MovieBannerDetails({ movie }) {
         </Flex>
       </Flex>
       <Flex gap={5} direction={{ '@bp1': 'column', '@bp3': 'row' }}>
-        {movie.voteAverage && (
+        {!!movie.voteAverage && (
           <Flex direction="column" gap={2}>
             <Text color={color} fontWeight="bold" fontSize={2}>
               User score
