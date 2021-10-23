@@ -14,27 +14,38 @@ import { transformMoviesData } from '~/features/movies/utils/transform-movie-dat
 
 export async function getStaticProps() {
   let popular;
-  // let upcoming;
+  let upcoming;
   // let nowPlaying;
   // let trending;
+
+  const headers = {
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`
+  };
 
   try {
     const { data: popularMovies } = await axios.get(
       `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/popular?region=AU`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`
-        }
-      }
+      { headers }
     );
     popular = transformMoviesData(popularMovies);
   } catch (error) {
     popular = {};
   }
 
+  try {
+    const { data: upcomingMovies } = await axios.get(
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/upcoming?region=AU`,
+      { headers }
+    );
+    upcoming = transformMoviesData(upcomingMovies);
+  } catch (error) {
+    upcoming = {};
+  }
+
   return {
     props: {
-      popular
+      popular,
+      upcoming
     },
     revalidate: 60 * 60
   };
@@ -42,7 +53,7 @@ export async function getStaticProps() {
 
 const NUMBER_OF_PLACEHOLDERS = 6;
 
-export default function Home({ popular }) {
+export default function Home({ popular, upcoming }) {
   return (
     <>
       <Metadata
@@ -52,7 +63,7 @@ export default function Home({ popular }) {
       <Layout>
         <Flex direction="column" align="center" gap={5} css={{ pt: '$3' }}>
           <PopularMovieSection popular={popular} />
-          <UpcomingMovieSection />
+          <UpcomingMovieSection upcoming={upcoming} />
           <NowPlayingMovieSection />
           <TrendingMovieSection />
         </Flex>
@@ -62,8 +73,7 @@ export default function Home({ popular }) {
 }
 
 function PopularMovieSection({ popular }) {
-  console.log('popular', popular);
-  const popularMoviesQuery = usePopularMovies();
+  const popularMoviesQuery = usePopularMovies({ popular });
   return (
     <MovieSection
       title="Popular"
@@ -104,8 +114,8 @@ function NowPlayingMovieSection() {
   );
 }
 
-function UpcomingMovieSection() {
-  const upcomingMoviesQuery = useUpcomingMovies();
+function UpcomingMovieSection({ upcoming }) {
+  const upcomingMoviesQuery = useUpcomingMovies({ upcoming });
   return (
     <MovieSection
       title="Upcoming"

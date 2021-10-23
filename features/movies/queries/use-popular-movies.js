@@ -9,6 +9,8 @@ export async function fetchPopularMovies() {
   return transformMoviesData(data);
 }
 
-export function usePopularMovies() {
-  return useQuery(['popular'], fetchPopularMovies);
+export function usePopularMovies({ popular } = {}) {
+  return useQuery(['popular'], fetchPopularMovies, {
+    initialData: popular
+  });
 }

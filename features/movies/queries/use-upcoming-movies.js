@@ -6,11 +6,11 @@ import { transformMoviesData } from '../utils/transform-movie-data';
 export async function fetchUpcomingMovies() {
   const { data } = await moviesAxios.get(`/movie/upcoming?region=AU`);
 
-  return data;
+  return transformMoviesData(data);
 }
 
-export function useUpcomingMovies() {
+export function useUpcomingMovies({ upcoming } = {}) {
   return useQuery(['upcoming'], fetchUpcomingMovies, {
-    select: data => transformMoviesData(data)
+    initialData: upcoming
   });
 }
