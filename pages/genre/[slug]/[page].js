@@ -14,6 +14,7 @@ import { useGenre } from '~/features/movies/queries';
 import { usePageChange } from '~/features/common/hooks/use-page-change';
 import { useTotalPages } from '~/features/common/hooks/use-total-pages';
 import { getStringFromUrl } from '~/utils/get-string-from-url';
+import { transformMoviesData } from '~/features/movies/utils/transform-movie-data';
 
 export async function getStaticProps({ params }) {
   const splitSlug = params.slug?.split('-');
@@ -30,7 +31,7 @@ export async function getStaticProps({ params }) {
       }
     );
 
-    genre = data;
+    genre = transformMoviesData(data);
   } catch (error) {
     genre = {};
   }

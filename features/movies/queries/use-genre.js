@@ -10,14 +10,13 @@ export async function fetchGenre({ queryKey }) {
     `/discover/movie?with_genres=${id}&page=${page}`
   );
 
-  return data;
+  return transformMoviesData(data);
 }
 
 export function useGenre({ id, page, genre }) {
   return useQuery(['genre', { id: id?.toString(), page }], fetchGenre, {
     enabled: !!id,
-    initialData: genre,
-    select: data => transformMoviesData(data)
+    initialData: genre
   });
 }
 
