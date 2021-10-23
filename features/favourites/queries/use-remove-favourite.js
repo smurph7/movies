@@ -14,22 +14,23 @@ export function useRemoveFavourite() {
   const { data: currentFavourites } = useFavourites();
   const queryClient = useQueryClient();
   const queryKey = ['favourites'];
+
   return useMutation(id => removeFavourite(id, { currentFavourites }), {
     onMutate: async id => {
       await queryClient.cancelQueries(queryKey);
-      const previous = queryClient.getQueryData(queryKey);
-      queryClient.setQueryData(() => {
-        const newFavourites = currentFavourites.filter(
-          favourite => favourite !== id
-        );
 
+      const previous = queryClient.getQueryData(queryKey);
+      queryClient.setQueryData(queryKey, old => {
+        const newFavourites = old?.filter(favourite => favourite !== id);
         return [...newFavourites];
       });
       return { previous };
     },
+
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
+
     onError: error => console.error(`Error: ${error}`)
   });
 }

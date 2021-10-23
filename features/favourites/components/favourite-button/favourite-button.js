@@ -29,10 +29,10 @@ export function FavouriteButton({ id }) {
     }
   }
 
-  const handleAddFavourite = useDebouncedCallback(() => addFavourite(id), 50);
+  const handleAddFavourite = useDebouncedCallback(() => addFavourite(id), 150);
   const handleRemoveFavourite = useDebouncedCallback(
     () => removeFavourite(id),
-    50
+    150
   );
 
   function handleClick(e) {
