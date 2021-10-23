@@ -7,7 +7,7 @@ export async function fetchMovie({ queryKey }) {
   const [, { id }] = queryKey;
 
   const { data } = await moviesAxios.get(
-    `/movie/${id}?append_to_response=watch/providers`
+    `/movie/${id}?append_to_response=watch/providers,videos`
   );
 
   return transformMovieData(data);

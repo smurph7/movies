@@ -1,30 +1,12 @@
-import { useQuery } from 'react-query';
+import * as React from 'react';
 
-import { moviesAxios } from '../../../api-client';
-
-function transformTrailerData(data) {
-  const trailers = data?.results.filter(
-    result =>
-      result?.type?.toLowerCase() === 'trailer' &&
-      result?.site?.toLowerCase() === 'youtube'
-  );
-  return trailers.map(trailer => ({
-    ...trailer,
-    publishedAt: trailer.published_at
-  }));
-}
-
-export async function fetchTrailers({ queryKey }) {
-  const [, { id }] = queryKey;
-
-  const { data } = await moviesAxios.get(`/movie/${id}/videos`);
-
-  return data;
-}
+import { useMovie } from '.';
 
 export function useTrailers({ id }) {
-  return useQuery(['trailers', { id: id?.toString() }], fetchTrailers, {
-    enabled: !!id,
-    select: data => transformTrailerData(data)
+  return useMovie({
+    id,
+    queryConfig: {
+      select: React.useCallback(data => data?.trailers, [])
+    }
   });
 }

@@ -26,6 +26,18 @@ export function transformWatchProviders(watchProviders) {
   };
 }
 
+function transformTrailerData(data) {
+  const trailers = data?.results.filter(
+    result =>
+      result?.type?.toLowerCase() === 'trailer' &&
+      result?.site?.toLowerCase() === 'youtube'
+  );
+  return trailers.map(trailer => ({
+    ...trailer,
+    publishedAt: trailer.published_at
+  }));
+}
+
 export function transformMoviesData(data) {
   return {
     ...data,
@@ -80,8 +92,8 @@ export function transformMovieData(data) {
     revenue: data.revenue,
     status: data.status,
     budget: data.budget,
-    watchProviders: transformWatchProviders(
-      data['watch/providers']?.results?.AU
-    )
+    watchProviders:
+      transformWatchProviders(data['watch/providers']?.results?.AU) ?? null,
+    trailers: transformTrailerData(data?.videos) ?? null
   };
 }
