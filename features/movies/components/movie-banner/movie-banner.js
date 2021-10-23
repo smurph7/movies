@@ -133,7 +133,12 @@ export function MovieBannerDetails({ movie }) {
   }
 
   return (
-    <Flex direction="column" justify="center" gap={8} css={{ height: '100%' }}>
+    <Flex
+      direction="column"
+      justify="center"
+      gap={{ '@bp1': 5, '@bp3': 8 }}
+      css={{ height: '100%' }}
+    >
       <Flex direction="column" justify="center" gap={3}>
         <Text heading color={color} fontSize={6}>
           {movie.title} {movie.releaseYear && `(${movie.releaseYear})`}
