@@ -29,6 +29,7 @@ export function Trailer({ id }) {
           </Button>
         </DialogTrigger>
         <DialogContent
+          onCloseAutoFocus={e => e.preventDefault()}
           css={{
             p: '$6',
             bg: '$sage3',
