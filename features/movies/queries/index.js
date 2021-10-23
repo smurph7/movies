@@ -2,11 +2,14 @@ export { usePopularMovies } from './use-popular-movies';
 export { useTrendingMovies } from './use-trending-movies';
 export { useNowPlayingMovies } from './use-now-playing-movies';
 export { useUpcomingMovies } from './use-upcoming-movies';
-export { useMovie, usePrefetchMovie } from './use-movie';
-export { useReleaseDates } from './use-release-dates';
-export { useTrailers } from './use-trailers';
-export { useWatchProviders } from './use-watch-providers';
+export {
+  useMovie,
+  usePrefetchMovie,
+  useReleaseDates,
+  useTrailers,
+  useWatchProviders,
+  useCast
+} from './use-movie';
 export { useSearchMovies } from './use-search-movies';
 export { useReviews } from './use-reviews';
-export { useCast, usePrefetchCast } from './use-cast';
 export { useGenre, usePrefetchGenre } from './use-genre';

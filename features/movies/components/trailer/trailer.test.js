@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, fireEvent } from '../../../../test-utils';
-import * as trailersHook from '../../queries/use-trailers';
+import * as trailersHook from '../../queries/use-movie';
 
 import { Trailer } from '.';
 

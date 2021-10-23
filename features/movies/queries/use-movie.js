@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 
 import { transformMovieData } from '../utils/transform-movie-data';
@@ -7,7 +8,7 @@ export async function fetchMovie({ queryKey }) {
   const [, { id }] = queryKey;
 
   const { data } = await moviesAxios.get(
-    `/movie/${id}?append_to_response=watch/providers,videos,release_dates`
+    `/movie/${id}?append_to_response=watch/providers,videos,release_dates,credits`
   );
 
   return transformMovieData(data);
@@ -34,4 +35,31 @@ export function usePrefetchMovie() {
     );
   }
   return { handlePrefetch };
+}
+
+export function useWatchProviders({ id }) {
+  return useMovie({
+    id,
+    queryConfig: {
+      select: React.useCallback(data => data?.watchProviders, [])
+    }
+  });
+}
+
+export function useTrailers({ id }) {
+  return useMovie({
+    id,
+    queryConfig: {
+      select: React.useCallback(data => data?.trailers, [])
+    }
+  });
+}
+
+export function useReleaseDates({ id }) {
+  return useMovie({
+    id,
+    queryConfig: {
+      select: React.useCallback(data => data?.releaseDates, [])
+    }
+  });
 }

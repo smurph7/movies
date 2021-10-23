@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import * as nextRouter from 'next/router';
 
@@ -6,32 +7,26 @@ import { render, fireEvent } from '../../../../test-utils';
 import { MovieBannerBackdrop, MovieBannerImage, MovieBannerDetails } from '.';
 
 jest.mock('~/styles/media', () => ({
-  // eslint-disable-next-line react/display-name
   Media: ({ children }) => <>{children}</>
 }));
 
 jest.mock('~/features/favourites/components/favourite-button', () => ({
-  // eslint-disable-next-line react/display-name
   FavouriteButton: () => <></>
 }));
 
-jest.mock('~/features/movies/queries/use-watch-providers', () => ({
-  // eslint-disable-next-line react/display-name
+jest.mock('~/features/movies/queries/use-movie', () => ({
   useWatchProviders: ({ id }) => id
 }));
 
 jest.mock('~/features/movies/components/watch-provider-button', () => ({
-  // eslint-disable-next-line react/display-name
   WatchProviderButton: () => <></>
 }));
 
 jest.mock('~/features/movies/components/release-dates', () => ({
-  // eslint-disable-next-line react/display-name
   ReleaseDates: () => <></>
 }));
 
 jest.mock('~/features/movies/components/trailer', () => ({
-  // eslint-disable-next-line react/display-name
   Trailer: () => <></>
 }));
 

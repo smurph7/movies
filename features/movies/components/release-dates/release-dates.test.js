@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render } from '../../../../test-utils';
-import * as releaseDatesHook from '../../queries/use-release-dates';
+import * as releaseDatesHook from '../../queries/use-movie';
 
 import { ReleaseDates } from '.';
 
