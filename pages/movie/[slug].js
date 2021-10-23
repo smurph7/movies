@@ -19,6 +19,7 @@ import {
   Cast
 } from '~/features/movies/components';
 import { useMovie } from '~/features/movies/queries';
+import { transformMovieData } from '~/features/movies/utils/transform-movie-data';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
 export async function getStaticProps({ params }) {
@@ -30,7 +31,7 @@ export async function getStaticProps({ params }) {
 
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}`,
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?append_to_response=watch/providers`,
       {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`
@@ -55,8 +56,7 @@ export async function getStaticProps({ params }) {
     } catch (error) {
       posterBlurDataUrl = {};
     }
-
-    movie = data;
+    movie = transformMovieData(data);
   } catch (error) {
     movie = {};
     bgBlurDataUrl = {};

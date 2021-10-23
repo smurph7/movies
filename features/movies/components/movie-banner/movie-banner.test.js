@@ -17,7 +17,7 @@ jest.mock('~/features/favourites/components/favourite-button', () => ({
 
 jest.mock('~/features/movies/queries/use-watch-providers', () => ({
   // eslint-disable-next-line react/display-name
-  useMovieWatchProviders: ({ id }) => id
+  useWatchProviders: ({ id }) => id
 }));
 
 jest.mock('~/features/movies/components/watch-provider-button', () => ({

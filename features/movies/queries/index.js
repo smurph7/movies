@@ -5,7 +5,7 @@ export { useUpcomingMovies } from './use-upcoming-movies';
 export { useMovie, usePrefetchMovie } from './use-movie';
 export { useReleaseDates } from './use-release-dates';
 export { useTrailers } from './use-trailers';
-export { useMovieWatchProviders } from './use-watch-providers';
+export { useWatchProviders } from './use-watch-providers';
 export { useSearchMovies } from './use-search-movies';
 export { useReviews } from './use-reviews';
 export { useCast, usePrefetchCast } from './use-cast';

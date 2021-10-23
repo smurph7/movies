@@ -7,10 +7,7 @@ import { WatchProviderButton } from '../watch-provider-button';
 import { Container, Box, Text, Flex, Grid, Button } from '~/features/ui';
 import { FavouriteButton } from '~/features/favourites/components';
 import { ReleaseDates, Trailer } from '~/features/movies/components';
-import {
-  useMovieWatchProviders,
-  usePrefetchGenre
-} from '~/features/movies/queries';
+import { useWatchProviders, usePrefetchGenre } from '~/features/movies/queries';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { Media } from '~/styles/media';
@@ -91,7 +88,7 @@ export function MovieBannerDetailSection({ children }) {
 }
 
 export function MovieBannerImage({ id, title, src, posterBlurDataUrl }) {
-  const { data: watchProviders } = useMovieWatchProviders({ id });
+  const { data: watchProviders } = useWatchProviders({ id });
 
   return (
     <Flex align="center" justify="center">

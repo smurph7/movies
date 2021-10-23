@@ -1,7 +1,8 @@
-import { useQuery } from 'react-query';
+import * as React from 'react';
 
 import { moviesAxios } from '../../../api-client';
-import { transformWatchProviders } from '../utils/transform-movie-data';
+
+import { useMovie } from '.';
 
 export async function fetchMovieWatchProviders({ queryKey }) {
   const [, { id }] = queryKey;
@@ -11,13 +12,11 @@ export async function fetchMovieWatchProviders({ queryKey }) {
   return data;
 }
 
-export function useMovieWatchProviders({ id }) {
-  return useQuery(
-    ['watchProviders', { id: id?.toString() }],
-    fetchMovieWatchProviders,
-    {
-      enabled: !!id,
-      select: data => transformWatchProviders(data?.results?.AU)
+export function useWatchProviders({ id }) {
+  return useMovie({
+    id,
+    queryConfig: {
+      select: React.useCallback(data => data?.watchProviders, [])
     }
-  );
+  });
 }

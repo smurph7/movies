@@ -79,6 +79,9 @@ export function transformMovieData(data) {
     runtime: getHoursAndMinutes(data.runtime),
     revenue: data.revenue,
     status: data.status,
-    budget: data.budget
+    budget: data.budget,
+    watchProviders: transformWatchProviders(
+      data['watch/providers']?.results?.AU
+    )
   };
 }

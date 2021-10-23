@@ -6,16 +6,18 @@ import { moviesAxios } from '../../../api-client';
 export async function fetchMovie({ queryKey }) {
   const [, { id }] = queryKey;
 
-  const { data } = await moviesAxios.get(`/movie/${id}`);
+  const { data } = await moviesAxios.get(
+    `/movie/${id}?append_to_response=watch/providers`
+  );
 
-  return data;
+  return transformMovieData(data);
 }
 
-export function useMovie({ id, movie }) {
+export function useMovie({ id, movie, queryConfig } = {}) {
   return useQuery(['movie', { id: id?.toString() }], fetchMovie, {
+    ...queryConfig,
     enabled: !!id,
-    initialData: movie,
-    select: data => transformMovieData(data)
+    initialData: movie
   });
 }
 
