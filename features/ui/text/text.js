@@ -7,6 +7,7 @@ export const Text = styled('p', {
   fontWeight: 400,
   fontVariantNumeric: 'tabular-nums',
   display: 'block',
+  wordBreak: 'break-word',
   variants: {
     fontWeight: { bold: { fontWeight: 'bold' } },
     fontSize: {
