@@ -38,28 +38,6 @@ function transformTrailerData(data) {
   }));
 }
 
-export function transformMoviesData(data) {
-  return {
-    ...data,
-    totalPages: data?.total_pages,
-    totalResults: data?.total_results,
-    results: data?.results
-      ?.map(result => {
-        if (!result) {
-          return;
-        }
-        return {
-          id: result.id,
-          title: result.title,
-          posterPath: result.poster_path,
-          voteAverage: result.vote_average,
-          releaseYear: result.release_date?.split('-')[0]
-        };
-      })
-      .filter(result => result !== undefined)
-  };
-}
-
 function transformReleaseDates(data) {
   const RELEASE_REGION = 'AU';
   const FALLBACK_RELEASE_REGION = 'US';
@@ -178,5 +156,27 @@ export function transformMovieData(data) {
     releaseDates: transformReleaseDates(data?.release_dates),
     cast: transformCreditsData(data?.credits),
     reviews: transformReviewData(data?.reviews)
+  };
+}
+
+export function transformMoviesData(data) {
+  return {
+    ...data,
+    totalPages: data?.total_pages,
+    totalResults: data?.total_results,
+    results: data?.results
+      ?.map(result => {
+        if (!result) {
+          return;
+        }
+        return {
+          id: result.id,
+          title: result.title,
+          posterPath: result.poster_path,
+          voteAverage: result.vote_average,
+          releaseYear: result.release_date?.split('-')[0]
+        };
+      })
+      .filter(result => result !== undefined)
   };
 }

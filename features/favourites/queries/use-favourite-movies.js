@@ -32,7 +32,7 @@ export async function fetchMovie({ queryKey }) {
     });
 
   return Promise.all(requests)
-    .then(data => data)
+    .then(data => transformMoviesData({ results: data }))
     .catch(err => console.error(err));
 }
 
@@ -41,9 +41,6 @@ export function useFavouriteMovies({ page = 1, resultsPerPage = 20 }) {
   return useQuery(
     ['favouriteMovies', { favourites, page, resultsPerPage }],
     fetchMovie,
-    {
-      enabled: !!favourites,
-      select: data => transformMoviesData({ results: data })
-    }
+    { enabled: !!favourites }
   );
 }

@@ -10,16 +10,13 @@ export async function fetchSearchMovies({ queryKey }) {
     `/search/movie?query=${query}&page=${page}`
   );
 
-  return data;
+  return transformMoviesData(data);
 }
 
 export function useSearchMovies({ query, page = 1 }) {
   return useQuery(
     ['search-movies', { query, page: page.toString() }],
     fetchSearchMovies,
-    {
-      enabled: !!query,
-      select: data => transformMoviesData(data)
-    }
+    { enabled: !!query }
   );
 }
