@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 
 import { Container, StyledCarousel, Flex, Text } from '~/features/ui';
 import { Layout, Metadata } from '~/features/common/components';
@@ -9,10 +10,39 @@ import {
   useTrendingMovies,
   useUpcomingMovies
 } from '~/features/movies/queries';
+import { transformMoviesData } from '~/features/movies/utils/transform-movie-data';
+
+export async function getStaticProps() {
+  let popular;
+  // let upcoming;
+  // let nowPlaying;
+  // let trending;
+
+  try {
+    const { data: popularMovies } = await axios.get(
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/popular?region=AU`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`
+        }
+      }
+    );
+    popular = transformMoviesData(popularMovies);
+  } catch (error) {
+    popular = {};
+  }
+
+  return {
+    props: {
+      popular
+    },
+    revalidate: 60 * 60
+  };
+}
 
 const NUMBER_OF_PLACEHOLDERS = 6;
 
-export default function Home() {
+export default function Home({ popular }) {
   return (
     <>
       <Metadata
@@ -21,7 +51,7 @@ export default function Home() {
       />
       <Layout>
         <Flex direction="column" align="center" gap={5} css={{ pt: '$3' }}>
-          <PopularMovieSection />
+          <PopularMovieSection popular={popular} />
           <UpcomingMovieSection />
           <NowPlayingMovieSection />
           <TrendingMovieSection />
@@ -31,7 +61,8 @@ export default function Home() {
   );
 }
 
-function PopularMovieSection() {
+function PopularMovieSection({ popular }) {
+  console.log('popular', popular);
   const popularMoviesQuery = usePopularMovies();
   return (
     <MovieSection

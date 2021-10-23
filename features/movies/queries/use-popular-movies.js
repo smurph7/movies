@@ -6,11 +6,9 @@ import { transformMoviesData } from '../utils/transform-movie-data';
 export async function fetchPopularMovies() {
   const { data } = await moviesAxios.get(`/movie/popular?region=AU`);
 
-  return data;
+  return transformMoviesData(data);
 }
 
 export function usePopularMovies() {
-  return useQuery(['popular'], fetchPopularMovies, {
-    select: data => transformMoviesData(data)
-  });
+  return useQuery(['popular'], fetchPopularMovies);
 }
