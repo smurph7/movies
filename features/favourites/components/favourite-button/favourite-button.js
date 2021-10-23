@@ -17,11 +17,11 @@ export function FavouriteButton({ id }) {
   const { mutate: addFavourite } = useAddFavourite();
   const { mutate: removeFavourite } = useRemoveFavourite();
 
-  const handleAddFavourite = useDebouncedCallback(() => addFavourite(id), 200);
+  const handleAddFavourite = useDebouncedCallback(() => addFavourite(id), 50);
 
   const handleRemoveFavourite = useDebouncedCallback(
     () => removeFavourite(id),
-    200
+    50
   );
 
   function handleClick(e) {
