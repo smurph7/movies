@@ -120,6 +120,26 @@ function transformCreditsData(data) {
     }));
 }
 
+function transformReviewData(data) {
+  return {
+    ...data,
+    results: data?.results?.map(result => ({
+      author: result?.author,
+      authorDetails: {
+        name: result?.author_details?.name,
+        username: result?.author_details?.username,
+        avatarPath: result?.author_details?.avatar_path,
+        rating: result?.author_details?.rating
+      },
+      content: result?.content,
+      createdAt: result?.created_at,
+      id: result?.id,
+      updatedAt: result?.updated_at,
+      url: result?.url
+    }))
+  };
+}
+
 function getHoursAndMinutes(timeInMinutes) {
   const num = timeInMinutes * 1;
   if (typeof num === 'number' && num !== 0) {
@@ -156,6 +176,7 @@ export function transformMovieData(data) {
       transformWatchProviders(data['watch/providers']?.results?.AU) ?? null,
     trailers: transformTrailerData(data?.videos) ?? null,
     releaseDates: transformReleaseDates(data?.release_dates),
-    cast: transformCreditsData(data?.credits)
+    cast: transformCreditsData(data?.credits),
+    reviews: transformReviewData(data?.reviews)
   };
 }

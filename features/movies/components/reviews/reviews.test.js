@@ -4,7 +4,7 @@ import { render, fireEvent } from '../../../../test-utils';
 
 import { Reviews } from '.';
 
-import * as reviews from '~/features/movies/queries/use-reviews';
+import * as reviews from '~/features/movies/queries/use-movie';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),

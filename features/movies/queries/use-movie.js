@@ -8,7 +8,7 @@ export async function fetchMovie({ queryKey }) {
   const [, { id }] = queryKey;
 
   const { data } = await moviesAxios.get(
-    `/movie/${id}?append_to_response=watch/providers,videos,release_dates,credits`
+    `/movie/${id}?append_to_response=watch/providers,videos,release_dates,credits,reviews`
   );
 
   return transformMovieData(data);
@@ -69,6 +69,15 @@ export function useCast({ id }) {
     id,
     queryConfig: {
       select: React.useCallback(data => data?.cast, [])
+    }
+  });
+}
+
+export function useReviews({ id }) {
+  return useMovie({
+    id,
+    queryConfig: {
+      select: React.useCallback(data => data?.reviews, [])
     }
   });
 }

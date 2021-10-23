@@ -8,8 +8,8 @@ export {
   useReleaseDates,
   useTrailers,
   useWatchProviders,
-  useCast
+  useCast,
+  useReviews
 } from './use-movie';
 export { useSearchMovies } from './use-search-movies';
-export { useReviews } from './use-reviews';
 export { useGenre, usePrefetchGenre } from './use-genre';
