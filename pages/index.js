@@ -15,8 +15,8 @@ import { transformMoviesData } from '~/features/movies/utils/transform-movie-dat
 export async function getStaticProps() {
   let popular;
   let upcoming;
-  // let nowPlaying;
-  // let trending;
+  let nowPlaying;
+  let trending;
 
   const headers = {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`
@@ -42,10 +42,32 @@ export async function getStaticProps() {
     upcoming = {};
   }
 
+  try {
+    const { data: nowPlayingMovies } = await axios.get(
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/now_playing?region=AU`,
+      { headers }
+    );
+    nowPlaying = transformMoviesData(nowPlayingMovies);
+  } catch (error) {
+    nowPlaying = {};
+  }
+
+  try {
+    const { data: trendingMovies } = await axios.get(
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/trending/movie/day?region=AU`,
+      { headers }
+    );
+    trending = transformMoviesData(trendingMovies);
+  } catch (error) {
+    trending = {};
+  }
+
   return {
     props: {
       popular,
-      upcoming
+      upcoming,
+      nowPlaying,
+      trending
     },
     revalidate: 60 * 60
   };
@@ -53,7 +75,7 @@ export async function getStaticProps() {
 
 const NUMBER_OF_PLACEHOLDERS = 6;
 
-export default function Home({ popular, upcoming }) {
+export default function Home({ popular, upcoming, nowPlaying, trending }) {
   return (
     <>
       <Metadata
@@ -64,8 +86,8 @@ export default function Home({ popular, upcoming }) {
         <Flex direction="column" align="center" gap={5} css={{ pt: '$3' }}>
           <PopularMovieSection popular={popular} />
           <UpcomingMovieSection upcoming={upcoming} />
-          <NowPlayingMovieSection />
-          <TrendingMovieSection />
+          <NowPlayingMovieSection nowPlaying={nowPlaying} />
+          <TrendingMovieSection trending={trending} />
         </Flex>
       </Layout>
     </>
@@ -86,8 +108,8 @@ function PopularMovieSection({ popular }) {
   );
 }
 
-function TrendingMovieSection() {
-  const trendingMoviesQuery = useTrendingMovies();
+function TrendingMovieSection({ trending }) {
+  const trendingMoviesQuery = useTrendingMovies({ trending });
   return (
     <MovieSection
       title="Trending"
@@ -100,8 +122,8 @@ function TrendingMovieSection() {
   );
 }
 
-function NowPlayingMovieSection() {
-  const nowPlayingMoviesQuery = useNowPlayingMovies();
+function NowPlayingMovieSection({ nowPlaying }) {
+  const nowPlayingMoviesQuery = useNowPlayingMovies({ nowPlaying });
   return (
     <MovieSection
       title="Now Playing"
