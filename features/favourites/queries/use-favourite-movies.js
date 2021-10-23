@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { moviesAxios } from '../../../api-client';
 
@@ -39,8 +39,38 @@ export async function fetchMovie({ queryKey }) {
 export function useFavouriteMovies({ page = 1, resultsPerPage = 20 }) {
   const { data: favourites } = useFavourites();
   return useQuery(
-    ['favouriteMovies', { favourites, page, resultsPerPage }],
+    [
+      'favouriteMovies',
+      {
+        favourites,
+        page: page.toString(),
+        resultsPerPage: resultsPerPage.toString()
+      }
+    ],
     fetchMovie,
     { enabled: !!favourites }
   );
+}
+
+export function usePrefetchFavourites() {
+  const queryClient = useQueryClient();
+  const { data: favourites } = useFavourites();
+
+  async function handlePrefetch({ page, resultsPerPage = 20 }) {
+    await queryClient.prefetchQuery(
+      [
+        'favouriteMovies',
+        {
+          favourites,
+          page: page.toString(),
+          resultsPerPage: resultsPerPage.toString()
+        }
+      ],
+      fetchMovie,
+      {
+        staleTime: 5 * 60 * 1000 // 5 minutes
+      }
+    );
+  }
+  return { handlePrefetch };
 }

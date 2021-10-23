@@ -4,7 +4,8 @@ import { useUser } from '@auth0/nextjs-auth0';
 
 import {
   useFavouriteMovies,
-  useFavouritesTotal
+  useFavouritesTotal,
+  usePrefetchFavourites
 } from '~/features/favourites/queries';
 import {
   Layout,
@@ -22,6 +23,8 @@ export default function Favourites() {
   const router = useRouter();
   const page = router.query?.page;
   const resultsPerPage = 15;
+
+  const { handlePrefetch } = usePrefetchFavourites();
   const { handlePageChange } = usePageChange();
 
   const favouritesQuery = useFavouriteMovies({ page, resultsPerPage });
@@ -62,6 +65,9 @@ export default function Favourites() {
                 <Pagination
                   currentPage={page}
                   setCurrentPage={newPage => handlePageChange(newPage)}
+                  handlePrefetchPage={newPage =>
+                    handlePrefetch({ resultsPerPage, page: newPage })
+                  }
                   totalPages={totalPages}
                   edgePageCount={2}
                   middlePagesSiblingCount={2}
