@@ -66,6 +66,22 @@ describe('Reviews', () => {
     ).not.toBeInTheDocument();
   });
 
+  it('should not display view all reviews button if only one review exists', () => {
+    const content = 'This is a review.';
+    const results = [
+      {
+        author: 'author',
+        id: '1',
+        createdAt: '2021-09-26T06:24:52.368Z',
+        content,
+        authorDetails: { rating: 10 }
+      }
+    ];
+    useReviews.mockReturnValue({ data: { results } });
+    const { queryByText } = render(<Reviews id={123} />);
+    expect(queryByText('View all reviews')).not.toBeInTheDocument();
+  });
+
   it('should display all reviews on click View all reviews', () => {
     const content = 'This is a review.';
     const results = [

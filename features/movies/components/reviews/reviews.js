@@ -82,7 +82,9 @@ export function Reviews({ id }) {
   const [isShowingAll, setShowingAll] = React.useState(false);
   const reviewsQuery = useReviews({ id });
 
-  if (!reviewsQuery.data?.results?.length > 0) {
+  const reviewsLength = reviewsQuery.data?.results?.length;
+
+  if (!reviewsLength > 0) {
     return null;
   }
 
@@ -98,13 +100,15 @@ export function Reviews({ id }) {
           <ReviewCard key={review.id} review={review} />
         ))}
       </Flex>
-      <Button
-        ghost
-        css={{ alignSelf: 'start', color: '$sage11' }}
-        onClick={() => setShowingAll(!isShowingAll)}
-      >
-        View {isShowingAll ? 'less' : 'all reviews'}
-      </Button>
+      {reviewsLength > 1 && (
+        <Button
+          ghost
+          css={{ alignSelf: 'start', color: '$sage11' }}
+          onClick={() => setShowingAll(!isShowingAll)}
+        >
+          View {isShowingAll ? 'less' : 'all reviews'}
+        </Button>
+      )}
     </Flex>
   );
 }
