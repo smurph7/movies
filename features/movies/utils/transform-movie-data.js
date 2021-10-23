@@ -69,7 +69,7 @@ function transformReleaseDates(data) {
 
   return {
     certification:
-      regionData?.certification !== ''
+      regionData?.certification && regionData?.certification !== ''
         ? regionData?.certification
         : fallbackRegionData?.certification ?? null,
     releaseDate:
