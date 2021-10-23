@@ -60,6 +60,51 @@ export function transformMoviesData(data) {
   };
 }
 
+function transformReleaseDates(data) {
+  const RELEASE_REGION = 'AU';
+  const FALLBACK_RELEASE_REGION = 'US';
+  if (!data) {
+    return;
+  }
+
+  const regionResults = data?.results?.filter(
+    result => result.iso_3166_1 === RELEASE_REGION
+  )[0];
+
+  const fallbackRegionResults = data?.results?.filter(
+    result => result.iso_3166_1 === FALLBACK_RELEASE_REGION
+  )[0];
+
+  const regionData = regionResults?.release_dates.map(result => ({
+    certification: result.certification,
+    releaseDate: result.release_date,
+    region: regionResults.iso_3166_1
+  }))[0];
+
+  const fallbackRegionData = fallbackRegionResults?.release_dates.map(
+    result => ({
+      certification: result.certification,
+      releaseDate: result.release_date,
+      region: fallbackRegionResults.iso_3166_1
+    })
+  )[0];
+
+  return {
+    certification:
+      regionData?.certification !== ''
+        ? regionData?.certification
+        : fallbackRegionData?.certification ?? null,
+    releaseDate:
+      regionData?.releaseDate && regionData?.releaseDate !== ''
+        ? regionData?.releaseDate
+        : fallbackRegionData?.releaseDate ?? null,
+    region:
+      regionData?.releaseDate && regionData?.releaseDate !== ''
+        ? regionData?.region
+        : fallbackRegionData?.region ?? null
+  };
+}
+
 function getHoursAndMinutes(timeInMinutes) {
   const num = timeInMinutes * 1;
   if (typeof num === 'number' && num !== 0) {
@@ -94,6 +139,7 @@ export function transformMovieData(data) {
     budget: data.budget,
     watchProviders:
       transformWatchProviders(data['watch/providers']?.results?.AU) ?? null,
-    trailers: transformTrailerData(data?.videos) ?? null
+    trailers: transformTrailerData(data?.videos) ?? null,
+    releaseDates: transformReleaseDates(data?.release_dates)
   };
 }
