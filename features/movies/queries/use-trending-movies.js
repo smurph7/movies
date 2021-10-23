@@ -6,11 +6,11 @@ import { transformMoviesData } from '../utils/transform-movie-data';
 export async function fetchTrendingMovies() {
   const { data } = await moviesAxios.get(`/trending/movie/day?region=AU`);
 
-  return data;
+  return transformMoviesData(data);
 }
 
-export function useTrendingMovies() {
+export function useTrendingMovies({ trending } = {}) {
   return useQuery(['trending'], fetchTrendingMovies, {
-    select: data => transformMoviesData(data)
+    initialData: trending
   });
 }
