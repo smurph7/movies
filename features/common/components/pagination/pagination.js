@@ -8,6 +8,7 @@ import { usePagination } from '~/features/common/hooks/use-pagination';
 const defaultState = {
   currentPage: 0,
   setCurrentPage: () => {},
+  handlePrefetchPage: () => {},
   truncatableText: '...',
   truncatableClassName: '',
   pages: [],
@@ -32,12 +33,19 @@ export function PrevButton({ className, children, ...buttonProps }) {
     }
   }
 
+  function handlePrefetchPrevious() {
+    if (currentPage > 1) {
+      pagination.handlePrefetchPage(currentPage - 1);
+    }
+  }
+
   return (
     <Button
       aria-label="previous-page"
       variant="round"
       {...buttonProps}
       onClick={handlePrevious}
+      onMouseEnter={handlePrefetchPrevious}
       disabled={currentPage === 1}
     >
       {children ?? <ArrowLeftIcon />}
@@ -55,12 +63,19 @@ export function NextButton({ className, children, ...buttonProps }) {
     }
   }
 
+  function handlePrefetchNext() {
+    if (currentPage < pagination.pages.length) {
+      pagination.handlePrefetchPage(currentPage + 1);
+    }
+  }
+
   return (
     <Button
       aria-label="next-page"
       variant="round"
       {...buttonProps}
       onClick={handleNext}
+      onMouseEnter={handlePrefetchNext}
       disabled={currentPage === pagination.pages.length}
     >
       {children ?? <ArrowRightIcon />}
@@ -89,6 +104,14 @@ export function PageButton() {
   function renderPageButton(page) {
     const isActive = Number(pagination.currentPage) === page;
 
+    function handleChangePage() {
+      pagination.setCurrentPage(page);
+    }
+
+    function handlePrefetchPage() {
+      pagination.handlePrefetchPage(page);
+    }
+
     return (
       <Button
         aria-label="go-to-page"
@@ -98,7 +121,8 @@ export function PageButton() {
           bg: isActive ? '$sage11' : 'sage1',
           color: isActive ? '$sage1' : 'sage7'
         }}
-        onClick={() => pagination.setCurrentPage(page)}
+        onClick={handleChangePage}
+        onMouseEnter={handlePrefetchPage}
       >
         {page}
       </Button>

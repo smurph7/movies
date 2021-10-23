@@ -10,7 +10,7 @@ import {
   Metadata
 } from '~/features/common/components';
 import { MovieTiles } from '~/features/movies/components';
-import { useGenre } from '~/features/movies/queries';
+import { useGenre, usePrefetchGenre } from '~/features/movies/queries';
 import { usePageChange } from '~/features/common/hooks/use-page-change';
 import { useTotalPages } from '~/features/common/hooks/use-total-pages';
 import { getStringFromUrl } from '~/utils/get-string-from-url';
@@ -60,6 +60,8 @@ export default function Genre({ genre: initialGenre }) {
   const genreQuery = useGenre({ id, page, genre: initialGenre });
   const isLoading = genreQuery.isLoading || genreQuery.isIdle;
 
+  const { handlePrefetch } = usePrefetchGenre();
+
   const { handlePageChange } = usePageChange();
   const totalPages = useTotalPages({
     total: genreQuery?.data?.totalResults,
@@ -97,6 +99,9 @@ export default function Genre({ genre: initialGenre }) {
               <Pagination
                 currentPage={page}
                 setCurrentPage={newPage => handlePageChange(newPage)}
+                handlePrefetchPage={newPage =>
+                  handlePrefetch({ id, page: newPage })
+                }
                 totalPages={totalPages}
                 edgePageCount={2}
                 middlePagesSiblingCount={2}

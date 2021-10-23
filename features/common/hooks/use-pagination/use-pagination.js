@@ -5,6 +5,7 @@ import * as React from 'react';
 export function usePagination({
   currentPage,
   setCurrentPage,
+  handlePrefetchPage,
   truncatableText = '...',
   truncatableClassName = '',
   totalPages,
@@ -79,6 +80,7 @@ export function usePagination({
   return {
     currentPage,
     setCurrentPage,
+    handlePrefetchPage,
     truncatableText,
     truncatableClassName,
     pages,
