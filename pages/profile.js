@@ -76,6 +76,15 @@ export default function Profile() {
                     </Text>
                     <Text color="gray">{createdDate}</Text>
                   </Flex>
+                  <Flex direction="column" gap={1}>
+                    <Text color="gray" fontWeight="bold">
+                      Theme Preference
+                    </Text>
+                    <Text color="gray">
+                      {/* // TODO make switch */}
+                      {user?.userMetadata?.themePreference}
+                    </Text>
+                  </Flex>
                 </Flex>
               </Flex>
               <NextLink href="/favourites/1">
