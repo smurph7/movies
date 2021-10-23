@@ -43,13 +43,14 @@ export function CastMemberCard({ castMember, isLoading }) {
         gap={1}
         css={{
           bg: '$sage1',
-          p: '$3',
+          py: '$1',
+          px: '$3',
           userSelect: 'auto',
           cursor: 'text',
-          minHeight: 40
+          minHeight: 50
         }}
       >
-        <Text heading truncate css={{ fontSize: '$3' }}>
+        <Text heading truncate css={{ fontSize: '$2' }}>
           {castMember?.name}
         </Text>
         <Text fontSize={1} truncate>
