@@ -23,7 +23,7 @@ export function MovieCard({ movie, isLoading, ...props }) {
 
   if (isLoading) {
     return (
-      <Card>
+      <Card {...props}>
         <Placeholder width="100%" height="100%" />
       </Card>
     );
