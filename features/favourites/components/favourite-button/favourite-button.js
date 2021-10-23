@@ -79,7 +79,15 @@ export function FavouriteButton({ id }) {
           </DialogTrigger>
         </PopoverTrigger>
         {!user && (
-          <PopoverContent css={{ bg: '$sage3', padding: '$2' }}>
+          <PopoverContent
+            css={{
+              bg: '$sage3',
+              padding: '$2',
+              '@media (hover: none) and (pointer: coarse)': {
+                display: 'none'
+              }
+            }}
+          >
             <Text color="gray" fontSize={1}>
               Login to add this movie to your favourites
             </Text>
