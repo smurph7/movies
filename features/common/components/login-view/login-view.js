@@ -6,7 +6,8 @@ import { Box, Flex, Text, Button } from '~/features/ui';
 
 export function LoginView({
   icon = <IoPersonCircleOutline size={48} />,
-  text = 'Please login to view this page.'
+  text = 'Please login to view this page.',
+  cancelButtonProps
 }) {
   const router = useRouter();
 
@@ -20,14 +21,17 @@ export function LoginView({
       <Text color="gray" css={{ textAlign: 'center' }}>
         {text}
       </Text>
-      <Button
-        variant="green"
-        size={2}
-        aria-label="login-to-view-page"
-        onClick={handleLogin}
-      >
-        Login
-      </Button>
+      <Flex gap={3} align="center">
+        {cancelButtonProps && <Button size={2} {...cancelButtonProps} />}
+        <Button
+          variant="green"
+          size={2}
+          aria-label="login-to-view-page"
+          onClick={handleLogin}
+        >
+          Login
+        </Button>
+      </Flex>
     </Flex>
   );
 }

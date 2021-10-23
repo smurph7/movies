@@ -31,9 +31,7 @@ export function Trailer({ id }) {
         <DialogContent
           onCloseAutoFocus={e => e.preventDefault()}
           css={{
-            p: '$6',
-            bg: '$sage3',
-            borderRadius: '$2'
+            p: '$6'
           }}
         >
           <Box

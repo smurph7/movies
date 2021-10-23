@@ -10,6 +10,8 @@ import {
   useRemoveFavourite
 } from '~/features/favourites/queries';
 import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
+import { Dialog, DialogContent, DialogTrigger } from '~/features/ui/dialog';
+import { LoginView } from '~/features/common/components';
 
 export function FavouriteButton({ id }) {
   const { user } = useUser();
@@ -17,8 +19,17 @@ export function FavouriteButton({ id }) {
   const { mutate: addFavourite } = useAddFavourite();
   const { mutate: removeFavourite } = useRemoveFavourite();
 
-  const handleAddFavourite = useDebouncedCallback(() => addFavourite(id), 50);
+  const [isOpen, setIsOpen] = React.useState(false);
+  function handleClose() {
+    setIsOpen(false);
+  }
+  function handleOpenChange() {
+    if (!user) {
+      setIsOpen(!isOpen);
+    }
+  }
 
+  const handleAddFavourite = useDebouncedCallback(() => addFavourite(id), 50);
   const handleRemoveFavourite = useDebouncedCallback(
     () => removeFavourite(id),
     50
@@ -37,34 +48,55 @@ export function FavouriteButton({ id }) {
 
   return (
     <Popover trigger="hover">
-      <PopoverTrigger asChild>
-        <Button
-          aria-label={`favourite-${isFavourite ? 'heart' : 'heart-outline'}`}
-          variant="semiTransparentGray"
-          onClick={handleClick}
-          css={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            color: 'white',
-            height: 30,
-            '@bp1': {
-              height: 50,
-              width: 50
-            },
-            '@bp2': { height: 30, width: 'auto' }
-          }}
-        >
-          {isFavourite ? <IoHeart size={24} /> : <IoHeartOutline size={24} />}
-        </Button>
-      </PopoverTrigger>
-      {!user && (
-        <PopoverContent css={{ bg: '$sage3', padding: '$2' }}>
-          <Text color="gray" fontSize={1}>
-            Login to add this movie to your favourites
-          </Text>
-        </PopoverContent>
-      )}
+      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+        <PopoverTrigger asChild>
+          <DialogTrigger asChild>
+            <Button
+              aria-label={`favourite-${
+                isFavourite ? 'heart' : 'heart-outline'
+              }`}
+              variant="semiTransparentGray"
+              onClick={handleClick}
+              css={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                color: 'white',
+                height: 30,
+                '@bp1': {
+                  height: 50,
+                  width: 50
+                },
+                '@bp2': { height: 30, width: 'auto' }
+              }}
+            >
+              {isFavourite ? (
+                <IoHeart size={24} />
+              ) : (
+                <IoHeartOutline size={24} />
+              )}
+            </Button>
+          </DialogTrigger>
+        </PopoverTrigger>
+        {!user && (
+          <PopoverContent css={{ bg: '$sage3', padding: '$2' }}>
+            <Text color="gray" fontSize={1}>
+              Login to add this movie to your favourites
+            </Text>
+          </PopoverContent>
+        )}
+        {!user && (
+          <DialogContent>
+            <LoginView
+              text="Please login to add this movie to your favourites"
+              cancelButtonProps={{
+                children: 'Cancel',
+                onClick: handleClose
+              }}
+            />
+          </DialogContent>
+        )}
+      </Dialog>
     </Popover>
   );
 }

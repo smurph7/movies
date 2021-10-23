@@ -67,10 +67,8 @@ export function WatchProviderButton({ watchProviders }) {
       </DialogTrigger>
       <DialogContent
         css={{
-          borderRadius: '$2',
           p: '$6',
-          pt: '$8',
-          bg: '$sage3'
+          pt: '$8'
         }}
       >
         <Flex direction="column" align="center" gap={6}>

@@ -32,6 +32,8 @@ const StyledContent = styled(DialogPrimitive.Content, {
   padding: '$4',
   marginTop: '-5vh',
   willChange: 'transform',
+  borderRadius: '$2',
+  bg: '$sage3',
 
   '&:focus': {
     outline: 'none'

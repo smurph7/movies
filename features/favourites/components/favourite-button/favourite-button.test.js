@@ -46,7 +46,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should display heart outline if not a favourite', () => {
-    useUser.mockReturnValueOnce({ user: 'name' });
+    useUser.mockReturnValue({ user: 'name' });
     useIsFavourite.mockReturnValue({ data: false });
     const { getByRole } = render(<FavouriteButton id="123" />);
     expect(
@@ -55,7 +55,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should display filled heart if a favourite', () => {
-    useUser.mockReturnValueOnce({ user: 'name' });
+    useUser.mockReturnValue({ user: 'name' });
     useIsFavourite.mockReturnValue({ data: true });
     const { getByRole } = render(<FavouriteButton id="123" />);
     expect(
@@ -64,7 +64,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should not add favourite if no user', () => {
-    useUser.mockReturnValueOnce({});
+    useUser.mockReturnValue({ user: undefined });
     useIsFavourite.mockReturnValue({ data: false });
     const { getByRole } = render(<FavouriteButton id="123" />);
     const button = getByRole('button', { name: 'favourite-heart-outline' });
@@ -72,8 +72,19 @@ describe('FavouriteButton', () => {
     expect(addFavourite).not.toHaveBeenCalled();
   });
 
+  it('should display login dialog on click if no user', () => {
+    useUser.mockReturnValue({ user: undefined });
+    useIsFavourite.mockReturnValue({ data: false });
+    const { getByRole, getByText } = render(<FavouriteButton id="123" />);
+    const button = getByRole('button', { name: 'favourite-heart-outline' });
+    fireEvent.click(button);
+    expect(
+      getByText('Please login to add this movie to your favourites')
+    ).toBeInTheDocument();
+  });
+
   it('should add favourite on click if not a favourite', () => {
-    useUser.mockReturnValueOnce({ user: 'name' });
+    useUser.mockReturnValue({ user: 'name' });
     useIsFavourite.mockReturnValue({ data: false });
     const { getByRole } = render(<FavouriteButton id="123" />);
     const button = getByRole('button', { name: 'favourite-heart-outline' });
@@ -82,7 +93,7 @@ describe('FavouriteButton', () => {
   });
 
   it('should remove favourite on click if a favourite', () => {
-    useUser.mockReturnValueOnce({ user: 'name' });
+    useUser.mockReturnValue({ user: 'name' });
     useIsFavourite.mockReturnValue({ data: true });
     const { getByRole } = render(<FavouriteButton id="123" />);
     const button = getByRole('button', { name: 'favourite-heart' });
