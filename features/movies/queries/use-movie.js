@@ -63,3 +63,12 @@ export function useReleaseDates({ id }) {
     }
   });
 }
+
+export function useCast({ id }) {
+  return useMovie({
+    id,
+    queryConfig: {
+      select: React.useCallback(data => data?.cast, [])
+    }
+  });
+}

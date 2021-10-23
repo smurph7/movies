@@ -2,7 +2,7 @@ import { render } from '../../../../test-utils';
 
 import { Cast } from '.';
 
-import * as cast from '~/features/movies/queries/use-cast';
+import * as cast from '~/features/movies/queries/use-movie';
 
 function mockCastMemberCard() {
   return <div data-testid="CastMemberCard" />;

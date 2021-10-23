@@ -105,6 +105,21 @@ function transformReleaseDates(data) {
   };
 }
 
+function transformCreditsData(data) {
+  return data.cast
+    .sort(castMember => castMember.order)
+    .slice(0, 10)
+    .map(castMember => ({
+      id: 10859,
+      name: castMember.name,
+      profilePath: castMember.profile_path,
+      castId: castMember.cast_id,
+      character: castMember.character,
+      creditId: castMember.credit_id,
+      order: castMember.order
+    }));
+}
+
 function getHoursAndMinutes(timeInMinutes) {
   const num = timeInMinutes * 1;
   if (typeof num === 'number' && num !== 0) {
@@ -140,6 +155,7 @@ export function transformMovieData(data) {
     watchProviders:
       transformWatchProviders(data['watch/providers']?.results?.AU) ?? null,
     trailers: transformTrailerData(data?.videos) ?? null,
-    releaseDates: transformReleaseDates(data?.release_dates)
+    releaseDates: transformReleaseDates(data?.release_dates),
+    cast: transformCreditsData(data?.credits)
   };
 }

@@ -13,11 +13,7 @@ import {
 } from '@radix-ui/colors';
 
 import { Box, Text, Flex } from '~/features/ui';
-import {
-  usePrefetchCast,
-  usePrefetchMovie,
-  useSearchMovies
-} from '~/features/movies/queries';
+import { usePrefetchMovie, useSearchMovies } from '~/features/movies/queries';
 import { useThemeStore } from '~/features/ui/theme-change-button/use-theme-store';
 import { IMAGE_BASE_URL } from '~/utils/config';
 import { getUrlFromString } from '~/utils/get-url-from-string';
@@ -76,11 +72,9 @@ export function SearchBar() {
     const href = `/movie/${getUrlFromString(movie?.title)}-${movie?.id}`;
 
     const { handlePrefetch: prefetchMovie } = usePrefetchMovie();
-    const { handlePrefetch: prefetchCast } = usePrefetchCast();
 
     function handlePrefetch() {
       prefetchMovie({ id: `${movie?.id}` });
-      prefetchCast({ id: `${movie?.id}` });
     }
 
     if (isFocused) {

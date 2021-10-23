@@ -31,7 +31,7 @@ export async function getStaticProps({ params }) {
 
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?append_to_response=watch/providers,videos,release_dates`,
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?append_to_response=watch/providers,videos,release_dates,credits`,
       {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`

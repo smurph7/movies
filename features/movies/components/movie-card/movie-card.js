@@ -4,7 +4,7 @@ import NextImage from 'next/image';
 
 import { Box, Flex, Text, Card, Placeholder } from '~/features/ui';
 import { FavouriteButton } from '~/features/favourites/components';
-import { usePrefetchMovie, usePrefetchCast } from '~/features/movies/queries';
+import { usePrefetchMovie } from '~/features/movies/queries';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 import { IMAGE_BASE_URL } from '~/utils/config';
 
@@ -14,11 +14,9 @@ export function MovieCard({ movie, isLoading, ...props }) {
   const href = `/movie/${getUrlFromString(movie?.title)}-${movie?.id}`;
 
   const { handlePrefetch: prefetchMovie } = usePrefetchMovie();
-  const { handlePrefetch: prefetchCast } = usePrefetchCast();
 
   function handlePrefetch() {
     prefetchMovie({ id: `${movie?.id}` });
-    prefetchCast({ id: `${movie?.id}` });
   }
 
   if (isLoading) {

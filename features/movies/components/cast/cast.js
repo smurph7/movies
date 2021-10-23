@@ -7,7 +7,7 @@ import { CastMemberCard } from '~/features/movies/components';
 export function Cast({ id }) {
   const castQuery = useCast({ id });
 
-  if (!castQuery.data) {
+  if (!castQuery.data || castQuery.data?.length === 0) {
     return null;
   }
 
