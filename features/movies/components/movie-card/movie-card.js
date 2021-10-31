@@ -44,7 +44,7 @@ export function MovieCard({ movie, isLoading, ...props }) {
                   ? `${imageBaseUrl}${movie?.posterPath}`
                   : '/movie-poster-placeholder.svg'
               }
-              alt={movie?.title}
+              alt={movie?.title ?? 'poster-placeholder'}
               layout="fill"
               objectFit="cover"
               priority

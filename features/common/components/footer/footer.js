@@ -28,7 +28,12 @@ export function Footer() {
       </Flex>
       <Flex css={{ justifySelf: 'flex-end' }}>
         <Link href="https://www.themoviedb.org/">
-          <NextImage src="/tmdb-logo.svg" width={100} height={43} />
+          <NextImage
+            src="/tmdb-logo.svg"
+            alt="tmdb-logo"
+            width={100}
+            height={43}
+          />
         </Link>
       </Flex>
     </Flex>

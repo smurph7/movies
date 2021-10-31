@@ -30,7 +30,7 @@ export function CastMemberCard({ castMember, isLoading }) {
                 ? `${imageBaseUrl}${castMember.profilePath}`
                 : '/movie-poster-placeholder.svg'
             }
-            alt={castMember?.name}
+            alt={castMember?.name ?? 'cast-member-placeholder'}
             layout="fill"
             objectFit="cover"
             priority
