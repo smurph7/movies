@@ -1,8 +1,13 @@
 import * as React from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
+import { useRouter } from 'next/router';
 import { useUser } from '@auth0/nextjs-auth0';
-import { IoHeartOutline, IoPersonCircleOutline } from 'react-icons/io5';
+import {
+  IoHeartOutline,
+  IoPersonCircleOutline,
+  IoInformationCircleOutline
+} from 'react-icons/io5';
 import {
   Cross1Icon,
   ExitIcon,
@@ -75,28 +80,66 @@ export function Header() {
   );
 }
 
+function IconLink({ href, icon, content }) {
+  return (
+    <Popover trigger="hover">
+      <NextLink href={href}>
+        <PopoverTrigger asChild>
+          <Button
+            aria-label="favourites"
+            size={2}
+            ghost
+            css={{ color: '$sage11' }}
+          >
+            {icon}
+          </Button>
+        </PopoverTrigger>
+      </NextLink>
+      <PopoverContent css={{ bg: '$sage3', padding: '$2' }}>
+        <Text color="gray" fontSize={1}>
+          {content}
+        </Text>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+function MobileDrawerItem({ onSelect, href, icon, content }) {
+  const router = useRouter();
+  function handleSelect() {
+    if (typeof onSelect === 'function') {
+      onSelect();
+    } else {
+      router.push(href);
+    }
+  }
+
+  return (
+    <>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem onSelect={handleSelect} variant="mobile">
+        <Flex align="center" gap={2}>
+          {icon}
+          <Text color="gray">{content}</Text>
+        </Flex>
+      </DropdownMenuItem>
+    </>
+  );
+}
+
 function DesktopHeaderMenu() {
   return (
     <Flex direction="row" justify="end" align="center" gap={1}>
-      <Popover trigger="hover">
-        <NextLink href="/favourites/1">
-          <PopoverTrigger asChild>
-            <Button
-              aria-label="favourites"
-              size={2}
-              ghost
-              css={{ color: '$sage11' }}
-            >
-              <IoHeartOutline size={24} />
-            </Button>
-          </PopoverTrigger>
-        </NextLink>
-        <PopoverContent css={{ bg: '$sage3', padding: '$2' }}>
-          <Text color="gray" fontSize={1}>
-            Favourites
-          </Text>
-        </PopoverContent>
-      </Popover>
+      <IconLink
+        href="/about"
+        icon={<IoInformationCircleOutline size={24} />}
+        content="About"
+      />
+      <IconLink
+        href="/favourites/1"
+        icon={<IoHeartOutline size={24} />}
+        content="Favourites"
+      />
       <ThemeChangeButton />
       <UserHeaderButton />
     </Flex>
@@ -105,7 +148,7 @@ function DesktopHeaderMenu() {
 
 function MobileHeaderMenu() {
   const { user } = useUser();
-  const { themeText, changeTheme, icon } = useThemeChange();
+  const { themeText, changeTheme, icon: themeIcon } = useThemeChange();
   const [isOpen, setIsOpen] = React.useState(false);
 
   function handleOpen() {
@@ -153,52 +196,40 @@ function MobileHeaderMenu() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" variant="mobile">
           <DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem variant="mobile" onClick={changeTheme}>
-              <Flex align="center" gap={2}>
-                {icon}
-                <Text color="gray">{themeText}</Text>
-              </Flex>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <NextLink href="/favourites/1">
-              <DropdownMenuItem variant="mobile">
-                <Flex align="center" gap={2}>
-                  <IoHeartOutline size={24} />
-                  <Text color="gray">Favourites</Text>
-                </Flex>
-              </DropdownMenuItem>
-            </NextLink>
-            <DropdownMenuSeparator />
+            <MobileDrawerItem
+              href="/about"
+              icon={<IoInformationCircleOutline size={24} />}
+              content="About"
+            />
+            <MobileDrawerItem
+              href="/favourites/1"
+              icon={<IoHeartOutline size={24} />}
+              content="Favourites"
+            />
+            <MobileDrawerItem
+              onSelect={changeTheme}
+              icon={themeIcon}
+              content={themeText}
+            />
             {user ? (
               <>
-                <NextLink href="/profile">
-                  <DropdownMenuItem variant="mobile">
-                    <Flex align="center" gap={2}>
-                      <IoPersonCircleOutline size={24} />
-                      <Text color="gray">Profile</Text>
-                    </Flex>
-                  </DropdownMenuItem>
-                </NextLink>
-                <DropdownMenuSeparator />
-                <NextLink href="/api/auth/logout">
-                  <DropdownMenuItem variant="mobile">
-                    <Flex align="center" gap={2}>
-                      <ExitIcon style={{ width: 24, height: 24 }} />
-                      <Text color="gray">Log out</Text>
-                    </Flex>
-                  </DropdownMenuItem>
-                </NextLink>
+                <MobileDrawerItem
+                  href="/profile"
+                  icon={<IoPersonCircleOutline size={24} />}
+                  content="Profile"
+                />
+                <MobileDrawerItem
+                  href="/api/auth/logout"
+                  icon={<ExitIcon style={{ width: 24, height: 24 }} />}
+                  content="Log out"
+                />
               </>
             ) : (
-              <NextLink href="/api/auth/login">
-                <DropdownMenuItem variant="mobile">
-                  <Flex align="center" gap={2}>
-                    <IoPersonCircleOutline size={24} />
-                    <Text color="gray">Log in</Text>
-                  </Flex>
-                </DropdownMenuItem>
-              </NextLink>
+              <MobileDrawerItem
+                href="/api/auth/login"
+                icon={<IoPersonCircleOutline size={24} />}
+                content="Log in"
+              />
             )}
             <DropdownMenuSeparator />
           </DropdownMenuGroup>
