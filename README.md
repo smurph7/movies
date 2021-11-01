@@ -18,7 +18,8 @@ This project uses the TMDB API to create a website where you can find trending a
 
 ## Tools and Decisions
 
-This project was built with a focus on front-end development and utilisation of APIs, putting together some of the latest skills and libraries I've been learning over the past couple of years.
+This project was built with a focus on front-end development and utilisation of APIs, putting together some of the latest skills and libraries I've been learning over the past couple of years. I worked using
+Continuous Integration and Test Driven Development, which helped to design the components as I built them and to detect errors early.
 
 ### API
 

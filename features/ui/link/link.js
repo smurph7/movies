@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { useLink } from '@react-aria/link';
-import NextLink from 'next/link';
 
 import { Text } from '../text';
 import { styled } from '../../../stitches.config';
-import { Box } from '..';
 
 const StyledLink = styled('a', {
   alignItems: 'center',
@@ -32,9 +30,16 @@ const StyledLink = styled('a', {
     variant: {
       blue: {
         color: '$blue11',
-        textDecorationColor: '$blue4',
+        textDecorationColor: '$blue6',
         '&:focus': {
           outlineColor: '$blue8'
+        }
+      },
+      green: {
+        color: '$green11',
+        textDecorationColor: '$green6',
+        '&:focus': {
+          outlineColor: '$green8'
         }
       },
       subtle: {
