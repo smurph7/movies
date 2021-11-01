@@ -22,7 +22,7 @@ function ReviewCard({ review }) {
     return (
       <Flex direction="column" gap={2}>
         <Flex align="center" gap={2}>
-          <Text heading css={{ fontSize: '$3' }}>
+          <Text as="h3" heading css={{ fontSize: '$3' }}>
             A review by {review?.author}
           </Text>
           {review?.authorDetails?.rating && (
@@ -94,7 +94,9 @@ export function Reviews({ id }) {
 
   return (
     <Flex direction="column" gap={4}>
-      <Text heading>Reviews</Text>
+      <Text as="h2" heading>
+        Reviews
+      </Text>
       <Flex direction="column" gap={3}>
         {reviewsToDisplay?.map(review => (
           <ReviewCard key={review.id} review={review} />

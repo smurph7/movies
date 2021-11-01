@@ -137,7 +137,7 @@ export function MovieBannerDetails({ movie }) {
       css={{ height: '100%' }}
     >
       <Flex direction="column" justify="center" gap={3}>
-        <Text heading color={color} fontSize={6}>
+        <Text as="h1" heading color={color} fontSize={6}>
           {movie.title} {movie.releaseYear && `(${movie.releaseYear})`}
         </Text>
         <Flex direction="column" gap={5}>
@@ -173,7 +173,7 @@ export function MovieBannerDetails({ movie }) {
           )}
           {movie.overview && (
             <Flex direction="column" gap={3}>
-              <Text color={color} heading>
+              <Text as="h2" color={color} heading>
                 Overview
               </Text>
               <Text color={color} css={{ lineHeight: 1.2 }}>

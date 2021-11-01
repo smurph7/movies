@@ -13,7 +13,9 @@ export function Cast({ id }) {
 
   return (
     <Flex direction="column" gap={3}>
-      <Text heading>Top Billed Cast</Text>
+      <Text as="h2" heading>
+        Top Billed Cast
+      </Text>
       <StyledCarousel pb="$5">
         {castQuery.data?.map((castMember, index) => (
           <CastMemberCard

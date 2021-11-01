@@ -10,7 +10,7 @@ export function MovieTiles({ title, movies, isLoading, placeholderLength }) {
   return (
     <Container size={6} css={{ pt: '$5' }}>
       <Flex direction="column" gap={4} align="center">
-        <Text heading fontSize={5}>
+        <Text as="h1" heading fontSize={5}>
           {title}
         </Text>
         <Grid

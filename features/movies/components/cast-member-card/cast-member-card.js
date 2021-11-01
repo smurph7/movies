@@ -50,7 +50,7 @@ export function CastMemberCard({ castMember, isLoading }) {
           minHeight: 50
         }}
       >
-        <Text heading truncate css={{ fontSize: '$2' }}>
+        <Text as="h3" heading truncate css={{ fontSize: '$2' }}>
           {castMember?.name}
         </Text>
         <Text fontSize={1} truncate>
