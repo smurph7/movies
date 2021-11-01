@@ -49,7 +49,7 @@ export default class Document extends NextDocument {
           />
           <link rel="icon" href="/logo-icon.png" />
         </Head>
-        <body style={{ margin: ' 0px' }}>
+        <body>
           <Main />
           <NextScript />
         </body>

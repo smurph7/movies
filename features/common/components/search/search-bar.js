@@ -138,6 +138,7 @@ export function SearchBar() {
     }),
     control: (provided, state) => ({
       ...provided,
+      cursor: 'text',
       fontFamily: 'Inter, sans-serif',
       borderBottomLeftRadius: 10,
       borderTopLeftRadius: 10,

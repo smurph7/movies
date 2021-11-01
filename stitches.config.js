@@ -63,21 +63,6 @@ import {
 export const { styled, getCssText, createTheme, css } = createStitches({
   theme: {
     colors: {
-      // background: '#EDF0E9',
-      // cream: '#E3E2CC',
-      // primary: '#AFBA99',
-      // secondary: '#6F876E',
-      // tertiary: '#54615A',
-      // purple: '#AB969A',
-      // black: 'rgba(19, 19, 21, 1)',
-      // white: 'rgba(255, 255, 255, 1)',
-      // gray: 'rgba(128, 128, 128, 1)',
-      // blue: 'rgba(3, 136, 252, 1)',
-      // red: 'rgba(249, 16, 74, 1)',
-      // yellow: 'rgba(255, 221, 0, 1)',
-      // pink: 'rgba(232, 141, 163, 1)',
-      // turq: 'rgba(0, 245, 196, 1)',
-      // orange: 'rgba(255, 135, 31, 1)',
       ...gray,
       ...mauve,
       ...slate,
