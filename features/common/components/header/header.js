@@ -31,6 +31,7 @@ import { UserHeaderButton } from '~/features/user/components';
 import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
 import { Media } from '~/styles/media';
 import { useBreakpoint } from '~/utils/use-breakpoint';
+import { useOnClickOutside } from '~/utils/use-on-click-outside';
 
 export function Header() {
   const { boolean: isMobile, isLoading: isBreakpointLoading } =
@@ -149,6 +150,7 @@ function DesktopHeaderMenu() {
 function MobileHeaderMenu() {
   const { user } = useUser();
   const { themeText, changeTheme, icon: themeIcon } = useThemeChange();
+  const ref = React.useRef();
   const [isOpen, setIsOpen] = React.useState(false);
 
   function handleOpen() {
@@ -158,6 +160,8 @@ function MobileHeaderMenu() {
   function handleClose() {
     setIsOpen(false);
   }
+
+  useOnClickOutside(ref, React.useCallback(handleClose, []));
 
   return (
     <Flex align="center">
@@ -176,7 +180,7 @@ function MobileHeaderMenu() {
             willChange: 'transform'
           }}
         >
-          <Flex align="center">
+          <Flex align="center" ref={ref}>
             <SearchBar />
             <Button ghost css={{ color: '$sage11' }} onClick={handleClose}>
               <Cross1Icon />
