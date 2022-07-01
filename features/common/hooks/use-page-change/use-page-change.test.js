@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import * as nextRouter from 'next/router';
 
 import { usePageChange } from './use-page-change';
@@ -21,16 +21,16 @@ describe('usePageChange', () => {
   });
 
   it('should route to given href on handlePageChange', () => {
-    const { result, waitFor } = renderHook(() => usePageChange());
+    const { result } = renderHook(() => usePageChange());
 
-    waitFor(() => result.current.handlePageChange(newPage));
+    result.current.handlePageChange(newPage);
     expect(push).toHaveBeenCalledWith(href, null, { shallow: true });
   });
 
   it('should scroll to top of page after redirect', () => {
-    const { result, waitFor } = renderHook(() => usePageChange());
+    const { result } = renderHook(() => usePageChange());
 
-    waitFor(() => result.current.handlePageChange(href));
+    result.current.handlePageChange(href);
     expect(window.scrollTo).toHaveBeenCalledWith({
       top: 0,
       left: 0,

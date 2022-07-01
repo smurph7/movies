@@ -7,7 +7,7 @@ import { useReviews } from '~/features/movies/queries';
 function ReviewCard({ review }) {
   const ref = React.useRef();
   const [isTruncated, setTruncated] = React.useState(true);
-  const [isOverflown, setOverflown] = React.useState();
+  const [isOverflown, setOverflown] = React.useState(false);
 
   React.useEffect(() => {
     const { clientWidth, clientHeight, scrollWidth, scrollHeight } =

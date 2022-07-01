@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import * as auth from '@auth0/nextjs-auth0';
 
 import * as themeStoreHook from '../use-theme-store';

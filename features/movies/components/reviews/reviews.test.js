@@ -6,34 +6,33 @@ import { Reviews } from '.';
 
 import * as reviews from '~/features/movies/queries/use-movie';
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useRef: jest.fn()
-}));
-
-describe('Reviews', () => {
-  let useReviews;
-  let useRef;
-
+function mockUseRef() {
   const ref = { current: {} };
-  Object.defineProperty(ref, 'current', {
+  return Object.defineProperty(ref, 'current', {
     set(_current) {
       this._current = { ..._current, clientHeight: 50, scrollHeight: 100 };
     },
     get() {
-      return this._current;
+      return this._current ?? [];
     }
   });
+}
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useRef: mockUseRef
+}));
+
+describe('Reviews', () => {
+  let useReviews;
 
   beforeEach(() => {
     useReviews = jest.spyOn(reviews, 'useReviews');
-    useRef = jest.spyOn(React, 'useRef').mockReturnValue(ref);
     jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
     useReviews.mockReset();
-    useRef.mockReset();
   });
 
   it('should display one review initially', () => {
