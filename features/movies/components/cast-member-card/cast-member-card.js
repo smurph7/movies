@@ -21,7 +21,8 @@ export function CastMemberCard({ castMember, isLoading }) {
         <Box
           css={{
             height: '100%',
-            color: '$contrast'
+            color: '$contrast',
+            position: 'relative'
           }}
         >
           <NextImage

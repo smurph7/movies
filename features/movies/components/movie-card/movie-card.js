@@ -35,7 +35,8 @@ export function MovieCard({ movie, isLoading, ...props }) {
             css={{
               height: '100%',
               color: '$contrast',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              position: 'relative'
             }}
           >
             <NextImage

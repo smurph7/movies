@@ -29,7 +29,6 @@ import {
 import { Popover, PopoverTrigger, PopoverContent } from '~/features/ui/popover';
 import { UserHeaderButton } from '~/features/user/components';
 import { useThemeChange } from '~/features/ui/theme-change-button/hooks';
-import { Media } from '~/styles/media';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 import { useOnClickOutside } from '~/utils/use-on-click-outside';
 
@@ -69,14 +68,7 @@ export function Header() {
       <Flex justify="center" css={{ width: '100%' }}>
         {!isMobile && !isBreakpointLoading && <SearchBar />}
       </Flex>
-      <Box>
-        <Media lessThan="bp3">
-          <MobileHeaderMenu />
-        </Media>
-        <Media greaterThanOrEqual="bp3">
-          <DesktopHeaderMenu />
-        </Media>
-      </Box>
+      <Box>{isMobile ? <MobileHeaderMenu /> : <DesktopHeaderMenu />}</Box>
     </Flex>
   );
 }

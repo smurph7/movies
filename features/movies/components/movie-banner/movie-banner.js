@@ -10,7 +10,6 @@ import { ReleaseDates, Trailer } from '~/features/movies/components';
 import { useWatchProviders, usePrefetchGenre } from '~/features/movies/queries';
 import { useBreakpoint } from '~/utils/use-breakpoint';
 import { IMAGE_BASE_URL } from '~/utils/config';
-import { Media } from '~/styles/media';
 import { getUrlFromString } from '~/utils/get-url-from-string';
 
 export function MovieBanner({ ...props }) {
@@ -30,8 +29,9 @@ export function MovieBanner({ ...props }) {
 
 export function MovieBannerBackdrop({ title, backdropPath, bgBlurDataUrl }) {
   const [bg, setBg] = React.useState('rgba(42,47,44,0.6)');
-  return (
-    <Media greaterThanOrEqual="bp3">
+  const { boolean: isMobile } = useBreakpoint('bp3');
+  return isMobile ? null : (
+    <>
       <Box
         css={{
           position: 'absolute',
@@ -57,7 +57,7 @@ export function MovieBannerBackdrop({ title, backdropPath, bgBlurDataUrl }) {
         blurDataURL={bgBlurDataUrl}
         onLoad={() => setBg('rgba(42,47,44,0.9)')}
       />
-    </Media>
+    </>
   );
 }
 

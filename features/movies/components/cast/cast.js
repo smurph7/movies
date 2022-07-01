@@ -19,6 +19,7 @@ export function Cast({ id }) {
       <StyledCarousel pb="$5">
         {castQuery.data?.map((castMember, index) => (
           <CastMemberCard
+            // eslint-disable-next-line react/no-array-index-key
             key={`${castMember?.id}-${index}`}
             castMember={castMember}
             isLoading={castQuery.isLoading || castQuery.isIdle}

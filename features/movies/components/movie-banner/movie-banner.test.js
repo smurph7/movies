@@ -6,10 +6,6 @@ import { render, fireEvent } from '../../../../test-utils';
 
 import { MovieBannerBackdrop, MovieBannerImage, MovieBannerDetails } from '.';
 
-jest.mock('~/styles/media', () => ({
-  Media: ({ children }) => <>{children}</>
-}));
-
 jest.mock('~/features/favourites/components/favourite-button', () => ({
   FavouriteButton: () => <></>
 }));
